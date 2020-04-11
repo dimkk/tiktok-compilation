@@ -1,0 +1,4 @@
+node_modules
+./video/Sample
+.env
+.google-oauth2-credentials
