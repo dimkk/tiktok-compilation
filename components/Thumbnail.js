@@ -1,8 +1,17 @@
 const Jimp = require('jimp');
+const download = require('image-downloader');
 
-const Thumbnail = async () => {
+const Thumbnail = async (posts) => {
   try {
     return new Promise(async (resolve,reject) => {
+      // Downloads first 3 video thumbnails
+      for (let i=0; i<Math.min(3); i++) {
+        download.image({
+            url: posts.collector[i].imageUrl,
+            dest: `${process.cwd()}/img/tmp/${i}.jpg`
+        });
+      }
+
       const bg = await Jimp.read(`${process.cwd()}/img/bg.png`)
       const logo = await Jimp.read(`${process.cwd()}/img/logo.png`);
       const image0 = await Jimp.read(`${process.cwd()}/img/tmp/0.jpg`);

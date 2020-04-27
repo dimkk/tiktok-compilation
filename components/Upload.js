@@ -32,8 +32,8 @@ async function Upload() {
     var params = {
       resource: {
         snippet: {
-          title: `Best TikTok Compilation of ${month} ${year} Part ${day}`,
-          description: `The Best TikTok Compilation of ${month} ${year} Part ${day}`,
+          title: `🔥 Best TikTok Compilation of ${month} ${year} Part ${day}`,
+          description: `🔥 The Best TikTok Compilation of ${month} ${year} Part ${day}`,
           tags: ["tiktok", "tiktokcompilation"],
           defaultLanguage: "en_US"
         },
@@ -43,26 +43,26 @@ async function Upload() {
       },
     };
 
-    // youtube.authenticate(
-    //   process.env.OAUTH2_CLIENT_ID,
-    //   process.env.OAUTH2_CLIENT_SECRET,
-    //   async function (err, tokens) {
-    //     if (err) return console.error("Cannot authenticate:", err);
-    //     console.log(`Authenticated. Tokens: ${JSON.stringify(tokens)}`);
-    //     let videoId = await uploadVideo();
-    //     await uploadThumbnail(videoId);
-    //   }
-    // );
+    youtube.authenticate(
+      process.env.OAUTH2_CLIENT_ID,
+      process.env.OAUTH2_CLIENT_SECRET,
+      async function (err, tokens) {
+        if (err) return console.error("Cannot authenticate:", err);
+        console.log(`Authenticated. Tokens: ${JSON.stringify(tokens)}`);
+        let videoId = await uploadVideo();
+        await uploadThumbnail(videoId);
 
-    youtube.on('auth:success', function (err) {
-      if (!err) {
-        youtube.upload(`${process.cwd()}/video/output.mp4`, params, (err, video) => {
-          if (!err) console.log('Video was uploaded:', video.id);
-        });
+        // youtube.on('auth:success', function (err) {
+        //   if (!err) {
+        //     youtube.upload(`${process.cwd()}/video/output.mp4`, params, (err, video) => {
+        //       if (!err) console.log('Video was uploaded:', video.id);
+        //     });
+        //   } else {
+        //     console.error(`myError (Upload.js): ${err}`);
+        //   }
+        // });
       }
-    });
-
-    youtube.authenticate(process.env.OAUTH2_CLIENT_ID, process.env.OAUTH2_CLIENT_SECRET);
+    );
 
     async function uploadVideo() {
       return new Promise(async (resolve, reject) => {
@@ -92,5 +92,17 @@ async function Upload() {
 
 }
 
-Upload();
-//module.exports = Upload;
+//Upload();
+module.exports = Upload;
+
+/*
+BEST UPLOAD TIMES
+Mon, Tue, Wed: 2pm EST
+Thurs, Fri: 12pm EST
+Weekends: 9am EST
+
+VIDEO TITLES
+Best TikTok Dance Compilation of April 2020 | Popular Tik Tok Dances
+Best TikTok Dance Compilation of January 2020 | TikTok Memes
+
+*/

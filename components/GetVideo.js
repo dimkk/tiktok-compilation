@@ -1,5 +1,4 @@
 const TikTokScraper = require('tiktok-scraper');
-const download = require('image-downloader');
 const fs = require('fs');
 const extract = require('extract-zip');
 
@@ -16,14 +15,6 @@ function GetVideo (num) {
                 filetype: 'all'
             });
             console.log(posts);
-
-            // Downloads first 3 video thumbnails
-            for (let i=0; i<Math.min(num,3); i++) {
-                download.image({
-                    url: posts.collector[i].imageUrl,
-                    dest: `${process.cwd()}/img/tmp/${i}.jpg`
-                });
-            }
 
             // Unzip the videos
             await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
@@ -48,14 +39,6 @@ function GetVideo (num) {
             });
             console.log(posts);
 
-            // Downloads first 3 video thumbnails
-            for (let i=0; i<Math.min(num,3); i++) {
-                download.image({
-                    url: posts.collector[i].imageUrl,
-                    dest: `${process.cwd()}/img/tmp/${i}.jpg`
-                });
-            }
-
             // Unzip the videos
             await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
             console.log('Extraction complete');
@@ -68,7 +51,7 @@ function GetVideo (num) {
         }
     }
 
-        // Hashtag
+        // Music
         this.music = async (num=1,musicId) => {
             try {
                 const posts = await TikTokScraper.music(musicId, {
@@ -78,14 +61,6 @@ function GetVideo (num) {
                     filetype: 'all'
                 });
                 console.log(posts);
-
-                // Downloads first 3 video thumbnails
-                for (let i=0; i<Math.min(num,3); i++) {
-                    download.image({
-                        url: posts.collector[i].imageUrl,
-                        dest: `${process.cwd()}/img/tmp/${i}.jpg`
-                    });
-                }
 
                 // Unzip the videos
                 await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
@@ -97,6 +72,58 @@ function GetVideo (num) {
                 console.log(error);
             }
         }
+
+
+        // Users
+        this.user = async (num=1,userId) => {
+            try {
+
+                const posts = await TikTokScraper.user(userId, {
+                    number: num,
+                    download: true,
+                    filepath: `${process.cwd()}/video/tmp`,
+                    filetype: 'all'
+                });
+                console.log(posts);
+
+                // Unzip the videos
+                await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
+                console.log('Extraction complete');
+
+                return posts;
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+
+        // Multi-users
+        this.multiUser = async (num=1, userArr) => {
+            try {
+                const collectorArr = [];
+                for (let i=0; i<userArr.length; i++) {
+                    posts = await TikTokScraper.user(userArr[i], {
+                        number: num,
+                        download: true,
+                        filepath: `${process.cwd()}/video/tmp`,
+                        filetype: 'all'
+                    });
+
+                    collectorArr.push.apply(collectorArr, posts.collector);
+
+                    // Unzip the videos
+                    await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
+                    console.log('Extraction complete');
+                }
+                let postsArr = {'collector': collectorArr};
+                return postsArr;
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
 
 }
 

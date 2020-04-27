@@ -42,13 +42,14 @@ function Auth () {
     scope: 'https://www.googleapis.com/auth/youtube',
   });
 
+  console.log(authorizeUrl);
+
   const server = http
     .createServer(async (req, res) => {
       try {
         if (req.url.indexOf('/oauth2callback') > -1) {
           // acquire the code from the querystring, and close the web server.
-          const qs = new url.URL(req.url, 'http://localhost:8488')
-            .searchParams;
+          const qs = new url.URL(req.url, 'http://localhost:8488').searchParams;
           const code = qs.get('code');
           console.log(`Code is ${code}`);
           res.end('Authentication successful! Please return to the console.');
@@ -86,7 +87,7 @@ function Auth () {
 
 
 }
-//module.exports = Auth;
+module.exports = Auth;
 
 const auth = new Auth();
 auth.main();

@@ -1,4 +1,6 @@
 node_modules
-./video/Sample
+video/Sample
+video/tmp/*
+video/output.mp4
 .env
 .google-oauth2-credentials
