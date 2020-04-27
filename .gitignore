@@ -4,3 +4,4 @@ video/tmp/*
 video/output.mp4
 .env
 .google-oauth2-credentials
+.google-oauth2-credentials.json
