@@ -3,10 +3,10 @@ const download = require('image-downloader');
 
 const Thumbnail = async (posts) => {
   try {
-    return new Promise(async (resolve,reject) => {
+    return new Promise(async (resolve, reject) => {
       // Downloads first 3 video thumbnails
       for (let i=0; i<Math.min(3); i++) {
-        download.image({
+        await download.image({
             url: posts.collector[i].imageUrl,
             dest: `${process.cwd()}/img/tmp/${i}.jpg`
         });

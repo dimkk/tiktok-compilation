@@ -13,31 +13,25 @@ async function App () {
   try {
 
     await fse.emptyDir(`${process.cwd()}/video/tmp`);
+    await fse.emptyDir(`${process.cwd()}/img/tmp`);
 
-    //let posts = await getVideo.trending(36); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
-    //let posts = await getVideo.music(3,'6798966683693370117'); // music
+    //let posts = await getVideo.trending(1); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
+    let posts = await getVideo.music(60,'6750731641922063109'); // music
     //let posts = await getVideo.hashtag(50,'writethelyrics');
-    //let posts = await getVideo.user(55,'zachking');
+    //let posts = await getVideo.user(6,'helenpenggg');
 
-    //const usersArr = ['xjessicahsu','nanababbbyyy','minseonk1m','about_minjii'];
-    //let posts = await getVideo.multiUser(2,usersArr);
+    //const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
+    //const asianBoys = await fs.readFileSync(`${process.cwd()}/res/asianBoys.txt`,'utf8').split(',\r\n');
+    //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
+    //const asianBoys = ['choega','bluepongtiwat','charlie_park'];
+    //console.log(asianBoys);
+    //let posts = await getVideo.multiUser(3,asianBoys);
 
-    //console.log(`App.js console: ${JSON.stringify(posts)}`);
-
-
-    let videoIds = [];
-    posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount));
-    posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`))
-    fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds)
-    console.log(`App.js console: VideoIds ${videoIds}`);
-
-    console.log(videoIds);
-    await compile.start(videoIds);
+    await compile.start(posts,'purple', 9999);
     console.log(`App.js: Compile function passed`);
 
     await thumbnail(posts);
     console.log(`App.js: Thumbnail function passed`);
-
 
     //await upload();
   }

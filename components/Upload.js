@@ -33,7 +33,10 @@ async function Upload() {
       resource: {
         snippet: {
           title: `🔥 Best TikTok Compilation of ${month} ${year} Part ${day}`,
-          description: `🔥 The Best TikTok Compilation of ${month} ${year} Part ${day}`,
+          description: `Who else should we include? Let us know in the comments below!
+
+          Thank you for watching.
+          Remember to Subscribe ⇒ https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1`,
           tags: ["tiktok", "tiktokcompilation"],
           defaultLanguage: "en_US"
         },

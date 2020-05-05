@@ -12,7 +12,9 @@ function GetVideo (num) {
                 number: num,
                 download: true,
                 filepath: `${process.cwd()}/video/tmp`,
-                filetype: 'all'
+                filetype: 'all',
+                store: true,
+                historypath: `video/`
             });
             console.log(posts);
 
