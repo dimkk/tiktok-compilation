@@ -16,7 +16,7 @@ async function App () {
     await fse.emptyDir(`${process.cwd()}/img/tmp`);
 
     //let posts = await getVideo.trending(1); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
-    let posts = await getVideo.music(60,'6750731641922063109'); // music
+    let posts = await getVideo.music(3,'6812049289192196870'); // music
     //let posts = await getVideo.hashtag(50,'writethelyrics');
     //let posts = await getVideo.user(6,'helenpenggg');
 
@@ -27,7 +27,13 @@ async function App () {
     //console.log(asianBoys);
     //let posts = await getVideo.multiUser(3,asianBoys);
 
-    await compile.start(posts,'purple', 9999);
+    // posts, color, days, likes, vertical/horizontal
+    await compile.start(posts, {
+      'color': 'purple',
+      'days': 9999,
+      'likes': 0,
+      'isLandscape': false
+    });
     console.log(`App.js: Compile function passed`);
 
     await thumbnail(posts);

@@ -49,12 +49,13 @@ function Compile () {
   }
 
   // Compile and resize videos
-  this.compile = async (videos, color) => {
+  this.compile = async (videos, color, width, height) => {
     try {
       // List file names into .txt document
       return new Promise((resolve, reject) => {
         console.log('Compiling videos... hold your horses...');
-        let bgColor = colors[color][0];
+        let bgColor = (width === 1920) ? colors[color][0] : 'black';
+
         let listFileName = `${process.cwd()}/video/tmp/list.txt`,
             fileNames = '';
 
@@ -70,12 +71,12 @@ function Compile () {
           ffmpeg(listFileName)
             .inputOptions(['-safe 0', '-f concat'])
             .outputOptions([
-              `-filter:v scale=-1:1080,pad=1920:1080:(ow/2-iw/2):0:${bgColor}`,
+              `-filter:v scale=-1:${height},pad=${width}:${height}:(ow/2-iw/2):0:${bgColor}`,
               '-max_muxing_queue_size 1024',
               '-crf 23',
               '-acodec copy'
             ])
-            .save(`${process.cwd()}/video/tmp/tmp1.mp4`)
+            .save(((width===1920) ? `${process.cwd()}/video/tmp/tmp1.mp4` : `${process.cwd()}/video/output.mp4`))
             .on('progress', p => console.log(`Rendering unstyled video: ${p.percent}`))
             .on('end', () => resolve())
             .on('error', err => console.log(`Rending error: ${err}`));
@@ -97,7 +98,7 @@ function Compile () {
         .input(`${process.cwd()}/video/tmp/tmp1.mp4`)
         .input(`${process.cwd()}/video/logo.png`)
         .outputOptions([
-          `-filter_complex [0:v][1:v]overlay=(300-75):(1080/2-150):[v1];[v1][1:v]overlay=(607+600+300-75):(1080/2-150):[v2],[v2]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=${txtColor}:fontsize=48:x=1730:y=(1080-70)`,
+          `-filter_complex [0:v][1:v]overlay=(300-75):(1080/2-150):[v1];[v1][1:v]overlay=(607+600+300-75):(1080/2-150):[v2],[v2]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=${txtColor}:fontsize=72:x=1650:y=(1080-100)`,
           '-crf 23',
           '-acodec copy'
         ])
@@ -110,7 +111,7 @@ function Compile () {
     });
   }
 
-  this.filterVids = async (posts, days) => {
+  this.filterVids = async (posts, days, likes) => {
     return new Promise(async (resolve, reject) => {
       console.log('>>Filtering videos');
       console.log(`>>Compile.js console: ${JSON.stringify(posts)}`);
@@ -124,6 +125,11 @@ function Compile () {
         return new Date(e.createTime * 1000) > latestDate;
       });
 
+      // remove videos with less than X likes
+      posts.collector = posts.collector.filter(e => {
+        return e.diggCount > likes;
+      });
+
       console.log(`>>Compile.js console: ${JSON.stringify(posts)}`);
       posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
       fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds);
@@ -133,18 +139,40 @@ function Compile () {
     });
   }
 
-  this.start = async (posts, color, days) => {
+  this.start = async (posts, options) => {
     return new Promise(async (resolve, reject) => {
-      const videos = await this.filterVids(posts, days);
-      console.log('starting for loop for videos');
+      let color = options.color,
+          days = options.days,
+          likes = options.likes,
+          isLandscape = options.isLandscape,
+          width, height;
+
+      switch (isLandscape) {
+        case true:
+          width = 1920;
+          height = 1080;
+          break;
+        case false:
+          width = 1080;
+          height = 1920;
+          break;
+        default:
+          width = 1920;
+          height = 1080;
+          break;
+      };
+
+      const videos = await this.filterVids(posts, days, likes);
 
       for (let i=0; i<videos.length; i++) {
-        console.log(`Currently at video ${i}/${videos.length-1} - ${videos[i]}`);
+        console.log(`Currently at video ${i+1}/${videos.length} - ${videos[i]}`);
         await this.resample(videos[i], i, color);
       }
       console.log('Completed resampling');
-      await this.compile(videos, color);
-      await this.style(color);
+      await this.compile(videos, color, width, height);
+      if (isLandscape) {
+        await this.style(color);
+      }
       resolve(posts);
     });
   }
