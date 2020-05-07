@@ -98,7 +98,7 @@ function Compile () {
         .input(`${process.cwd()}/video/tmp/tmp1.mp4`)
         .input(`${process.cwd()}/video/logo.png`)
         .outputOptions([
-          `-filter_complex [0:v][1:v]overlay=(300-75):(1080/2-150):[v1];[v1][1:v]overlay=(607+600+300-75):(1080/2-150):[v2],[v2]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=${txtColor}:fontsize=72:x=1650:y=(1080-100)`,
+          `-filter_complex [0:v][1:v]overlay=(300-75):(1080/2-150):[v1];[v1][1:v]overlay=(607+600+300-75):(1080/2-150):[v2],[v2]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=${txtColor}:fontsize=72:x=1675:y=(1080-80)`,
           '-crf 23',
           '-acodec copy'
         ])
