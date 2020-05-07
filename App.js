@@ -20,15 +20,18 @@ async function App () {
     //let posts = await getVideo.hashtag(50,'writethelyrics');
     //let posts = await getVideo.user(6,'helenpenggg');
 
-    const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
-    //const asianBoys = await fs.readFileSync(`${process.cwd()}/res/asianBoys.txt`,'utf8').split(',\r\n');
-    //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
     //const asianBoys = ['choega','bluepongtiwat','charlie_park'];
-    console.log(asianGirls);
-    let posts = await getVideo.multiUser(1,asianGirls);
+    const asianBoys = await fs.readFileSync(`${process.cwd()}/res/asianBoys.txt`,'utf8').split(',\r\n');
+    console.log(asianBoys);
+    let posts = await getVideo.multiUser(1,asianBoys);
+
+    //const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
+    //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
+    //console.log(asianGirls);
+    //let posts = await getVideo.multiUser(1,asianGirls);
 
     await compile.start(posts, {
-      'color': 'pink',
+      'color': 'blue',
       'days': 2,
       'likes': 0,
       'isLandscape': true
@@ -39,6 +42,7 @@ async function App () {
     console.log(`App.js: Thumbnail function passed`);
 
     //await upload();
+
   }
   catch (err) {
     console.log(`App.js console: ${err}`);
