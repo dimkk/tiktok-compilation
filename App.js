@@ -30,9 +30,9 @@ async function App () {
     console.log(asianGirls);
     let posts = await getVideo.multiUser(1,asianGirls);
 
-    const celebs = await fs.readFileSync(`${process.cwd()}/res/celebrities.txt`,'utf8').split(',\r\n');
-    console.log(celebs);
-    let posts = await getVideo.multiUser(1,celebs);
+    //const celebs = await fs.readFileSync(`${process.cwd()}/res/celebrities.txt`,'utf8').split(',\r\n');
+    //console.log(celebs);
+    //let posts = await getVideo.multiUser(1,celebs);
 
     await compile.start(posts, {
       'color': 'pink',
