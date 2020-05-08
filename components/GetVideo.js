@@ -110,6 +110,10 @@ function GetVideo (num) {
                         download: true,
                         filepath: `${process.cwd()}/video/tmp`,
                         filetype: 'all'
+                    })
+                    .catch(e => {
+                        continue;
+                        console.log(`GetVideo.js Error: ${error}`);
                     });
 
                     collectorArr.push.apply(collectorArr, posts.collector);
@@ -122,7 +126,8 @@ function GetVideo (num) {
                 return postsArr;
 
             } catch (error) {
-                console.log(error);
+                continue;
+                console.log(`GetVideo.js Error: ${error}`);
             }
         }
 
