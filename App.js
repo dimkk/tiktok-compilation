@@ -21,18 +21,22 @@ async function App () {
     //let posts = await getVideo.user(6,'helenpenggg');
 
     //const asianBoys = ['choega','bluepongtiwat','charlie_park'];
-    const asianBoys = await fs.readFileSync(`${process.cwd()}/res/asianBoys.txt`,'utf8').split(',\r\n');
-    console.log(asianBoys);
-    let posts = await getVideo.multiUser(1,asianBoys);
+    //const asianBoys = await fs.readFileSync(`${process.cwd()}/res/asianBoys.txt`,'utf8').split(',\r\n');
+    //console.log(asianBoys);
+    //let posts = await getVideo.multiUser(1,asianBoys);
 
-    //const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
+    const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
     //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
-    //console.log(asianGirls);
-    //let posts = await getVideo.multiUser(1,asianGirls);
+    console.log(asianGirls);
+    let posts = await getVideo.multiUser(1,asianGirls);
+
+    const celebs = await fs.readFileSync(`${process.cwd()}/res/celebrities.txt`,'utf8').split(',\r\n');
+    console.log(celebs);
+    let posts = await getVideo.multiUser(1,celebs);
 
     await compile.start(posts, {
-      'color': 'blue',
-      'days': 2,
+      'color': 'pink',
+      'days': 1,
       'likes': 0,
       'isLandscape': true
     });
