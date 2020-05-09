@@ -28,17 +28,17 @@ async function App () {
 
     // ------- ASIAN GIRLS --------- //
     //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
-    const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
-    console.log(asianGirls);
-    let posts = await getVideo.multiUser(1,asianGirls);
+    // const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
+    // console.log(asianGirls);
+    // let posts = await getVideo.multiUser(1,asianGirls);
 
     // ------- INFLUENCERS --------- //
-    // const influencers = await fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
-    // console.log(influencers);
-    // let posts = await getVideo.multiUser(1,influencers);
+    const influencers = await fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
+    console.log(influencers);
+    let posts = await getVideo.multiUser(1,influencers);
 
     await compile.start(posts, {
-      'color': 'pink',
+      'color': 'black',
       'days': 1,
       'likes': 0,
       'isLandscape': false

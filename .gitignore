@@ -6,3 +6,4 @@ video/output.mp4
 .google-oauth2-credentials
 .google-oauth2-credentials.json
 *.mp4
+*.jpg

@@ -104,6 +104,11 @@ Mon, Tue, Wed: 2pm EST
 Thurs, Fri: 12pm EST
 Weekends: 9am EST
 
+// ----------------- COMMENT -------------- //
+Hey guys, not sure if anyone will ever see this but thanks for watching! Please subscribe so you can stay updated daily with your favorite hard-working tiktokers on this channel!
+👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
+
 >>TITLE
 [TikTok] Cute Asian Girls Compilation #2 - May 6, 2020
 [TikTok] Cute Asian Boys Compilation #2 - May 7, 2020
@@ -148,7 +153,7 @@ Please subscribe to my channel for daily TikTok compilations!
 #tiktok #tiktokchina #tiktokvietnam #tiktokkorea #tiktokjapan
 
 // TAGS
-tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
+tiktokasianguys, tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances,
 
 
 
@@ -169,7 +174,7 @@ Please subscribe to my channel for daily TikTok compilations!
 #tiktok #tiktokchina #tiktokvietnam #tiktokkorea #tiktokjapan
 
 // TAGS
-tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
+tiktokasiangirls, tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
 
 
 
@@ -197,14 +202,9 @@ Please subscribe to my channel for daily TikTok compilations!
 #tiktok #tiktokmeme #memes musical.ly,funny tik tok videos,tik tok compilation,tik tok 2020,ironic tik tok,tik tok musically,cringey tik toks,tiktok,musically,ironic tik toks,cringey tik tok,compilations,tik tok,tiktok cringe,tiktok memes,wifi plug,ironic tik tok trolls,FakeMeme
 
 // TAGS
-musical.ly, funny tik tok videos, tik tok compilation, tik tok 2020, ironic tik tok,	tik tok musically, cringey tik toks, tiktok, musically, ironic tik toks, tik tok,	tiktok cringe, tiktok memes, ironic tik tok trolls, fakememe, william tiktok, tiktok william, william, charlidamelio musical.ly compilation, musical.ly videos, new musical.ly compilation, memes, meme compilation, musical.lys, the best musical.ly, TikTok, Tik Tok, Funny TIK TOK, Clean Tik Toks, Tik Tok 2020, TikToks
+tiktokinfluencers, musical.ly, funny tik tok videos, tik tok compilation, tik tok 2020, ironic tik tok,	tik tok musically, cringey tik toks, tiktok, musically, ironic tik toks, tik tok,	tiktok cringe, tiktok memes, ironic tik tok trolls, fakememe, william tiktok, tiktok william, william, charlidamelio musical.ly compilation, musical.ly videos, new musical.ly compilation, memes, meme compilation, musical.lys, the best musical.ly, TikTok, Tik Tok, Funny TIK TOK, Clean Tik Toks, Tik Tok 2020, TikToks
 
 
-
-
-// ----------------- COMMENT -------------- //
-Hey guys, thanks for watching! Please remember to subscribe for daily TikTok updates!
-👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
 
 */
