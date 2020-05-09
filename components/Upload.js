@@ -132,15 +132,14 @@ Celebs
 tiktok, tik tok, musical.ly, tiktokmemes, funniest tiktoks, funniest tik toks, meme compilation, memes compilation, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
 
 
-//------------ TIKTOK ASIAN GUYS --------------------/
+
+//------------ TIKTOK ASIAN GUYS --------------------//
 
 // TITLE
 【TikTok】Cute Asian Boys Compilation #2 - May 7, 2020
 
 // DESCRIPTION
-【TikTok】Cute Asian Boys Compilation #2 - May 7, 2020
-
-My channel compiles tiktoks of westerners and people from asia representing tiktok china, tiktok japan, and tiktok korea. Thanks for watching!
+This video is a compilation of tiktok videos from asian guys in America & Asia including tiktok china, tiktok japan, and tiktok korea. Thanks for watching!
 
 Please subscribe to my channel for daily TikTok compilations!
 👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
@@ -152,16 +151,37 @@ Please subscribe to my channel for daily TikTok compilations!
 tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
 
 
+
+
+
+//------------ TIKTOK ASIAN GIRLS --------------------//
+
+// TITLE
+[TikTok] Cute Asian Girls Compilation #4 - May 8, 2020
+
+// DESCRIPTION
+This video is a compilation of tiktok videos from asian girls in America & Asia including tiktok china, tiktok japan, and tiktok korea. Thanks for watching!
+
+Please subscribe to my channel for daily TikTok compilations!
+👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
+-----
+#tiktok #tiktokchina #tiktokvietnam #tiktokkorea #tiktokjapan
+
+// TAGS
+tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
+
+
+
+
+
 //------------ TIKTOK INFLUENCERS --------------------/
 
 // TITLE
 FUNNY TIKTOK COMPILATION THAT WILL SATISFY #1 - May 7, 2020
 
 // DESCRIPTION
-FUNNY TIKTOK COMPILATION THAT WILL SATISFY #1 - May 7, 2020
-
-My channel compiles funny and interesting titkok videos of celebrities and influencers.
-Includes:
+This is a tiktok video compilation of celebrities and influencers that includes:
 1) Charli D'Amelio
 2) Ondreaz Lopez
 3) Tony Lopez
@@ -178,5 +198,13 @@ Please subscribe to my channel for daily TikTok compilations!
 
 // TAGS
 musical.ly, funny tik tok videos, tik tok compilation, tik tok 2020, ironic tik tok,	tik tok musically, cringey tik toks, tiktok, musically, ironic tik toks, tik tok,	tiktok cringe, tiktok memes, ironic tik tok trolls, fakememe, william tiktok, tiktok william, william, charlidamelio musical.ly compilation, musical.ly videos, new musical.ly compilation, memes, meme compilation, musical.lys, the best musical.ly, TikTok, Tik Tok, Funny TIK TOK, Clean Tik Toks, Tik Tok 2020, TikToks
+
+
+
+
+// ----------------- COMMENT -------------- //
+Hey guys, thanks for watching! Please remember to subscribe for daily TikTok updates!
+👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
 
 */

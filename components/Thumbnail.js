@@ -45,7 +45,7 @@ const Thumbnail = async (posts) => {
       bg.composite(image2, coord.image2X, coord.imageY);
       bg.composite(logo, coord.logoX, coord.logoY);
 
-      await bg.writeAsync(`${process.cwd()}/img/thumbnail.png`);
+      await bg.writeAsync(`${process.cwd()}/video/thumbnail.png`);
       console.log('Thumbnail generated');
       resolve();
     });

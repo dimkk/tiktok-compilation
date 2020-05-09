@@ -102,31 +102,28 @@ function GetVideo (num) {
 
         // Multi-users
         this.multiUser = async (num=1, userArr) => {
-            try {
-                const collectorArr = [];
-                for (let i=0; i<userArr.length; i++) {
+            const collectorArr = [];
+            for (let i=0; i<userArr.length; i++) {
+                try {
                     posts = await TikTokScraper.user(userArr[i], {
                         number: num,
                         download: true,
                         filepath: `${process.cwd()}/video/tmp`,
                         filetype: 'all'
-                    })
-                    .catch(error => {
-                        console.log(`GetVideo.js Loop Error: ${error}`);
                     });
 
                     collectorArr.push.apply(collectorArr, posts.collector);
 
                     // Unzip the videos
                     await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
-                    console.log('Extraction complete');
-                }
-                let postsArr = {'collector': collectorArr};
-                return postsArr;
 
-            } catch (error) {
-                console.log(`GetVideo.js Loop Error: ${error}`);
+                } catch (error) {
+                    console.log(`GetVideo.js Error: ${error}`);
+                    continue;
+                }
             }
+            let postsArr = {'collector': collectorArr};
+            return postsArr;
         }
 
 
