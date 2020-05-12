@@ -105,8 +105,8 @@ Thurs, Fri: 12pm EST
 Weekends: 9am EST
 
 // ----------------- COMMENT -------------- //
-Hey guys, not sure if anyone will ever see this but thanks for watching! Please subscribe so you can stay updated daily with your favorite hard-working tiktokers on this channel!
-👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+Did you enjoy today's video? I'll see you again tomorrow kings and queens! 💖😉
+Subcribe here 👉 https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
 
 >>TITLE
@@ -114,6 +114,8 @@ Hey guys, not sure if anyone will ever see this but thanks for watching! Please 
 [TikTok] Cute Asian Boys Compilation #2 - May 7, 2020
 🔥 [TikTok] Oi Oi Oi Song Compilation | おいおいおい Samurai Tiktok
 【TikTok Japan】 日本のティックトック | 💖 3 2 1 GO!  😳🥺😗🤪😉🤫💥
+
+👏🥺
 
 >>DESCRIPTION
 <Insert Title>
@@ -138,43 +140,43 @@ tiktok, tik tok, musical.ly, tiktokmemes, funniest tiktoks, funniest tik toks, m
 
 
 
-//------------ TIKTOK ASIAN GUYS --------------------//
+//------------ ASIAN GUYS --------------------//
 
 // TITLE
-【TikTok】Cute Asian Boys Compilation #2 - May 7, 2020
+🔥 Cute Asian Guys [TikTok] #5 - May 10, 2020
 
 // DESCRIPTION
 This video is a compilation of tiktok videos from asian guys in America & Asia including tiktok china, tiktok japan, and tiktok korea. Thanks for watching!
 
-Please subscribe to my channel for daily TikTok compilations!
+Subscribe below & I'll see you again tomorrow Kings & Queens!
 👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
 -----
-#tiktok #tiktokchina #tiktokvietnam #tiktokkorea #tiktokjapan
+#tiktokwilliam #williamtiktok #tiktok #tiktokchina #tiktokvietnam #tiktokkorea #tiktokjapan
 
 // TAGS
-tiktokasianguys, tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances,
+tiktokasianguys, tiktok, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances,
 
 
 
 
 
-//------------ TIKTOK ASIAN GIRLS --------------------//
+//------------ ASIAN GIRLS --------------------//
 
 // TITLE
-[TikTok] Cute Asian Girls Compilation #4 - May 8, 2020
+💖 Cute Asian Girls [TikTok] - May 11, 2020
 
 // DESCRIPTION
 This video is a compilation of tiktok videos from asian girls in America & Asia including tiktok china, tiktok japan, and tiktok korea. Thanks for watching!
 
-Please subscribe to my channel for daily TikTok compilations!
+Subscribe below & I'll see you again tomorrow Kings & Queens!
 👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
 -----
-#tiktok #tiktokchina #tiktokvietnam #tiktokkorea #tiktokjapan
+#tiktokwilliam #williamtiktok #tiktok #tiktokchina #tiktokvietnam #tiktokkorea #tiktokjapan
 
 // TAGS
-tiktokasiangirls, tiktok, ティックトック,TikTok日本, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
+tiktokasiangirls, tiktok, tiktok japan, tiktok korean, tiktok china, tik tok, douyin, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
 
 
 
@@ -183,10 +185,10 @@ tiktokasiangirls, tiktok, ティックトック,TikTok日本, tiktok japan, tikt
 //------------ TIKTOK INFLUENCERS --------------------/
 
 // TITLE
-FUNNY TIKTOK COMPILATION THAT WILL SATISFY #1 - May 7, 2020
+👏 TikToks That Clap #3 - May 11, 2020
 
 // DESCRIPTION
-This is a tiktok video compilation of celebrities and influencers that includes:
+This is a daily tiktok compilation of updates from your favorite celebrities and influencers that includes:
 1) Charli D'Amelio
 2) Ondreaz Lopez
 3) Tony Lopez
@@ -195,16 +197,61 @@ This is a tiktok video compilation of celebrities and influencers that includes:
 
 Thanks for watching!
 
-Please subscribe to my channel for daily TikTok compilations!
+Subscribe below & I'll see you again tomorrow Kings & Queens!
 👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
 -----
-#tiktok #tiktokmeme #memes musical.ly,funny tik tok videos,tik tok compilation,tik tok 2020,ironic tik tok,tik tok musically,cringey tik toks,tiktok,musically,ironic tik toks,cringey tik tok,compilations,tik tok,tiktok cringe,tiktok memes,wifi plug,ironic tik tok trolls,FakeMeme
+#tiktokwilliam #williamtiktok #tiktok #tiktokmeme #memes
 
 // TAGS
-tiktokinfluencers, musical.ly, funny tik tok videos, tik tok compilation, tik tok 2020, ironic tik tok,	tik tok musically, cringey tik toks, tiktok, musically, ironic tik toks, tik tok,	tiktok cringe, tiktok memes, ironic tik tok trolls, fakememe, william tiktok, tiktok william, william, charlidamelio musical.ly compilation, musical.ly videos, new musical.ly compilation, memes, meme compilation, musical.lys, the best musical.ly, TikTok, Tik Tok, Funny TIK TOK, Clean Tik Toks, Tik Tok 2020, TikToks
+tiktokinfluencers,musical.ly,funny tik tok videos,tik tok compilation,tik tok 2020,ironic tik tok,tik tok musically,cringey tik toks,tiktok,musically,ironic tik toks,cringey tik tok,compilations,tik tok,tiktok cringe,tiktok memes,wifi plug,ironic tik tok trolls,FakeMeme
+tiktokinfluencers, musical.ly, funny tik tok videos, tik tok compilation, tik tok 2020, ironic tik tok,	tik tok musically, cringey tik toks, tiktok, musically, ironic tik toks, tik tok,	tiktok cringe, tiktok memes, ironic tik tok trolls, fakememe, william tiktok, tiktok william, william, charlidamelio, musical.ly videos, new musical.ly compilation, memes, meme compilation, musical.lys, the best musical.ly, TikTok, Tik Tok, Funny TIK TOK, Clean Tik Toks, Tik Tok 2020, TikToks
 
 
+
+//------------ TIKTOK JAPAN --------------------//
+
+// TITLE
+🇯🇵 Cutest Japanese TikToks 日本のティックトック- May 11, 2020
+
+// DESCRIPTION
+This video is a compilation of tiktoks from amazing Japanese tiktokers.
+Thanks for watching!
+
+Subscribe below & I'll see you again tomorrow Kings & Queens!
+👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
+-----
+#tiktokjapan #ティックトック #TikTok日本 #tiktokwilliam #williamtiktok
+
+// TAGS
+tiktokjapan, ティックトック, TikTok日本, tiktok japan, tik tok, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
+
+
+
+//------------ TIKTOK CHINA --------------------//
+
+// TITLE
+🇨🇳 Amazing Douyin 抖音 TikToks China] #2 - May 11, 2020
+
+// DESCRIPTION
+This video is a compilation of amazing tiktok videos from China.
+Thanks for watching!
+
+Subscribe below & I'll see you again tomorrow Kings & Queens!
+👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
+-----
+#tiktokwilliam #williamtiktok #douyin # 抖音 #tiktokchina
+
+// TAGS
+douyin, tiktok china, tik tok, 抖音, for you, fyp, tiktok challenge, tik tok challenge, tik tok song compilation, tiktok song, tik tok song, best tik toks, best tiktoks, tik tok dances, tiktok dances
+
+
+//------------ INFLUENCERS --------------------//
+
+// CHARLI D'AMELIO TAGS
+tiktok,	charlidamelio ,	charli ,	damelio ,	compilation ,	dance ,	trend ,	challenge ,	foryou ,	fyp ,	hype ,	whatsthehype ,	hypesover ,	dancing ,	understand ,	dixiedamelio,
 
 
 */

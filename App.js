@@ -15,16 +15,16 @@ async function App () {
     await fse.emptyDir(`${process.cwd()}/video/tmp`);
     await fse.emptyDir(`${process.cwd()}/img/tmp`);
 
-    //let posts = await getVideo.trending(1); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
-    //let posts = await getVideo.music(3,'6750731641922063109'); // music
+    //let posts = await getVideo.trending(60); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
+    //let posts = await getVideo.music(33,'6818681435789167365'); // music
     //let posts = await getVideo.hashtag(50,'writethelyrics');
-    //let posts = await getVideo.user(6,'helenpenggg');
+    let posts = await getVideo.user(60,'bellavcuomo');
 
-    // ------- ASIAN BOYS --------- //
-    //const asianBoys = ['choega','bluepongtiwat','charlie_park'];
-    // const asianBoys = await fs.readFileSync(`${process.cwd()}/res/asianBoys.txt`,'utf8').split(',\r\n');
-    // console.log(asianBoys);
-    // let posts = await getVideo.multiUser(1,asianBoys);
+    // ------- ASIAN GUYS --------- //
+    // const asianBoys = ['choega','bluepongtiwat','charlie_park'];
+    // const asianGuys = await fs.readFileSync(`${process.cwd()}/res/asianGuys.txt`,'utf8').split(',\r\n');
+    // console.log(asianGuys);
+    // let posts = await getVideo.multiUser(1,asianGuys);
 
     // ------- ASIAN GIRLS --------- //
     //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
@@ -33,19 +33,29 @@ async function App () {
     // let posts = await getVideo.multiUser(1,asianGirls);
 
     // ------- INFLUENCERS --------- //
-    const influencers = await fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
-    console.log(influencers);
-    let posts = await getVideo.multiUser(1,influencers);
+    // const influencers = await fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
+    // console.log(influencers);
+    // let posts = await getVideo.multiUser(1,influencers);
+
+    // ------- JAPAN --------- //
+    // const japan = await fs.readFileSync(`${process.cwd()}/res/japan.txt`,'utf8').split(',\r\n');
+    // console.log(japan);
+    // let posts = await getVideo.multiUser(1,japan);
+
+    // ------- CHINA --------- //
+    // const china = await fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
+    // console.log(china);
+    // let posts = await getVideo.multiUser(3,china);
 
     await compile.start(posts, {
       'color': 'black',
-      'days': 1,
+      'days': 9999,
       'likes': 0,
-      'isLandscape': false
+      'isLandscape': true
     });
     console.log(`App.js: Compile function passed`);
 
-    await thumbnail(posts);
+    await thumbnail();
     console.log(`App.js: Thumbnail function passed`);
 
     //await upload();
@@ -70,3 +80,12 @@ App();
 // }, {
 //   scheduled: false // not scheduled right now
 // });
+
+
+/*
+Loop
+
+for i in {1..240}; do printf "file '%s'\n" 0.mp4 >> list.txt; done
+ffmpeg -f concat -i list.txt -c copy loop.mp4
+
+*/

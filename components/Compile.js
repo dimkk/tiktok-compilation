@@ -21,7 +21,7 @@ function Compile () {
           '-r 30',
           '-filter:v scale=w=1080:h=-1,pad=1080:1920:0:(oh/2-ih/2):black',
           '-acodec copy',
-          '-crf 20',
+          '-preset veryfast',
           '-max_muxing_queue_size 1024'
         ])
         .save(`${process.cwd()}/video/tmp/${i}.mp4`)
@@ -35,7 +35,7 @@ function Compile () {
               '-r 30',
               `-vf scale=-1:1920,pad=1080:1920:(ow/2-iw/2):0:${bgColor}`,
               '-acodec copy',
-              '-crf 20',
+              '-preset veryfast',
               '-max_muxing_queue_size 1024'
             ])
             .save(`${process.cwd()}/video/tmp/${i}.mp4`)
@@ -53,7 +53,7 @@ function Compile () {
     try {
       // List file names into .txt document
       return new Promise((resolve, reject) => {
-        console.log('Compiling videos... hold your horses...');
+        console.log('Compiling videos...');
         let bgColor = (width === 1920) ? colors[color][0] : 'black';
 
         let listFileName = `${process.cwd()}/video/tmp/list.txt`,
@@ -73,10 +73,10 @@ function Compile () {
             .outputOptions([
               `-filter:v scale=-1:${height},pad=${width}:${height}:(ow/2-iw/2):0:${bgColor}`,
               '-max_muxing_queue_size 1024',
-              '-crf 23',
+              '-preset veryfast',
               '-acodec copy'
             ])
-            .save(((width===1920) ? `${process.cwd()}/video/tmp/tmp1.mp4` : `${process.cwd()}/video/output.mp4`))
+            .save(((width===1920) ? `${process.cwd()}/video/tmp/tmp1.mp4` : `${process.cwd()}/video/tmp/tmp1.mp4`)) // redundant currently to watermark vertical videos too
             .on('progress', p => console.log(`Rendering unstyled video: ${p.percent}`))
             .on('end', () => resolve())
             .on('error', err => console.log(`Rending error: ${err}`));
@@ -90,16 +90,35 @@ function Compile () {
   }
 
   // Add logo and watermark
-  this.style = async (color) => {
+  this.styleHorizontal = async (color) => {
     return new Promise(resolve => {
       let txtColor = colors[color][1];
-      console.log('Styling video...')
+      console.log('Styling video...');
       ffmpeg()
         .input(`${process.cwd()}/video/tmp/tmp1.mp4`)
         .input(`${process.cwd()}/video/logo.png`)
         .outputOptions([
           `-filter_complex [0:v][1:v]overlay=(300-75):(1080/2-150):[v1];[v1][1:v]overlay=(607+600+300-75):(1080/2-150):[v2],[v2]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=${txtColor}:fontsize=72:x=1675:y=(1080-80)`,
-          '-crf 23',
+          '-preset veryfast', // try -preset veryfast
+          '-acodec copy'
+        ])
+        .save(`${process.cwd()}/video/output.mp4`)
+        .on('progress', p => console.log(`Rendering final video: ${p.percent}`))
+        .on('end', () => {
+          console.log('Video compiled, watermarked and ready to be uploaded');
+          resolve();
+        });
+    });
+  }
+
+  this.styleVertical = async () => {
+    return new Promise(resolve => {
+      console.log('Styling video...');
+      ffmpeg()
+        .input(`${process.cwd()}/video/tmp/tmp1.mp4`)
+        .outputOptions([
+          `-filter_complex drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.4:fontsize=64:x=40:y=(1920-64-20)`, //BottomLeft fontcolor=#F8F8FF@0.3:fontsize=64:x=40:y=(1920-64-20) TopRight fontcolor=#F8F8FF@0.2:fontsize=64:x=(1080-210-30):y=(50)
+          '-preset veryfast',
           '-acodec copy'
         ])
         .save(`${process.cwd()}/video/output.mp4`)
@@ -113,14 +132,12 @@ function Compile () {
 
   this.filterVids = async (posts, days, likes) => {
     return new Promise(async (resolve, reject) => {
-      console.log('>>Filtering videos');
-      console.log(`>>Compile.js console: ${JSON.stringify(posts)}`);
+      console.log('Filtering videos...');
       let videoIds = [];
       posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount));
 
       // remove videos not within last X days
       const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
-      console.log(`Latest Date: ${latestDate}`);
       posts.collector = posts.collector.filter(e => {
         return new Date(e.createTime * 1000) > latestDate;
       });
@@ -130,10 +147,9 @@ function Compile () {
         return e.diggCount > likes;
       });
 
-      console.log(`>>Compile.js console: ${JSON.stringify(posts)}`);
+      //console.log(`Compile.js console: ${JSON.stringify(posts)}`);
       posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
       fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds);
-      console.log(`Compile.js console: VideoIds ${videoIds}`);
       console.log('Finished filtering videos');
       resolve(videoIds);
     });
@@ -170,8 +186,11 @@ function Compile () {
       }
       console.log('Completed resampling');
       await this.compile(videos, color, width, height);
+
       if (isLandscape) {
-        await this.style(color);
+        await this.styleHorizontal(color);
+      } else {
+        await this.styleVertical();
       }
       resolve(posts);
     });
