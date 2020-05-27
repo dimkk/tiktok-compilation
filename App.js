@@ -15,10 +15,10 @@ async function App () {
     await fse.emptyDir(`${process.cwd()}/video/tmp`);
     await fse.emptyDir(`${process.cwd()}/img/tmp`);
 
-    //let posts = await getVideo.trending(60); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
-    //let posts = await getVideo.music(33,'6818681435789167365'); // music
+    //let posts = await getVideo.trending(3); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
+    //let posts = await getVideo.music(60,'6788784989656926981'); // music
     //let posts = await getVideo.hashtag(50,'writethelyrics');
-    let posts = await getVideo.user(60,'bellavcuomo');
+    //let posts = await getVideo.user(46,'kyscottt'); // https://www.tiktok.com/music/original-sound-6756167107873966854?source=h5_m
 
     // ------- ASIAN GUYS --------- //
     // const asianBoys = ['choega','bluepongtiwat','charlie_park'];
@@ -28,9 +28,9 @@ async function App () {
 
     // ------- ASIAN GIRLS --------- //
     //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
-    // const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
-    // console.log(asianGirls);
-    // let posts = await getVideo.multiUser(1,asianGirls);
+    const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
+    console.log(asianGirls);
+    let posts = await getVideo.multiUser(2,asianGirls);
 
     // ------- INFLUENCERS --------- //
     // const influencers = await fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
@@ -40,25 +40,26 @@ async function App () {
     // ------- JAPAN --------- //
     // const japan = await fs.readFileSync(`${process.cwd()}/res/japan.txt`,'utf8').split(',\r\n');
     // console.log(japan);
-    // let posts = await getVideo.multiUser(1,japan);
+    // let posts = await getVideo.multiUser(2,japan);
 
     // ------- CHINA --------- //
     // const china = await fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
     // console.log(china);
-    // let posts = await getVideo.multiUser(3,china);
+    // let posts = await getVideo.multiUser(2,china);
 
     await compile.start(posts, {
-      'color': 'black',
-      'days': 9999,
+      'color': 'pink',
+      'days': 2,
       'likes': 0,
       'isLandscape': true
     });
     console.log(`App.js: Compile function passed`);
 
-    await thumbnail();
+    await thumbnail(posts);
     console.log(`App.js: Thumbnail function passed`);
 
-    //await upload();
+    await upload('asianGirls'); // asianGirls, asianGuys, japan, china, celebs, trending
+    console.log(`App.js: Upload function complete`);
 
   }
   catch (err) {
