@@ -100,6 +100,32 @@ function GetVideo (num) {
         }
 
 
+        // Multi-hashtags
+        this.multiHashtag = async (num=1, hashtagArr) => {
+            const collectorArr = [];
+            for (let i=0; i<hashtagArr.length; i++) {
+                try {
+                    posts = await TikTokScraper.hashtag(hashtagArr[i], {
+                        number: num,
+                        download: true,
+                        filepath: `${process.cwd()}/video/tmp`,
+                        filetype: 'all'
+                    });
+
+                    collectorArr.push.apply(collectorArr, posts.collector);
+
+                    // Unzip the videos
+                    await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
+
+                } catch (error) {
+                    console.log(`GetVideo.js Error: ${error}`);
+                    continue;
+                }
+            }
+            let postsArr = {'collector': collectorArr};
+            return postsArr;
+        }
+
         // Multi-users
         this.multiUser = async (num=1, userArr) => {
             const collectorArr = [];

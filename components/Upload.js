@@ -96,15 +96,17 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "custom": {
-        "title": `🎥🕺 Trending Tiktok Mashups`,
+        "title": `🐕 Can I Pet That Dog Tiktok Original & Collabs`,
         "description": dedent`
-            This video is a compilation of videos from tiktok.
+            This video is a compilation of "Can I pet that dog" tiktoks by KaylaaHolleyy @kayholleyy on tiktok.
+            Original credits goes to her.
+
             Thanks for watching!
 
             👉 Subscribe & I'll see you again tomorrow Kings & Queens!
             -----
             #tiktok #tiktokmashups #tiktokwilliam`,
-        "tags": ['tiktok', 'tik tok', 'tiktok william'],
+        "tags": ['tiktok', 'tik tok', 'tiktok william', 'can i pet that dog tiktok original', 'can i pet that dog tiktok original little boy', 'can I pet that dog tiktok'],
     },
     "comment": dedent`Did you enjoy today's video? 👏
     👉 Subscribe and I'll see you again tomorrow kings and queens! 💖😉`,
@@ -368,3 +370,4 @@ Subscribe below & I'll see you again tomorrow Kings & Queens!
 
 
 */
+

@@ -94,7 +94,7 @@ async function App () {
             let posts = await getVideo.multiUser(2,china);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 1,
+                'days': 2,
                 'likes': 0,
                 'isLandscape': true
             });
@@ -146,11 +146,32 @@ async function App () {
         }
     }
 
+    // ------- HASHTAG --------- //
+    async function multiHashtag () {
+        try {
+            await empty();
+            const hashtag = await fs.readFileSync(`${process.cwd()}/res/hashtag.txt`,'utf8').split(',\r\n');
+            console.log(hashtag);
+            let posts = await getVideo.multiHashtag(21,hashtag);
+            await compile.start(posts, {
+                'color': 'black',
+                'days': 3,
+                'likes': 0,
+                'isLandscape': true
+            });
+            await thumbnail(posts);
+            await upload('custom');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
     // ------- CUSTOM --------- //
     async function custom () {
         try {
             await empty();
-            // let posts = await getVideo.music(60,'6788784989656926981');
+            let posts = await getVideo.music(90,'6791404477405596421');
             // let posts = await getVideo.hashtag(50,'writethelyrics');
             // let posts = await getVideo.user(46,'kyscottt');
             await compile.start(posts, {
@@ -169,10 +190,11 @@ async function App () {
 
     // await asianGirls();
     // await asianGuys();
-    await japan();
-    await china();
+    // await japan();
+    // await china();
     // await influencers();
     // await trending();
+    await multiHashtag();
     // await custom();
 
   }
@@ -185,8 +207,10 @@ async function App () {
 App();
 
 
-/*  Requirements:
-    Get Google OAuth2 Token on the fly
+/*  Future Changes Roadmap:
+    Replace youtube-upload-api with googleapis
+    Make music video play 3 videos at once
+    Automate on firebase to run daily
 
 */
 

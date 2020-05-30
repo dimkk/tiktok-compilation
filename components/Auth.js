@@ -21,6 +21,10 @@ async function Auth () {
                     'client_secret': process.env.OAUTH2_CLIENT_SECRET,
                     'refresh_token': credentials.refresh_token,
                     'grant_type': 'refresh_token',
+                    //'scope': [
+                    //    'https://www.googleapis.com/auth/youtube',
+                    //    'https://www.googleapis.com/auth/youtube.upload'
+                    //]
                 }
             })
             .then( res => {
