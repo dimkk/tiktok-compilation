@@ -63,7 +63,7 @@ const videoInfo = {
             #抖音 #douyin #tiktokwilliam`,
         "tags": ['抖音', 'douyin', 'tiktok china', 'tiktok william', 'william tiktok'],
     },
-    "celebs": {
+    "influencers": {
         "title":`😀 TikTok Celebs & Influencers - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a mashup of the latest tiktoks from:
@@ -95,8 +95,20 @@ const videoInfo = {
             #tiktok #tiktokmashups #tiktokwilliam`,
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
-    "comment": `Did you enjoy today's video? 👏
+    "custom": {
+        "title": `🎥🕺 Trending Tiktok Mashups`,
+        "description": dedent`
+            This video is a compilation of videos from tiktok.
+            Thanks for watching!
+
+            👉 Subscribe & I'll see you again tomorrow Kings & Queens!
+            -----
+            #tiktok #tiktokmashups #tiktokwilliam`,
+        "tags": ['tiktok', 'tik tok', 'tiktok william'],
+    },
+    "comment": dedent`Did you enjoy today's video? 👏
     👉 Subscribe and I'll see you again tomorrow kings and queens! 💖😉`,
+    "emojis": "🤵‍♂️🎥🕺💃🔥💖👁️👄👁️😉😳🥺😗🤪😉🤫💥👏🥺😎👲👩🎎🏋️👉🐕"
 }
 
 async function Upload(type) {
@@ -179,7 +191,6 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
-Upload('asianGirls');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 
