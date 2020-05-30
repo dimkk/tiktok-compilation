@@ -149,6 +149,10 @@ function Compile () {
 
       //console.log(`Compile.js console: ${JSON.stringify(posts)}`);
       posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
+
+      // remove duplicates
+      videoIds = [...new Set(videoIds)];
+
       fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds);
       console.log('Finished filtering videos');
       resolve(videoIds);

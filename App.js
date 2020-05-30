@@ -15,27 +15,25 @@ async function App () {
     await fse.emptyDir(`${process.cwd()}/video/tmp`);
     await fse.emptyDir(`${process.cwd()}/img/tmp`);
 
-    //let posts = await getVideo.trending(3); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
-    //let posts = await getVideo.music(60,'6788784989656926981'); // music
+    //let posts = await getVideo.trending(36); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
+    //let posts = await getVideo.music(60,'6788784989656926981');
     //let posts = await getVideo.hashtag(50,'writethelyrics');
-    //let posts = await getVideo.user(46,'kyscottt'); // https://www.tiktok.com/music/original-sound-6756167107873966854?source=h5_m
+    //let posts = await getVideo.user(46,'kyscottt');
 
     // ------- ASIAN GUYS --------- //
-    // const asianBoys = ['choega','bluepongtiwat','charlie_park'];
     // const asianGuys = await fs.readFileSync(`${process.cwd()}/res/asianGuys.txt`,'utf8').split(',\r\n');
     // console.log(asianGuys);
     // let posts = await getVideo.multiUser(1,asianGuys);
 
     // ------- ASIAN GIRLS --------- //
-    //const asianGirls = ['nikaidou_yume','thesongtwins','cindy518c'];
     const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
     console.log(asianGirls);
-    let posts = await getVideo.multiUser(2,asianGirls);
+    let posts = await getVideo.multiUser(1,asianGirls);
 
     // ------- INFLUENCERS --------- //
     // const influencers = await fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
     // console.log(influencers);
-    // let posts = await getVideo.multiUser(1,influencers);
+    // let posts = await getVideo.multiUser(2,influencers);
 
     // ------- JAPAN --------- //
     // const japan = await fs.readFileSync(`${process.cwd()}/res/japan.txt`,'utf8').split(',\r\n');
@@ -49,7 +47,7 @@ async function App () {
 
     await compile.start(posts, {
       'color': 'pink',
-      'days': 2,
+      'days': 1,
       'likes': 0,
       'isLandscape': true
     });

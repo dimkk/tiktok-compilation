@@ -8,7 +8,7 @@ async function Auth () {
         let lastUpdated = credentials.last_login.$date.$numberLong;
         let currentTime = new Date().getTime();
 
-        //if ((currentTime-lastUpdated) >= res.data.expires_in) {
+        return new Promise(async (resolve, reject) => {
             await axios({
                 method: 'POST',
                 url: 'https://oauth2.googleapis.com/token',
@@ -24,15 +24,16 @@ async function Auth () {
                 }
             })
             .then( res => {
-                console.log(res);
                 credentials.data = res.data;
                 if (res.data.refresh_token) {
                     credentials.refresh_token = res.refresh_token;
                 }
                 fs.writeFileSync(`${process.cwd()}/credentials.json`,JSON.stringify(credentials));
+                console.log(`New access_token: ${credentials.data.access_token}`);
+                resolve(credentials.data.access_token);
             })
             .catch(console.error);
-        //}
+        });
     }
     catch (error) {
       console.log(`Auth Error: ${error}`);

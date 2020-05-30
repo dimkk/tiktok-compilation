@@ -11,7 +11,7 @@ const year = new Date().getFullYear();
 
 const videoInfo = {
     "asianGirls": {
-        "title": `👩 TikTok Asian Girls - ${month} ${day}, ${year}`,
+        "title": `👸 Asian American Girls TikTok - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Girls.
             Thanks for watching!
@@ -25,7 +25,7 @@ const videoInfo = {
         "tags": ['tiktokasiangirls', 'tiktok', 'japanese girls', 'tik tok korea', 'asian girls', 'cute asian girls', 'asian girl', 'cute asian girl', 'tiktokwilliam'],
     },
     "asianGuys": {
-        "title": `👲 TikTok Asian Guys - ${month} ${day}, ${year}`,
+        "title": `🤵‍ Asian American Guys TikTok - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Guys.
             Thanks for watching!
@@ -51,7 +51,7 @@ const videoInfo = {
         "tags": ['tiktokjapan', 'ティックトック', 'TikTok日本', 'tiktok japan', 'tiktok william', 'william tiktok'],
     },
     "china": {
-        "title": `🇨🇳 抖音 (Douyin) - ${month} ${day}, ${year}`,
+        "title": `🐉 抖音 (Douyin) - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a mashup of funny tiktoks from Douyin(抖音) / Tiktok China.
             Thanks for watching!
@@ -64,7 +64,7 @@ const videoInfo = {
         "tags": ['抖音', 'douyin', 'tiktok china', 'tiktok william', 'william tiktok'],
     },
     "celebs": {
-        "title":`🇨🇳 抖音 (Douyin) - ${month} ${day}, ${year}`,
+        "title":`😀 TikTok Celebs & Influencers - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a mashup of the latest tiktoks from:
             1) Charli D'Amelio
@@ -83,7 +83,7 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tik tok mashup', 'tiktok mashup', 'tiktok compilation', 'tik tok compilation'],
     },
     "trending": {
-        "title": `🎥💃🕺 Tiktok Mashups - ${month} ${day}, ${year}`,
+        "title": `🎥🕺 Trending Tiktok Mashups - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a mashup of the most recent trending tiktoks.
             Thanks for watching!
@@ -93,18 +93,16 @@ const videoInfo = {
 
             -----
             #tiktok #tiktokmashups #tiktokwilliam`,
-        "tags": ['tiktok', 'tik tok', 'tiktok mashups', 'tiktok william'],
+        "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "comment": `Did you enjoy today's video? 👏
     👉 Subscribe and I'll see you again tomorrow kings and queens! 💖😉`,
 }
 
-console.log(videoInfo['asianGirls']['description']);
-
 async function Upload(type) {
   try {
     await auth();
-    console.log('New access_token has been authorized');
+    console.log('Upload.js: Auth function passed.');
 
     const youtube = Youtube({
       saveTokens: false,
@@ -136,7 +134,7 @@ async function Upload(type) {
           category: '24' // 10-Music, 34-Comedy, 24-Entertainment
         },
         status: {
-          privacyStatus: "private", // public, private, unlisted
+          privacyStatus: "public", // public, private, unlisted
         },
       },
     };
@@ -146,7 +144,7 @@ async function Upload(type) {
       process.env.OAUTH2_CLIENT_SECRET,
       async function (err, tokens) {
         if (err) return console.error("Cannot authenticate:", err);
-        console.log(`Authenticated. Tokens: ${JSON.stringify(tokens)}`);
+        //console.log(`Authenticated. Tokens: ${JSON.stringify(tokens)}`);
         let videoId = await uploadVideo();
         await uploadThumbnail(videoId);
       }
@@ -181,6 +179,7 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
+Upload('asianGirls');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 
