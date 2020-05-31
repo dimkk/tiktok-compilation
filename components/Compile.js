@@ -186,7 +186,7 @@ function Compile () {
                 .input(`${process.cwd()}/video/tmp/${i*3+1}.mp4`)
                 .input(`${process.cwd()}/video/tmp/${i*3+2}.mp4`)
                 .outputOptions([
-                    `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:-1[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.2:fontsize=64:x=40:y=(1080-64-20)[v6]`,
+                    `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:${height}[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.2:fontsize=64:x=40:y=(1080-64-20)[v6]`,
                     `-map [v6]`,
                     `-map ${audioIndex}:a`,
                     '-max_muxing_queue_size 1024',
