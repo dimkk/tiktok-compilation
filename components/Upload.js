@@ -95,6 +95,19 @@ const videoInfo = {
             #tiktok #tiktokmashups #tiktokwilliam`,
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
+    "music": {
+        "title": ` Song Title`,
+        "description": dedent`
+        This video is a compilation of the Banana Tiktok videos where tiktokers dance to the Banana Song by Conkarah (feat. Shaggy).
+            Thanks for watching!
+
+            Subscribe & I'll see you again tomorrow Kings & Queens!
+            👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
+            -----
+            #tiktok #tiktokmashups #tiktokwilliam`,
+        "tags": ['tiktok', 'tiktok william'],
+    },
     "custom": {
         "title": `🐕 Can I Pet That Dog Tiktok Original & Collabs`,
         "description": dedent`

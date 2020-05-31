@@ -28,7 +28,7 @@ function Compile () {
         ])
         .save(`${process.cwd()}/video/tmp/${i}.mp4`)
         .on('end', () => {
-          console.log(`Finished resampling video ${i}-${vid}`);
+          //console.log(`Finished resampling video ${i}-${vid}`);
           resolve();
         })
         .on('error', err => {
@@ -42,7 +42,7 @@ function Compile () {
             ])
             .save(`${process.cwd()}/video/tmp/${i}.mp4`)
             .on('end', () => {
-              console.log(`Finished resampling video ${i}-${vid}`);
+              //console.log(`Finished resampling video ${i}-${vid}`);
               resolve();
             });
         });
@@ -164,7 +164,10 @@ function Compile () {
                 ])
                 .save(`${process.cwd()}/video/output.mp4`)
                 .on('progress', p => console.log(`Rendering Compiled hStack video: ${p.percent}`))
-                .on('end', () => resolve())
+                .on('end', () => {
+                    console.log(`Finished compiling hStack videos`);
+                    resolve();
+                })
                 .on('error', err => console.log(`hStack compilation video rending error: ${err}`));
         });
     }
@@ -264,11 +267,12 @@ function Compile () {
       let numToRemove = videos.length % 3;
       if (hStack && numToRemove > 0) videos = videos.slice(0,videos.length-numToRemove);
 
+      console.log(`Resampling videos...`);
       for (let i=0; i<videos.length; i++) {
-        console.log(`Currently at video ${i+1}/${videos.length} - ${videos[i]}`);
+        console.log(`Currently at video ${i+1}/${videos.length} - id:${videos[i]}`);
         await this.resample(videos[i], i, color);
       }
-      console.log('Completed resampling');
+
       (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
 
       if (isLandscape && !hStack) {
