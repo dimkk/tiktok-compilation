@@ -1,5 +1,7 @@
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
+const fsPromises = fs.promises;
+const { getVideoDurationInSeconds } = require('get-video-duration');
 
 function Compile () {
   const colors = {
@@ -60,7 +62,7 @@ function Compile () {
             fileNames = '';
 
         videos.forEach((fileName, index) => {
-            fileNames = fileNames + `file './${index}.mp4'\n`;
+            fileNames += `file './${index}.mp4'\n`;
         });
         fileNames = [...new Set(fileNames.split('\n'))].join('\n'); // remove duplicates
 
@@ -130,6 +132,77 @@ function Compile () {
     });
   }
 
+  this.hStack = async (videos, color, width, height) => {
+    try {
+        return new Promise(async (resolve, reject) => {
+            let bgColor = colors[color][0];
+            let hStackNames = '';
+            let numLoops = Math.floor(videos.length/3);
+            let len0, len1, len2, audioArr = [], audioIndex;
+
+            // Create series of 3x videos side by side using audio from video 0
+            console.log('Creating hStack videos...');
+
+            for (let i=0; i<numLoops; i++) {
+                await new Promise(async (resolve, reject) => {
+                    console.log(`Loop number: ${i+1} - index ${i}`);
+                    len0 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3}.mp4`);
+                    len1 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+1}.mp4`);
+                    len2 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+2}.mp4`);
+                    audioArr.push(len0,len1,len2);
+                    audioIndex = audioArr.indexOf(Math.max(len0, len1, len2));
+                    console.log(`Longest video duration is ${audioIndex}`);
+
+                    ffmpeg(`${process.cwd()}/video/tmp/${i*3}.mp4`)
+                        .input(`${process.cwd()}/video/tmp/${i*3+1}.mp4`)
+                        .input(`${process.cwd()}/video/tmp/${i*3+2}.mp4`)
+                        .outputOptions([
+                            `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:-1[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.2:fontsize=64:x=40:y=(1080-64-20)[v6]`,
+                            `-map [v6]`,
+                            `-map ${audioIndex}:a`,
+                            '-max_muxing_queue_size 1024',
+                            '-preset veryfast',
+                            '-ac 2'
+                        ])
+                        .save(`${process.cwd()}/video/tmp/hStack${i}.mp4`)
+                        .on('end', () => {
+                            console.log(`Finished creating hStack video: ${i+1}/${numLoops}`);
+                            hStackNames += `file './hStack${i}.mp4'\n`;
+                            resolve();
+                        })
+                        .on('error', (err,stdout,stderr) => console.log(`1hStack creation video rending error: ${err} ${stdout} ${stderr}`));
+                });
+                console.log(`Promise ${i+1} of ${numLoops} completed`);
+            }
+
+            // Create listFile of hStack videos
+            console.log(`hStackNames: ${hStackNames}`);
+            let hStackList = `${process.cwd()}/video/tmp/hStackList.txt`;
+
+            await fsPromises.writeFile(hStackList, hStackNames, (err) => {
+            if (err) console.log(`WriteFile Error: ${err}`);
+            });
+                // Compile hStack videos
+                ffmpeg(hStackList)
+                .inputOptions(['-safe 0', '-f concat'])
+                .outputOptions([
+                    `-filter:v scale=-1:${height},pad=${width}:${height}:(ow/2-iw/2):0:${bgColor}`,
+                    '-max_muxing_queue_size 1024',
+                    '-preset veryfast',
+                    '-acodec copy'
+                ])
+                .save(`${process.cwd()}/video/output.mp4`)
+                .on('progress', p => console.log(`Rendering Compiled hStack video: ${p.percent}`))
+                .on('end', () => resolve())
+                .on('error', err => console.log(`hStack compilation video rending error: ${err}`));
+
+        }).catch(err => console.log(`hStack Error: ${err}`));
+    }
+    catch (err) {
+        console.log(`hStack Error: ${err}`);
+    }
+  }
+
   this.filterVids = async (posts, days, likes) => {
     return new Promise(async (resolve, reject) => {
       console.log('Filtering videos...');
@@ -161,11 +234,14 @@ function Compile () {
 
   this.start = async (posts, options) => {
     return new Promise(async (resolve, reject) => {
-      let color = options.color,
-          days = options.days,
-          likes = options.likes,
-          isLandscape = options.isLandscape,
+      let color = options.color || 'black',
+          days = options.days || 1,
+          likes = options.likes || 0,
+          isLandscape = options.isLandscape || true,
+          hStack = options.hStack || false,
           width, height;
+
+      if (hStack) isLandscape=true; // if hStack then default to landscape
 
       switch (isLandscape) {
         case true:
@@ -184,16 +260,20 @@ function Compile () {
 
       const videos = await this.filterVids(posts, days, likes);
 
+      // Make sure multiple of 3 if hStack
+      let numToRemove = videos.length % 3;
+      if (hStack && numToRemove > 0) videos = videos.slice(0,videos.length-numToRemove);
+
       for (let i=0; i<videos.length; i++) {
         console.log(`Currently at video ${i+1}/${videos.length} - ${videos[i]}`);
         await this.resample(videos[i], i, color);
       }
       console.log('Completed resampling');
-      await this.compile(videos, color, width, height);
+      (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
 
-      if (isLandscape) {
+      if (isLandscape && !hStack) {
         await this.styleHorizontal(color);
-      } else {
+      } else if (!isLandscape && !hStack) {
         await this.styleVertical();
       }
       resolve(posts);

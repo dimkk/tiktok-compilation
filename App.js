@@ -146,7 +146,7 @@ async function App () {
         }
     }
 
-    // ------- HASHTAG --------- //
+    // ------- HASHTAGS --------- //
     async function multiHashtag () {
         try {
             await empty();
@@ -166,6 +166,27 @@ async function App () {
             console.log(err);
         }
     }
+
+    // ------- MUSIC --------- //
+    async function music () {
+        try {
+            await empty();
+            let posts = await getVideo.music(9,'6811422424131700738'); // multiple of 3
+            await compile.start(posts, {
+                'color': 'black',
+                'days': 999,
+                'likes': 0,
+                'isLandscape': true,
+                'hStack': true
+            });
+            await thumbnail(posts);
+            //await upload('custom');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
 
     // ------- CUSTOM --------- //
     async function custom () {
@@ -194,7 +215,8 @@ async function App () {
     // await china();
     // await influencers();
     // await trending();
-    await multiHashtag();
+    await music();
+    // await multiHashtag();
     // await custom();
 
   }
