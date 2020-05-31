@@ -138,45 +138,16 @@ function Compile () {
             let bgColor = colors[color][0];
             let hStackNames = '';
             let numLoops = Math.floor(videos.length/3);
-            let len0, len1, len2, audioArr = [], audioIndex;
 
             // Create series of 3x videos side by side using audio from video 0
             console.log('Creating hStack videos...');
 
             for (let i=0; i<numLoops; i++) {
-                await new Promise(async (resolve, reject) => {
-                    console.log(`Loop number: ${i+1} - index ${i}`);
-                    len0 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3}.mp4`);
-                    len1 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+1}.mp4`);
-                    len2 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+2}.mp4`);
-                    audioArr.push(len0,len1,len2);
-                    audioIndex = audioArr.indexOf(Math.max(len0, len1, len2));
-                    console.log(`Longest video duration is ${audioIndex}`);
-
-                    ffmpeg(`${process.cwd()}/video/tmp/${i*3}.mp4`)
-                        .input(`${process.cwd()}/video/tmp/${i*3+1}.mp4`)
-                        .input(`${process.cwd()}/video/tmp/${i*3+2}.mp4`)
-                        .outputOptions([
-                            `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:-1[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.2:fontsize=64:x=40:y=(1080-64-20)[v6]`,
-                            `-map [v6]`,
-                            `-map ${audioIndex}:a`,
-                            '-max_muxing_queue_size 1024',
-                            '-preset veryfast',
-                            '-ac 2'
-                        ])
-                        .save(`${process.cwd()}/video/tmp/hStack${i}.mp4`)
-                        .on('end', () => {
-                            console.log(`Finished creating hStack video: ${i+1}/${numLoops}`);
-                            hStackNames += `file './hStack${i}.mp4'\n`;
-                            resolve();
-                        })
-                        .on('error', (err,stdout,stderr) => console.log(`1hStack creation video rending error: ${err} ${stdout} ${stderr}`));
-                });
-                console.log(`Promise ${i+1} of ${numLoops} completed`);
+                await this.hStackCreate(videos, color, width, height,i,numLoops);
+                hStackNames += `file './hStack${i}.mp4'\n`;
             }
 
             // Create listFile of hStack videos
-            console.log(`hStackNames: ${hStackNames}`);
             let hStackList = `${process.cwd()}/video/tmp/hStackList.txt`;
 
             await fsPromises.writeFile(hStackList, hStackNames, (err) => {
@@ -195,13 +166,42 @@ function Compile () {
                 .on('progress', p => console.log(`Rendering Compiled hStack video: ${p.percent}`))
                 .on('end', () => resolve())
                 .on('error', err => console.log(`hStack compilation video rending error: ${err}`));
-
-        }).catch(err => console.log(`hStack Error: ${err}`));
+        });
     }
     catch (err) {
         console.log(`hStack Error: ${err}`);
     }
   }
+
+    this.hStackCreate = async (videos, color, width, height, i,numLoops) => {
+        return new Promise(async (resolve, reject) => {
+            let len0, len1, len2, audioArr = [], audioIndex;
+            len0 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3}.mp4`);
+            len1 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+1}.mp4`);
+            len2 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+2}.mp4`);
+            audioArr.push(len0,len1,len2);
+            audioIndex = audioArr.indexOf(Math.max(len0, len1, len2));
+
+            ffmpeg(`${process.cwd()}/video/tmp/${i*3}.mp4`)
+                .input(`${process.cwd()}/video/tmp/${i*3+1}.mp4`)
+                .input(`${process.cwd()}/video/tmp/${i*3+2}.mp4`)
+                .outputOptions([
+                    `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:-1[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.2:fontsize=64:x=40:y=(1080-64-20)[v6]`,
+                    `-map [v6]`,
+                    `-map ${audioIndex}:a`,
+                    '-max_muxing_queue_size 1024',
+                    '-preset veryfast',
+                    '-ac 2'
+                ])
+                .save(`${process.cwd()}/video/tmp/hStack${i}.mp4`)
+                .on('end', () => {
+                    console.log(`Finished creating hStack video: ${i+1}/${numLoops}`);
+                    resolve();
+                })
+                .on('error', err => console.log(`hStack video creation error: ${err}`));
+        });
+    };
+
 
   this.filterVids = async (posts, days, likes) => {
     return new Promise(async (resolve, reject) => {
