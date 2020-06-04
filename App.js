@@ -73,7 +73,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,japan);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 1,
+                'days': 2,
                 'likes': 0,
                 'isLandscape': true
             });
@@ -228,15 +228,15 @@ async function App () {
     }
 
     // await asianGirls();
-    // await asianGuys();
-    //  await japan();
-    //  await china();
-    //  await influencers();
+    await asianGuys();
+    await japan();
+    await china();
+    await influencers();
     // await trending();
     // await music();
     // await user();
     // await multiHashtag();
-     await custom();
+    // await custom();
 
   }
   catch (err) {
