@@ -187,14 +187,32 @@ async function App () {
         }
     }
 
+        // ------- USER --------- //
+        async function user () {
+            try {
+                await empty();
+                let posts = await getVideo.user(60,'brookemonk_');
+                await compile.start(posts, {
+                    'color': 'black',
+                    'days': 999,
+                    'likes': 0,
+                    'isLandscape': true
+                });
+                await thumbnail(posts);
+                await upload('custom');
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
 
     // ------- CUSTOM --------- //
     async function custom () {
         try {
             await empty();
-            let posts = await getVideo.music(90,'6791404477405596421');
+            //let posts = await getVideo.music(90,'6791404477405596421');
             // let posts = await getVideo.hashtag(50,'writethelyrics');
-            // let posts = await getVideo.user(46,'kyscottt');
+            let posts = await getVideo.user(60,'brookemonk_');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
@@ -211,13 +229,14 @@ async function App () {
 
     // await asianGirls();
     // await asianGuys();
-    // await japan();
-    // await china();
-    // await influencers();
+    //  await japan();
+    //  await china();
+    //  await influencers();
     // await trending();
-    await music();
+    // await music();
+    // await user();
     // await multiHashtag();
-    // await custom();
+     await custom();
 
   }
   catch (err) {

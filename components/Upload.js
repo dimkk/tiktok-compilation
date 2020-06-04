@@ -11,7 +11,7 @@ const year = new Date().getFullYear();
 
 const videoInfo = {
     "asianGirls": {
-        "title": `👸 Asian American Girls TikTok - ${month} ${day}, ${year}`,
+        "title": `👸 Cute Tiktok Girls Asian - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Girls.
             Thanks for watching!
@@ -25,7 +25,7 @@ const videoInfo = {
         "tags": ['tiktokasiangirls', 'tiktok', 'japanese girls', 'tik tok korea', 'asian girls', 'cute asian girls', 'asian girl', 'cute asian girl', 'tiktokwilliam'],
     },
     "asianGuys": {
-        "title": `🤵‍ Asian American Guys TikTok - ${month} ${day}, ${year}`,
+        "title": `🤵‍ Cute Tiktok Boys Asian - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Guys.
             Thanks for watching!
@@ -108,22 +108,34 @@ const videoInfo = {
             #tiktok #tiktokmashups #tiktokwilliam`,
         "tags": ['tiktok', 'tiktok william'],
     },
-    "custom": {
-        "title": `🐕 Can I Pet That Dog Tiktok Original & Collabs`,
+    "user": {
+        "title": `😉 Tiktok Brooke Monk`,
         "description": dedent`
-            This video is a compilation of "Can I pet that dog" tiktoks by KaylaaHolleyy @kayholleyy on tiktok.
-            Original credits goes to her.
+            This video is a compilation of tiktoks by Brooke Monk @brookemonk_ on tiktok.
 
             Thanks for watching!
 
-            👉 Subscribe & I'll see you again tomorrow Kings & Queens!
+            Subscribe & I'll see you again tomorrow Kings & Queens!
+            👉 https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
             -----
-            #tiktok #tiktokmashups #tiktokwilliam`,
-        "tags": ['tiktok', 'tik tok', 'tiktok william', 'can i pet that dog tiktok original', 'can i pet that dog tiktok original little boy', 'can I pet that dog tiktok'],
+            #tiktok #brookemonk #tiktokwilliam`,
+        "tags": ['tiktok', 'tik tok', 'tiktok william', 'tiktok brooke monk', 'tiktok brooke monk', 'brooke monk tiktok', 'brooke monk tik tok'],
+    },
+    "custom": {
+        "title": `😉 Tiktok Brooke Monk`,
+        "description": dedent`
+            This video is a compilation of Tiktoks by Brooke Monk @brookemonk_
+            Thanks for watching!
+
+            Subscribe & I'll see you again tomorrow Kings & Queens!
+            👉 https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+            -----
+            #tiktok #brookemonk #tiktokwilliam`,
+        "tags": ['tiktok', 'tik tok', 'tiktok william', 'tiktok brooke monk', 'tiktok brooke monk', 'brooke monk tiktok', 'brooke monk tik tok'],
     },
     "comment": dedent`Did you enjoy today's video? 👏
     👉 Subscribe and I'll see you again tomorrow kings and queens! 💖😉`,
-    "emojis": "🤵‍♂️🎥🕺💃🔥💖👁️👄👁️😉😳🥺😗🤪😉🤫💥👏🥺😎👲👩🎎🏋️👉🐕"
+    "emojis": "🤵‍♂️🎥🕺💃🔥💖👁️👄👁️😉😳🥺😗🤪🤫💥👏😎👲👩🎎🏋️👉🐕"
 }
 
 async function Upload(type) {
@@ -156,12 +168,11 @@ async function Upload(type) {
           tags: videoInfo[type]['tags'],
           keywords: videoInfo[type]['tags'],
           defaultLanguage: "en_US",
-          madeForKids: false,
-          selfDeclaredMadeForKids: false,
           category: '24' // 10-Music, 34-Comedy, 24-Entertainment
         },
         status: {
           privacyStatus: "public", // public, private, unlisted
+          selfDeclaredMadeForKids: false, // https://developers.google.com/youtube/v3/docs/videos/insert
         },
       },
     };
@@ -206,6 +217,7 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
+// Upload('asianGirls');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 
