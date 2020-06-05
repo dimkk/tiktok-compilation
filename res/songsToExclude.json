@@ -1,33 +1,33 @@
 {
-    "fully_blocked_songs": [
+    "fullyBlockedSongs": [
         {
-            "id": 123,
+            "id": "123",
             "name": "name"
         },
         {
-            "id": 123,
+            "id": "789",
             "name": "name"
-        },
+        }
     ],
-    "partially_blocked_songs": [
+    "partiallyBlockedSongs": [
         {
-            "id": 6738439639826287365,
+            "id": "6738439639826287365",
             "name": "roses-imanbek-remix"
         },
         {
-            "id": 123,
+            "id": "123",
             "name": "name"
-        },
+        }
     ],
-    "cannot_monetize_songs": [
+    "cannotMonetizeSongs": [
         {
-            "id": 6813465229595249414,
+            "id": "6813465229595249414",
             "name": "Flatbed-Freestyle-Playboi-Carti"
         },
         {
-            "id": 6701160933001071362,
+            "id": "6701160933001071362",
             "name": "Золото-Rakurs-Ramirez-Remix"
-        },
+        }
     ]
 }
 

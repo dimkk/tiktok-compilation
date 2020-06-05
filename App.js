@@ -131,7 +131,7 @@ async function App () {
     async function trending () {
         try {
             await empty();
-            let posts = await getVideo.trending(36); // ~36 before it get doubles. 40 for 10min video
+            let posts = await getVideo.trending(6); // ~36 before it get doubles. 40 for 10min video
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
@@ -187,24 +187,28 @@ async function App () {
         }
     }
 
-        // ------- USER --------- //
-        async function user () {
-            try {
-                await empty();
-                let posts = await getVideo.user(60,'brookemonk_');
-                await compile.start(posts, {
-                    'color': 'black',
-                    'days': 999,
-                    'likes': 0,
-                    'isLandscape': true
-                });
-                await thumbnail(posts);
-                await upload('custom');
-            }
-            catch (err) {
-                console.log(err);
-            }
+    // ------- USER --------- //
+    async function user () {
+        try {
+            await empty();
+            let posts = await getVideo.user(4,'rdxzzle');
+            await compile.start(posts, {
+                'color': 'black',
+                'days': 99,
+                'likes': 0,
+                'isLandscape': true,
+                'isExcludeFullyBlockedSongs': false,
+                'isExcludePartiallyBlockedSongs': true,
+                'isExcludeCannotMonetizeSongs': false
+            });
+            console.log(posts);
+            //await thumbnail(posts);
+            //await upload('custom');
         }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     // ------- CUSTOM --------- //
     async function custom () {
@@ -212,7 +216,7 @@ async function App () {
             await empty();
             //let posts = await getVideo.music(90,'6791404477405596421');
             // let posts = await getVideo.hashtag(50,'writethelyrics');
-            let posts = await getVideo.user(60,'brookemonk_');
+            let posts = await getVideo.user(3,'brookemonk_');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
@@ -228,11 +232,11 @@ async function App () {
     }
 
     // await asianGirls();
-    await asianGuys();
-    await japan();
-    await china();
-    await influencers();
-    // await trending();
+    // await asianGuys();
+    // await japan();
+    // await china();
+    // await influencers();
+     await trending();
     // await music();
     // await user();
     // await multiHashtag();

@@ -206,9 +206,11 @@ function Compile () {
     };
 
 
-  this.filterVids = async (posts, days, likes) => {
+  this.filterVids = async (posts, days, likes, isExcludeFullyBlockedSongs, isExcludePartiallyBlockedSongs, isExcludeCannotMonetizeSongs) => {
     return new Promise(async (resolve, reject) => {
       console.log('Filtering videos...');
+      const songsToExclude = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/songsToExclude.json`));
+      const {fullyBlockedSongs, partiallyBlockedSongs, cannotMonetizeSongs} = songsToExclude;
       let videoIds = [];
       posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount));
 
@@ -222,6 +224,27 @@ function Compile () {
       posts.collector = posts.collector.filter(e => {
         return e.diggCount > likes;
       });
+
+      // remove videos with music that are fully blocked
+      if (isExcludeFullyBlockedSongs) {
+        posts.collector = posts.collector.filter(postEl => {
+            return !fullyBlockedSongs.find(song => song.id === postEl.musicId);
+        });
+      }
+
+      // remove videos with music that are partially blocked
+      if (isExcludePartiallyBlockedSongs) {
+        posts.collector = posts.collector.filter(postEl => {
+            return !partiallyBlockedSongs.find(song => song.id === postEl.musicId);
+        });
+      }
+
+      // remove videos with music that are not monetizable
+      if (isExcludeCannotMonetizeSongs) {
+        posts.collector = posts.collector.filter(postEl => {
+            return !cannotMonetizeSongs.find(song => song.id === postEl.musicId);
+        });
+      }
 
       //console.log(`Compile.js console: ${JSON.stringify(posts)}`);
       posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
@@ -242,6 +265,9 @@ function Compile () {
           likes = options.likes || 0,
           isLandscape = options.isLandscape || true,
           hStack = options.hStack || false,
+          isExcludeFullyBlockedSongs = options.isExcludeFullyBlockedSongs || false,
+          isExcludePartiallyBlockedSongs = options.isExcludePartiallyBlockedSongs || false,
+          isExcludeCannotMonetizeSongs = options.isExcludeCannotMonetizeSongs || false,
           width, height;
 
       if (hStack) isLandscape=true; // if hStack then default to landscape
@@ -261,7 +287,7 @@ function Compile () {
           break;
       };
 
-      const videos = await this.filterVids(posts, days, likes);
+      const videos = await this.filterVids(posts, days, likes, isExcludeFullyBlockedSongs, isExcludePartiallyBlockedSongs, isExcludeCannotMonetizeSongs);
 
       // Make sure multiple of 3 if hStack
       let numToRemove = videos.length % 3;
