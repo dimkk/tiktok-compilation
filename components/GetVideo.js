@@ -14,14 +14,9 @@ function GetVideo (num) {
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: 'all',
                 store: true,
-                historypath: `video/`
+                historypath: `${process.cwd()}/video/`
             });
             console.log(posts);
-
-            // Unzip the videos
-            await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
-            console.log('Extraction complete');
-
             return posts;
 
         } catch (error) {
@@ -40,118 +35,95 @@ function GetVideo (num) {
                 filetype: 'all'
             });
             console.log(posts);
-
-            // Unzip the videos
-            await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
-            console.log('Extraction complete');
-
             return posts;
-
 
         } catch (error) {
             console.log(error);
         }
     }
 
-        // Music
-        this.music = async (num=1,musicId) => {
+    // Music
+    this.music = async (num=1,musicId) => {
+        try {
+            const posts = await TikTokScraper.music(musicId, {
+                number: num,
+                download: true,
+                filepath: `${process.cwd()}/video/tmp`,
+                filetype: 'all'
+            });
+            console.log(posts);
+            return posts;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    // Users
+    this.user = async (num=1,userId) => {
+        try {
+
+            const posts = await TikTokScraper.user(userId, {
+                number: num,
+                download: true,
+                filepath: `${process.cwd()}/video/tmp`,
+                filetype: 'all'
+            });
+            console.log(posts);
+            return posts;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    // Multi-hashtags
+    this.multiHashtag = async (num=1, hashtagArr) => {
+        const collectorArr = [];
+        for (let i=0; i<hashtagArr.length; i++) {
             try {
-                const posts = await TikTokScraper.music(musicId, {
+                posts = await TikTokScraper.hashtag(hashtagArr[i], {
                     number: num,
                     download: true,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: 'all'
                 });
-                console.log(posts);
 
-                // Unzip the videos
-                await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
-                console.log('Extraction complete');
-
-                return posts;
+                collectorArr.push.apply(collectorArr, posts.collector);
 
             } catch (error) {
-                console.log(error);
+                console.log(`GetVideo.js Error: ${error}`);
+                continue;
             }
         }
+        let postsArr = {'collector': collectorArr};
+        return postsArr;
+    }
 
-
-        // Users
-        this.user = async (num=1,userId) => {
+    // Multi-users
+    this.multiUser = async (num=1, userArr) => {
+        const collectorArr = [];
+        for (let i=0; i<userArr.length; i++) {
             try {
-
-                const posts = await TikTokScraper.user(userId, {
+                posts = await TikTokScraper.user(userArr[i], {
                     number: num,
                     download: true,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: 'all'
                 });
-                console.log(posts);
-
-                // Unzip the videos
-                await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
-                console.log('Extraction complete');
-
-                return posts;
+                
+                collectorArr.push.apply(collectorArr, posts.collector);
 
             } catch (error) {
-                console.log(error);
+                console.log(`GetVideo.js Error: ${error}`);
+                continue;
             }
         }
-
-
-        // Multi-hashtags
-        this.multiHashtag = async (num=1, hashtagArr) => {
-            const collectorArr = [];
-            for (let i=0; i<hashtagArr.length; i++) {
-                try {
-                    posts = await TikTokScraper.hashtag(hashtagArr[i], {
-                        number: num,
-                        download: true,
-                        filepath: `${process.cwd()}/video/tmp`,
-                        filetype: 'all'
-                    });
-
-                    collectorArr.push.apply(collectorArr, posts.collector);
-
-                    // Unzip the videos
-                    await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
-
-                } catch (error) {
-                    console.log(`GetVideo.js Error: ${error}`);
-                    continue;
-                }
-            }
-            let postsArr = {'collector': collectorArr};
-            return postsArr;
-        }
-
-        // Multi-users
-        this.multiUser = async (num=1, userArr) => {
-            const collectorArr = [];
-            for (let i=0; i<userArr.length; i++) {
-                try {
-                    posts = await TikTokScraper.user(userArr[i], {
-                        number: num,
-                        download: true,
-                        filepath: `${process.cwd()}/video/tmp`,
-                        filetype: 'all'
-                    });
-
-                    collectorArr.push.apply(collectorArr, posts.collector);
-
-                    // Unzip the videos
-                    await extract(posts.zip, { dir: `${process.cwd()}/video/tmp` });
-
-                } catch (error) {
-                    console.log(`GetVideo.js Error: ${error}`);
-                    continue;
-                }
-            }
-            let postsArr = {'collector': collectorArr};
-            return postsArr;
-        }
-
+        let postsArr = {'collector': collectorArr};
+        return postsArr;
+    }
 
 }
 

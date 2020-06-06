@@ -22,7 +22,7 @@
     "open": "^7.0.4",
     "scraper": "0.0.9",
     "server-destroy": "^1.0.1",
-    "tiktok-scraper": "^1.1.14",
+    "tiktok-scraper": "^1.1.18",
     "url": "^0.11.0",
     "youtube-video-api": "^0.3.7"
   },

@@ -61,9 +61,7 @@ function Compile () {
         let listFileName = `${process.cwd()}/video/tmp/list.txt`,
             fileNames = '';
 
-        videos.forEach((fileName, index) => {
-            fileNames += `file './${index}.mp4'\n`;
-        });
+        videos.forEach((fileName, index) => fileNames += `file './${index}.mp4'\n`);
         fileNames = [...new Set(fileNames.split('\n'))].join('\n'); // remove duplicates
 
         fs.writeFile(listFileName, fileNames, (err) => {
@@ -176,7 +174,7 @@ function Compile () {
     }
   }
 
-    this.hStackCreate = async (videos, color, width, height, i,numLoops) => {
+    this.hStackCreate = async (videos, color, width, height, i, numLoops) => {
         return new Promise(async (resolve, reject) => {
             let len0, len1, len2, audioArr = [], audioIndex;
             len0 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3}.mp4`);
@@ -205,110 +203,99 @@ function Compile () {
         });
     };
 
-
-  this.filterVids = async (posts, days, likes, isExcludeFullyBlockedSongs, isExcludePartiallyBlockedSongs, isExcludeCannotMonetizeSongs) => {
-    return new Promise(async (resolve, reject) => {
-      console.log('Filtering videos...');
-      const songsToExclude = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/songsToExclude.json`));
-      const {fullyBlockedSongs, partiallyBlockedSongs, cannotMonetizeSongs} = songsToExclude;
-      let videoIds = [];
-      posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount));
-
-      // remove videos not within last X days
-      const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
-      posts.collector = posts.collector.filter(e => {
-        return new Date(e.createTime * 1000) > latestDate;
-      });
-
-      // remove videos with less than X likes
-      posts.collector = posts.collector.filter(e => {
-        return e.diggCount > likes;
-      });
-
-      // remove videos with music that are fully blocked
-      if (isExcludeFullyBlockedSongs) {
-        posts.collector = posts.collector.filter(postEl => {
-            return !fullyBlockedSongs.find(song => song.id === postEl.musicId);
+    this.moveFiles = async () => {
+        fs.readdir(`${process.cwd()}/video/tmp`, async (err, folders) => {
+            if (err) console.log(`GetVideo.js > this.moveFiles > folder error: ${err}`);
+            folders.forEach(folder => {
+                if (fs.lstatSync(`${process.cwd()}/video/tmp/${folder}`).isDirectory()) {
+                    fs.readdir(`${process.cwd()}/video/tmp/${folder}`, async (err, files) => {
+                        console.log(`${folder}/${files}`);
+                        if (err) console.log(`GetVideo.js > this.moveFiles > file error: ${err}`);
+                        console.log(files);
+                        files.forEach(file => {
+                            fs.renameSync(`${process.cwd()}/video/tmp/${folder}/${file}`, `${process.cwd()}/video/tmp/${file}`);
+                        });
+                    fs.rmdirSync(`${process.cwd()}/video/tmp/${folder}`);
+                    });
+                }
+            });
         });
-      }
+        return;
+    }
 
-      // remove videos with music that are partially blocked
-      if (isExcludePartiallyBlockedSongs) {
-        posts.collector = posts.collector.filter(postEl => {
-            return !partiallyBlockedSongs.find(song => song.id === postEl.musicId);
+    this.filterVids = async (posts, options) => {
+        try {
+            return new Promise(async (resolve, reject) => {
+                console.log('Filtering videos...');
+                const { days=1, likes=0, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
+                const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
+                const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
+                const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
+                let videoIds = [];
+
+                posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
+                posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
+                posts.collector = posts.collector.filter(post => post.diggCount > likes); // remove videos with less than X likes
+                if (exBlockedSongs) posts.collector = posts.collector.filter(post => !fullyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove blocked songs
+                if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
+                if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
+
+                posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
+                videoIds = [...new Set(videoIds)]; // remove duplicates
+
+                fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds);
+                console.log('Finished filtering videos');
+                console.log(posts.collector);
+                resolve(videoIds);
+            });
+        } catch (err) {
+            console.log(`Compile.js > this.filter error: ${err}`);
+        }
+    }
+
+    this.start = async (posts, options) => {
+        return new Promise(async (resolve, reject) => {
+        let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, width, height } = options;
+        if (hStack) isLandscape=true; // if hStack then default to landscape
+
+        switch (isLandscape) {
+            case true:
+                width = 1920;
+                height = 1080;
+                break;
+            case false:
+                width = 1080;
+                height = 1920;
+                break;
+            default:
+                width = 1920;
+                height = 1080;
+                break;
+        };
+
+        await this.moveFiles();
+        const videos = await this.filterVids(posts, options);
+
+        // Make sure multiple of 3 if hStack
+        let numToRemove = videos.length % 3;
+        if (hStack && numToRemove > 0) videos = videos.slice(0,videos.length-numToRemove);
+
+        console.log(`Resampling videos...`);
+        for (let i=0; i<videos.length; i++) {
+            console.log(`Currently at video ${i+1}/${videos.length} - id:${videos[i]}`);
+            await this.resample(videos[i], i, color);
+        }
+
+        (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
+
+        if (isLandscape && !hStack) {
+            await this.styleHorizontal(color);
+        } else if (!isLandscape && !hStack) {
+            await this.styleVertical();
+        }
+        resolve(posts);
         });
-      }
-
-      // remove videos with music that are not monetizable
-      if (isExcludeCannotMonetizeSongs) {
-        posts.collector = posts.collector.filter(postEl => {
-            return !cannotMonetizeSongs.find(song => song.id === postEl.musicId);
-        });
-      }
-
-      //console.log(`Compile.js console: ${JSON.stringify(posts)}`);
-      posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
-
-      // remove duplicates
-      videoIds = [...new Set(videoIds)];
-
-      fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds);
-      console.log('Finished filtering videos');
-      resolve(videoIds);
-    });
-  }
-
-  this.start = async (posts, options) => {
-    return new Promise(async (resolve, reject) => {
-      let color = options.color || 'black',
-          days = options.days || 1,
-          likes = options.likes || 0,
-          isLandscape = options.isLandscape || true,
-          hStack = options.hStack || false,
-          isExcludeFullyBlockedSongs = options.isExcludeFullyBlockedSongs || false,
-          isExcludePartiallyBlockedSongs = options.isExcludePartiallyBlockedSongs || false,
-          isExcludeCannotMonetizeSongs = options.isExcludeCannotMonetizeSongs || false,
-          width, height;
-
-      if (hStack) isLandscape=true; // if hStack then default to landscape
-
-      switch (isLandscape) {
-        case true:
-          width = 1920;
-          height = 1080;
-          break;
-        case false:
-          width = 1080;
-          height = 1920;
-          break;
-        default:
-          width = 1920;
-          height = 1080;
-          break;
-      };
-
-      const videos = await this.filterVids(posts, days, likes, isExcludeFullyBlockedSongs, isExcludePartiallyBlockedSongs, isExcludeCannotMonetizeSongs);
-
-      // Make sure multiple of 3 if hStack
-      let numToRemove = videos.length % 3;
-      if (hStack && numToRemove > 0) videos = videos.slice(0,videos.length-numToRemove);
-
-      console.log(`Resampling videos...`);
-      for (let i=0; i<videos.length; i++) {
-        console.log(`Currently at video ${i+1}/${videos.length} - id:${videos[i]}`);
-        await this.resample(videos[i], i, color);
-      }
-
-      (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
-
-      if (isLandscape && !hStack) {
-        await this.styleHorizontal(color);
-      } else if (!isLandscape && !hStack) {
-        await this.styleVertical();
-      }
-      resolve(posts);
-    });
-  }
+    }
 
 }
 

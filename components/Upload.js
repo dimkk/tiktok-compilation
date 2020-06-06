@@ -47,7 +47,7 @@ const videoInfo = {
             👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
             -----
-            #tiktok日本 #ティックトック #tiktokjapan #tiktokwilliam `,
+            #tiktok日本 #ティックトック #tiktokjapan #tiktokwilliam`,
         "tags": ['tiktokjapan', 'ティックトック', 'TikTok日本', 'tiktok japan', 'tiktok william', 'william tiktok'],
     },
     "china": {
@@ -62,6 +62,19 @@ const videoInfo = {
             -----
             #抖音 #douyin #tiktokwilliam`,
         "tags": ['抖音', 'douyin', 'tiktok china', 'tiktok william', 'william tiktok'],
+    },
+    "korea": {
+        "title": `🇰🇷 TikTok Korea - ${month} ${day}, ${year}`,
+        "description": dedent`
+            This video is a compilation of tiktoks from amazing Korean tiktokers.
+            Thanks for watching!
+
+            Subscribe below & I'll see you again tomorrow Kings & Queens!
+            👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
+            -----
+            #tiktok #tiktokkorea #tiktokwilliam`,
+        "tags": ['tiktok', 'tiktokkorea', 'tiktok william', 'william tiktok'],
     },
     "influencers": {
         "title":`😀 TikTok Celebs & Influencers - ${month} ${day}, ${year}`,

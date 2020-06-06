@@ -7,7 +7,7 @@
         { "id": "6738439639826287365", "name": "roses-imanbek-remix" },
         { "id": "123", "name": "name" }
     ],
-    "cannotMonetizeSongs": [
+    "UnMonetizeSongs": [
         { "id": "6813465229595249414", "name": "Flatbed-Freestyle-Playboi-Carti" },
         { "id": "6701160933001071362", "name": "Золото-Rakurs-Ramirez-Remix" },
         { "id": "6834060327362054914", "name": "오리지널-사운드-종민오빠-Jongmin-oppa" },

@@ -13,8 +13,8 @@ async function App () {
   try {
 
     async function empty () {
-        await fse.emptyDir(`${process.cwd()}/video/tmp`);
-        await fse.emptyDir(`${process.cwd()}/img/tmp`);
+        fse.emptyDirSync(`${process.cwd()}/video/tmp`);
+        fse.emptyDirSync(`${process.cwd()}/img/tmp`);
     }
 
     //let posts = await getVideo.trending(36); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
@@ -26,7 +26,7 @@ async function App () {
     async function asianGirls () {
         try {
             await empty();
-            const asianGirls = await fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
+            const asianGirls = fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
             console.log(asianGirls);
             let posts = await getVideo.multiUser(1,asianGirls);
             await compile.start(posts, {
@@ -47,7 +47,7 @@ async function App () {
     async function asianGuys () {
         try {
             await empty();
-            const asianGuys = await fs.readFileSync(`${process.cwd()}/res/asianGuys.txt`,'utf8').split(',\r\n');
+            const asianGuys = fs.readFileSync(`${process.cwd()}/res/asianGuys.txt`,'utf8').split(',\r\n');
             console.log(asianGuys);
             let posts = await getVideo.multiUser(1,asianGuys);
             await compile.start(posts, {
@@ -68,7 +68,7 @@ async function App () {
     async function japan () {
         try {
             await empty();
-            const japan = await fs.readFileSync(`${process.cwd()}/res/japan.txt`,'utf8').split(',\r\n');
+            const japan = fs.readFileSync(`${process.cwd()}/res/japan.txt`,'utf8').split(',\r\n');
             console.log(japan);
             let posts = await getVideo.multiUser(1,japan);
             await compile.start(posts, {
@@ -89,9 +89,9 @@ async function App () {
     async function china () {
         try {
             await empty();
-            const china = await fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
+            const china = fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
             console.log(china);
-            let posts = await getVideo.multiUser(2,china);
+            let posts = await getVideo.multiUser(1,china);
             await compile.start(posts, {
                 'color': 'red',
                 'days': 2,
@@ -106,11 +106,32 @@ async function App () {
         }
     }
 
+    // ------- KOREA --------- //
+    async function korea () {
+        try {
+            await empty();
+            const korea = fs.readFileSync(`${process.cwd()}/res/korea.txt`,'utf8').split(',\r\n');
+            console.log(korea);
+            let posts = await getVideo.multiUser(3,korea);
+            await compile.start(posts, {
+                'color': 'red',
+                'days': 99,
+                'likes': 0,
+                'isLandscape': true
+            });
+            await thumbnail(posts);
+            //await upload('korea');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
     // ------- INFLUENCERS --------- //
     async function influencers () {
         try {
             await empty();
-            const influencers = await fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
+            const influencers = fs.readFileSync(`${process.cwd()}/res/influencers.txt`,'utf8').split(',\r\n');
             console.log(influencers);
             let posts = await getVideo.multiUser(1,influencers);
             await compile.start(posts, {
@@ -131,7 +152,7 @@ async function App () {
     async function trending () {
         try {
             await empty();
-            let posts = await getVideo.trending(6); // ~36 before it get doubles. 40 for 10min video
+            let posts = await getVideo.trending(60); // ~36 before it get doubles. 40 for 10min video
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
@@ -139,7 +160,7 @@ async function App () {
                 'isLandscape': true
             });
             await thumbnail(posts);
-            await upload('trending');
+            //await upload('trending');
         }
         catch (err) {
             console.log(err);
@@ -150,7 +171,7 @@ async function App () {
     async function multiHashtag () {
         try {
             await empty();
-            const hashtag = await fs.readFileSync(`${process.cwd()}/res/hashtag.txt`,'utf8').split(',\r\n');
+            const hashtag = fs.readFileSync(`${process.cwd()}/res/hashtag.txt`,'utf8').split(',\r\n');
             console.log(hashtag);
             let posts = await getVideo.multiHashtag(21,hashtag);
             await compile.start(posts, {
@@ -171,7 +192,7 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(90,'6824895008496306949'); // multiple of 3
+            let posts = await getVideo.music(3,'6824895008496306949'); // multiple of 3
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
@@ -191,18 +212,17 @@ async function App () {
     async function user () {
         try {
             await empty();
-            let posts = await getVideo.user(4,'rdxzzle');
+            let posts = await getVideo.user(6,'abg_eboy');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'isExcludeFullyBlockedSongs': false,
-                'isExcludePartiallyBlockedSongs': true,
-                'isExcludeCannotMonetizeSongs': false
+                'exBlockedSongs': false,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
-            console.log(posts);
-            //await thumbnail(posts);
+            await thumbnail(posts);
             //await upload('custom');
         }
         catch (err) {
@@ -214,7 +234,7 @@ async function App () {
     async function custom () {
         try {
             await empty();
-            //let posts = await getVideo.music(90,'6791404477405596421');
+            // let posts = await getVideo.music(90,'6791404477405596421');
             // let posts = await getVideo.hashtag(50,'writethelyrics');
             let posts = await getVideo.user(3,'brookemonk_');
             await compile.start(posts, {
@@ -224,7 +244,7 @@ async function App () {
                 'isLandscape': true
             });
             await thumbnail(posts);
-            await upload('custom');
+            // await upload('custom');
         }
         catch (err) {
             console.log(err);
@@ -235,8 +255,9 @@ async function App () {
     // await asianGuys();
     // await japan();
     // await china();
+     await korea();
     // await influencers();
-     await trending();
+    // await trending();
     // await music();
     // await user();
     // await multiHashtag();

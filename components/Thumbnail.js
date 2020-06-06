@@ -7,7 +7,7 @@ const Thumbnail = async (posts) => {
       // Downloads first 3 video thumbnails
       for (let i=0; i<Math.min(3); i++) {
         await download.image({
-            url: posts.collector[i].imageUrl,
+            url: posts.collector[i].covers.default,
             dest: `${process.cwd()}/img/tmp/${i}.jpg`
         });
       }
