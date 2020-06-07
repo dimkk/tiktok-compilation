@@ -9,6 +9,7 @@ const fse = require('fs-extra');
 const getVideo = new GetVideo();
 const compile = new Compile();
 
+
 async function App () {
   try {
 
@@ -34,6 +35,7 @@ async function App () {
                 'days': 2,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -58,6 +60,7 @@ async function App () {
                 'days': 1,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -82,6 +85,7 @@ async function App () {
                 'days': 2,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -101,17 +105,18 @@ async function App () {
             const china = fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
             console.log(china);
             let posts = await getVideo.multiUser(1,china);
-            // await compile.start(posts, {
-            //     'color': 'red',
-            //     'days': 2,
-            //     'likes': 0,
-            //     'isLandscape': true,
-            //     'exBlockedSongs': true,
-            //     'exPartlyBlockedSongs': true,
-            //     'exUnmonetizableSongs': true,
-            // });
-            // await thumbnail(posts);
-            // await upload('china');
+            await compile.start(posts, {
+                'color': 'red',
+                'days': 2,
+                'likes': 0,
+                'isLandscape': true,
+                'maxLength': 60,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
+            });
+            await thumbnail(posts);
+            await upload('china');
         }
         catch (err) {
             console.log(err);
@@ -130,6 +135,7 @@ async function App () {
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -154,6 +160,7 @@ async function App () {
                 'days': 1,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -172,13 +179,13 @@ async function App () {
             await empty();
             const thailand = fs.readFileSync(`${process.cwd()}/res/thailand.txt`,'utf8').split(',\r\n');
             console.log(thailand);
-            let posts = await getVideo.multiUser(1,thailand);
+            let posts = await getVideo.multiUser(2,thailand);
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 999,
+                'maxLength': 60,
                 'exBlockedSongs': false,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -201,6 +208,7 @@ async function App () {
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -225,6 +233,7 @@ async function App () {
                 'days': 3,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -241,19 +250,20 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(120,'6831722183610419974'); // multiple of 3
+            let posts = await getVideo.music(60,'6831722183610419974'); // Multiple of 3. 120 stacked @ 15sec is 10min
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
-                'likes': 0,
+                'likes': 1000,
                 'isLandscape': true,
                 'hStack': true,
+                'maxLength': 17,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            await upload('music');
+            //await upload('music');
         }
         catch (err) {
             console.log(err);
@@ -270,7 +280,7 @@ async function App () {
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 7,
+                'maxLength': 60,
                 'exBlockedSongs': false, // to be changed to true
                 'exPartlyBlockedSongs': false, // to be changed to true
                 'exUnmonetizableSongs': false, // to be changed to true
@@ -295,6 +305,7 @@ async function App () {
                 'days': 999,
                 'likes': 0,
                 'isLandscape': true,
+                'maxLength': 60,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -312,13 +323,14 @@ async function App () {
     // await japan();
     // await china();
     // await korea();
-     await thailand();
+    // await thailand();
     // await influencers();
     // await trending();
     // await music();
     // await user();
     // await multiHashtag();
     // await custom();
+
 
   }
   catch (err) {

@@ -11,44 +11,51 @@ function Compile () {
     'blue2': ['#c0e6ff','#e1f5ff'],
     'orange': ['#ffdac0','#ffefe1'],
     'purple': ['#e5c0ff','#f2e1ff'],
-    'red': ['#ffc0c0','#ffe1e1']
+    'red': ['#ffc0c0','#ffe1e1'],
   };
   const videoDir = `${process.cwd()}/video`,
         videoTmpDir = `${process.cwd()}/video/tmp`;
 
-  // Resample videos
-  this.resample = (vid, i, color) => {
-    try {
-        return new Promise((resolve, reject) => {
+    // Resample videos
+    this.resample = async (videos, options) => {
+        try {
+            const { color } = options;
             let bgColor = colors[color][0];
-            ffmpeg(`${videoTmpDir}/${vid}`)
-                .outputOptions([
-                '-r 30',
-                '-filter:v scale=w=1080:h=-1,pad=1080:1920:0:(oh/2-ih/2):black',
-                '-acodec copy',
-                '-preset veryfast',
-                '-max_muxing_queue_size 1024'
-                ])
-                .save(`${videoTmpDir}/${i}.mp4`)
-                .on('end', () => resolve())
-                .on('error', err => {
-                ffmpeg(`${videoTmpDir}/${vid}`)
+
+            console.log('Resampling videos...');
+            for (let i=0; i<videos.length; i++) {
+                await new Promise((resolve, reject) => {
+                    console.log(`Resampling video: ${i+1}/${videos.length} - id: ${videos[i]}`);
+                    ffmpeg(`${videoTmpDir}/${videos[i]}`)
                     .outputOptions([
                     '-r 30',
-                    `-vf scale=-1:1920,pad=1080:1920:(ow/2-iw/2):0:${bgColor}`,
+                    '-filter:v scale=w=1080:h=-1,pad=1080:1920:0:(oh/2-ih/2):black',
                     '-acodec copy',
                     '-preset veryfast',
                     '-max_muxing_queue_size 1024'
                     ])
                     .save(`${videoTmpDir}/${i}.mp4`)
-                    .on('end', () => resolve());
+                    .on('end', () => resolve())
+                    .on('error', err => {
+                        ffmpeg(`${videoTmpDir}/${videos[i]}`)
+                            .outputOptions([
+                            '-r 30',
+                            `-vf scale=-1:1920,pad=1080:1920:(ow/2-iw/2):0:${bgColor}`,
+                            '-acodec copy',
+                            '-preset veryfast',
+                            '-max_muxing_queue_size 1024'
+                            ])
+                            .save(`${videoTmpDir}/${i}.mp4`)
+                            .on('end', () => resolve());
+                    });
                 });
-            });
-    } catch (err) {
-        console.log(err);
+            }
+            console.log('Finished all resampling');
+            return;
+        } catch (err) {
+            console.log(err);
+        }
     }
-
-  }
 
   // Compile and resize videos
   this.compile = async (videos, color, width, height) => {
@@ -206,18 +213,20 @@ function Compile () {
     this.filterVids = async (posts, options) => {
         try {
             console.log('Filtering videos...');
-            const { days=1, likes=0, exBlockedSongs=false, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
+            const { days=1, likes=0, exBlockedSongs=false, hStack, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
             const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
             const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
             const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
             let videoIds = [];
 
+            console.log(`${posts.collector.length} videos to start`);
             posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
             posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
             posts.collector = posts.collector.filter(post => post.diggCount > likes); // remove videos with less than X likes
             if (exBlockedSongs) posts.collector = posts.collector.filter(post => !fullyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove blocked songs
             if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
             if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
+            console.log(`${posts.collector.length} videos after date & song filter`);
 
             // Filter out corrupted & long videos
             let videoLength, videoSize;
@@ -229,13 +238,20 @@ function Compile () {
                     posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
                 }
             }));
+            console.log(`${posts.collector.length} videos after maxLength filter`);
 
             posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
             videoIds = [...new Set(videoIds)]; // remove duplicates
 
+            console.log(`${videoIds.length} videos after removing duplicates`);
+            // Make sure multiple of 3 if hStack
+            let numToRemove = videoIds.length % 3;
+            if (hStack && numToRemove > 0) videoIds = videoIds.slice(0, videoIds.length - numToRemove);
+            console.log(`${videoIds.length} videos after hStack filter`);
+
             fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, videoIds);
             fs.writeFileSync(`${videoTmpDir}/posts.json`, JSON.stringify(posts));
-            console.log('Finished filtering videos');
+            console.log(`Finished filtering. ${videoIds.length} videos to resample`);
             return videoIds;
 
         } catch (err) {
@@ -281,17 +297,8 @@ function Compile () {
         };
 
         await this.moveFiles();
-        const videos = await this.filterVids(posts, options);
-
-        // Make sure multiple of 3 if hStack
-        let numToRemove = videos.length % 3;
-        if (hStack && numToRemove > 0) videos = videos.slice(0,videos.length-numToRemove);
-
-        console.log(`Resampling videos...`);
-        for (let i=0; i<videos.length; i++) {
-            console.log(`Currently at video ${i+1}/${videos.length} - id:${videos[i]}`);
-            await this.resample(videos[i], i, color);
-        }
+        let videos = await this.filterVids(posts, options);
+        await this.resample(videos, options);
 
         (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
 

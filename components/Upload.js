@@ -230,7 +230,7 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
-// Upload('asianGirls');
+// Upload('music');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 
