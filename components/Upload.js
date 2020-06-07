@@ -109,17 +109,17 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "music": {
-        "title": ` Song Title`,
+        "title": `👀 GO GO GO! WHO'S NEXT!? TIKTOK #swankyleg`,
         "description": dedent`
-        This video is a compilation of the Banana Tiktok videos where tiktokers dance to the Banana Song by Conkarah (feat. Shaggy).
+        This video is a compilation of the Go Go Go - Who's Next!? videos where tiktokers do the swanky leg dance.
             Thanks for watching!
 
             Subscribe & I'll see you again tomorrow Kings & Queens!
             👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
             -----
-            #tiktok #tiktokmashups #tiktokwilliam`,
-        "tags": ['tiktok', 'tiktok william'],
+            #tiktok #whosnexttiktok #tiktokwilliam`,
+        "tags": ['tiktok', 'tiktok william', "tiktok who's next", `go go go who's next tiktok`, `go go go who's next tik tok original `, 'hip hop harry'],
     },
     "user": {
         "title": `😉 Tiktok Brooke Monk`,

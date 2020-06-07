@@ -16,38 +16,42 @@ function Compile () {
 
   // Resample videos
   this.resample = (vid, i, color) => {
-    return new Promise((resolve, reject) => {
-      let bgColor = colors[color][0];
-      ffmpeg(`${process.cwd()}/video/tmp/${vid}`)
-        .outputOptions([
-          '-r 30',
-          '-filter:v scale=w=1080:h=-1,pad=1080:1920:0:(oh/2-ih/2):black',
-          '-acodec copy',
-          '-preset veryfast',
-          '-max_muxing_queue_size 1024'
-        ])
-        .save(`${process.cwd()}/video/tmp/${i}.mp4`)
-        .on('end', () => {
-          //console.log(`Finished resampling video ${i}-${vid}`);
-          resolve();
-        })
-        .on('error', err => {
-          ffmpeg(`${process.cwd()}/video/tmp/${vid}`)
-            .outputOptions([
-              '-r 30',
-              `-vf scale=-1:1920,pad=1080:1920:(ow/2-iw/2):0:${bgColor}`,
-              '-acodec copy',
-              '-preset veryfast',
-              '-max_muxing_queue_size 1024'
-            ])
-            .save(`${process.cwd()}/video/tmp/${i}.mp4`)
-            .on('end', () => {
-              //console.log(`Finished resampling video ${i}-${vid}`);
-              resolve();
-            });
-        });
+    try {
+        return new Promise((resolve, reject) => {
+            let bgColor = colors[color][0];
+            ffmpeg(`${process.cwd()}/video/tmp/${vid}`)
+              .outputOptions([
+                '-r 30',
+                '-filter:v scale=w=1080:h=-1,pad=1080:1920:0:(oh/2-ih/2):black',
+                '-acodec copy',
+                '-preset veryfast',
+                '-max_muxing_queue_size 1024'
+              ])
+              .save(`${process.cwd()}/video/tmp/${i}.mp4`)
+              .on('end', () => {
+                //console.log(`Finished resampling video ${i}-${vid}`);
+                resolve();
+              })
+              .on('error', err => {
+                ffmpeg(`${process.cwd()}/video/tmp/${vid}`)
+                  .outputOptions([
+                    '-r 30',
+                    `-vf scale=-1:1920,pad=1080:1920:(ow/2-iw/2):0:${bgColor}`,
+                    '-acodec copy',
+                    '-preset veryfast',
+                    '-max_muxing_queue_size 1024'
+                  ])
+                  .save(`${process.cwd()}/video/tmp/${i}.mp4`)
+                  .on('end', () => {
+                    //console.log(`Finished resampling video ${i}-${vid}`);
+                    resolve();
+                  });
+              });
+          });
+    } catch (err) {
+        console.log(err);
+    }
 
-    });
   }
 
   // Compile and resize videos
@@ -204,34 +208,36 @@ function Compile () {
     };
 
     this.moveFiles = async () => {
-        fs.readdir(`${process.cwd()}/video/tmp`, async (err, folders) => {
-            if (err) console.log(`GetVideo.js > this.moveFiles > folder error: ${err}`);
-            folders.forEach(folder => {
-                if (fs.lstatSync(`${process.cwd()}/video/tmp/${folder}`).isDirectory()) {
-                    fs.readdir(`${process.cwd()}/video/tmp/${folder}`, async (err, files) => {
-                        console.log(`${folder}/${files}`);
-                        if (err) console.log(`GetVideo.js > this.moveFiles > file error: ${err}`);
-                        console.log(files);
-                        files.forEach(file => {
-                            fs.renameSync(`${process.cwd()}/video/tmp/${folder}/${file}`, `${process.cwd()}/video/tmp/${file}`);
+        return new Promise(async (resolve, reject) => {
+            fs.readdir(`${process.cwd()}/video/tmp`, async (err, folders) => {
+                if (err) console.log(`GetVideo.js > this.moveFiles > folder error: ${err}`);
+                folders.forEach(folder => {
+                    if (fs.lstatSync(`${process.cwd()}/video/tmp/${folder}`).isDirectory()) {
+                        fs.readdir(`${process.cwd()}/video/tmp/${folder}`, (err, files) => {
+                            console.log(`${folder}/${files}`);
+                            if (err) console.log(`GetVideo.js > this.moveFiles > file error: ${err}`);
+                                console.log(files);
+                                files.forEach(file => {
+                                    fs.renameSync(`${process.cwd()}/video/tmp/${folder}/${file}`, `${process.cwd()}/video/tmp/${file}`);
+                                });
                         });
-                    fs.rmdirSync(`${process.cwd()}/video/tmp/${folder}`);
-                    });
-                }
+                    }
+                    await fs.rmdirSync(`${process.cwd()}/video/tmp/${folder}`);
+                });
             });
+            resolve();
         });
-        return;
     }
 
     this.filterVids = async (posts, options) => {
         try {
             return new Promise(async (resolve, reject) => {
                 console.log('Filtering videos...');
-                const { days=1, likes=0, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
+                const { days=1, likes=0, exBlockedSongs=false, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
                 const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
                 const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
                 const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
-                let videoIds = [];
+                let videoIds = [], videoLength, videoSize;
 
                 posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
                 posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
@@ -240,12 +246,31 @@ function Compile () {
                 if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
                 if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
 
+                // exclude corrupted videos
+                let videos = fs.readdirSync(`${process.cwd()}/video/tmp`);
+                console.log(videos);
+                for (let video of videos) {
+                    new Promise(async (resolve, reject) => {
+                        if (/.mp4$/.test(video)) {
+                            console.log('inside filtering function for loop');
+                            videoSize = fs.statSync(`${process.cwd()}/video/tmp/${video}`).size;
+                            videoLength = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${video}`);
+                            console.log(`${video} Length: ${videoLength}. Size: ${videoSize}`);
+                            if (videoSize < 2000 || videoLength > maxLength) {
+                                posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
+                            }
+                        }
+                        resolve();
+                    });
+                }
+
+
                 posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
                 videoIds = [...new Set(videoIds)]; // remove duplicates
 
                 fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds);
+                fs.writeFileSync(`${process.cwd()}/video/tmp/posts.json`, JSON.stringify(posts));
                 console.log('Finished filtering videos');
-                console.log(posts.collector);
                 resolve(videoIds);
             });
         } catch (err) {
@@ -255,7 +280,7 @@ function Compile () {
 
     this.start = async (posts, options) => {
         return new Promise(async (resolve, reject) => {
-        let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, width, height } = options;
+        let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, maxLength, width, height } = options;
         if (hStack) isLandscape=true; // if hStack then default to landscape
 
         switch (isLandscape) {

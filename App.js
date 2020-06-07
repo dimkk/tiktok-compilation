@@ -31,9 +31,12 @@ async function App () {
             let posts = await getVideo.multiUser(1,asianGirls);
             await compile.start(posts, {
                 'color': 'pink',
-                'days': 1,
+                'days': 2,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             await upload('asianGirls');
@@ -54,7 +57,10 @@ async function App () {
                 'color': 'blue',
                 'days': 1,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             await upload('asianGuys');
@@ -75,7 +81,10 @@ async function App () {
                 'color': 'red',
                 'days': 2,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             await upload('japan');
@@ -96,7 +105,10 @@ async function App () {
                 'color': 'red',
                 'days': 2,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             await upload('china');
@@ -112,12 +124,15 @@ async function App () {
             await empty();
             const korea = fs.readFileSync(`${process.cwd()}/res/korea.txt`,'utf8').split(',\r\n');
             console.log(korea);
-            let posts = await getVideo.multiUser(3,korea);
+            let posts = await getVideo.multiUser(1,korea);
             await compile.start(posts, {
                 'color': 'red',
                 'days': 99,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             //await upload('korea');
@@ -138,7 +153,10 @@ async function App () {
                 'color': 'black',
                 'days': 1,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             await upload('influencers');
@@ -157,7 +175,10 @@ async function App () {
                 'color': 'black',
                 'days': 99,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             //await upload('trending');
@@ -178,7 +199,10 @@ async function App () {
                 'color': 'black',
                 'days': 3,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': true,
+                'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
             await upload('custom');
@@ -192,16 +216,19 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(3,'6824895008496306949'); // multiple of 3
+            let posts = await getVideo.music(120,'6831722183610419974'); // multiple of 3
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 0,
                 'isLandscape': true,
-                'hStack': true
+                'hStack': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': false,
+                'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            //await upload('custom');
+            await upload('music');
         }
         catch (err) {
             console.log(err);
@@ -212,17 +239,18 @@ async function App () {
     async function user () {
         try {
             await empty();
-            let posts = await getVideo.user(6,'abg_eboy');
+            let posts = await getVideo.user(3,'abg_eboy');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'exBlockedSongs': false,
-                'exPartlyBlockedSongs': true,
-                'exUnmonetizableSongs': true,
+                'maxLength': 7,
+                'exBlockedSongs': false, // to be changed to true
+                'exPartlyBlockedSongs': false, // to be changed to true
+                'exUnmonetizableSongs': false, // to be changed to true
             });
-            await thumbnail(posts);
+            //await thumbnail(posts);
             //await upload('custom');
         }
         catch (err) {
@@ -241,10 +269,13 @@ async function App () {
                 'color': 'black',
                 'days': 999,
                 'likes': 0,
-                'isLandscape': true
+                'isLandscape': true,
+                'exBlockedSongs': true,
+                'exPartlyBlockedSongs': false,
+                'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            // await upload('custom');
+            await upload('custom');
         }
         catch (err) {
             console.log(err);
@@ -255,11 +286,11 @@ async function App () {
     // await asianGuys();
     // await japan();
     // await china();
-     await korea();
+    // await korea();
     // await influencers();
     // await trending();
     // await music();
-    // await user();
+    await user();
     // await multiHashtag();
     // await custom();
 
@@ -275,7 +306,6 @@ App();
 
 /*  Future Changes Roadmap:
     Replace youtube-upload-api with googleapis
-    Make music video play 3 videos at once
     Automate on firebase to run daily
 
 */
@@ -294,17 +324,3 @@ for i in {1..240}; do printf "file '%s'\n" 0.mp4 >> list.txt; done
 ffmpeg -f concat -i list.txt -c copy loop.mp4
 
 */
-
-    // await compile.start(posts, {
-    //   'color': 'pink',
-    //   'days': 1,
-    //   'likes': 0,
-    //   'isLandscape': true
-    // });
-    // console.log(`App.js: Compile function passed`);
-
-    // await thumbnail(posts);
-    // console.log(`App.js: Thumbnail function passed`);
-
-    // await upload('asianGirls'); // asianGirls, asianGuys, japan, china, influencers, trending
-    // console.log(`App.js: Upload function complete`);

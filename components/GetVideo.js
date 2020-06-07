@@ -113,7 +113,7 @@ function GetVideo (num) {
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: 'all'
                 });
-                
+
                 collectorArr.push.apply(collectorArr, posts.collector);
 
             } catch (error) {
