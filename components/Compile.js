@@ -13,41 +13,37 @@ function Compile () {
     'purple': ['#e5c0ff','#f2e1ff'],
     'red': ['#ffc0c0','#ffe1e1']
   };
+  const videoDir = `${process.cwd()}/video`,
+        videoTmpDir = `${process.cwd()}/video/tmp`;
 
   // Resample videos
   this.resample = (vid, i, color) => {
     try {
         return new Promise((resolve, reject) => {
             let bgColor = colors[color][0];
-            ffmpeg(`${process.cwd()}/video/tmp/${vid}`)
-              .outputOptions([
+            ffmpeg(`${videoTmpDir}/${vid}`)
+                .outputOptions([
                 '-r 30',
                 '-filter:v scale=w=1080:h=-1,pad=1080:1920:0:(oh/2-ih/2):black',
                 '-acodec copy',
                 '-preset veryfast',
                 '-max_muxing_queue_size 1024'
-              ])
-              .save(`${process.cwd()}/video/tmp/${i}.mp4`)
-              .on('end', () => {
-                //console.log(`Finished resampling video ${i}-${vid}`);
-                resolve();
-              })
-              .on('error', err => {
-                ffmpeg(`${process.cwd()}/video/tmp/${vid}`)
-                  .outputOptions([
+                ])
+                .save(`${videoTmpDir}/${i}.mp4`)
+                .on('end', () => resolve())
+                .on('error', err => {
+                ffmpeg(`${videoTmpDir}/${vid}`)
+                    .outputOptions([
                     '-r 30',
                     `-vf scale=-1:1920,pad=1080:1920:(ow/2-iw/2):0:${bgColor}`,
                     '-acodec copy',
                     '-preset veryfast',
                     '-max_muxing_queue_size 1024'
-                  ])
-                  .save(`${process.cwd()}/video/tmp/${i}.mp4`)
-                  .on('end', () => {
-                    //console.log(`Finished resampling video ${i}-${vid}`);
-                    resolve();
-                  });
-              });
-          });
+                    ])
+                    .save(`${videoTmpDir}/${i}.mp4`)
+                    .on('end', () => resolve());
+                });
+            });
     } catch (err) {
         console.log(err);
     }
@@ -62,7 +58,7 @@ function Compile () {
         console.log('Compiling videos...');
         let bgColor = (width === 1920) ? colors[color][0] : 'black';
 
-        let listFileName = `${process.cwd()}/video/tmp/list.txt`,
+        let listFileName = `${videoTmpDir}/list.txt`,
             fileNames = '';
 
         videos.forEach((fileName, index) => fileNames += `file './${index}.mp4'\n`);
@@ -80,7 +76,7 @@ function Compile () {
               '-preset veryfast',
               '-acodec copy'
             ])
-            .save(((width===1920) ? `${process.cwd()}/video/tmp/tmp1.mp4` : `${process.cwd()}/video/tmp/tmp1.mp4`)) // redundant currently to watermark vertical videos too
+            .save(((width===1920) ? `${videoTmpDir}/tmp1.mp4` : `${videoTmpDir}/tmp1.mp4`)) // redundant currently to watermark vertical videos too
             .on('progress', p => console.log(`Rendering unstyled video: ${p.percent}`))
             .on('end', () => resolve())
             .on('error', err => console.log(`Rending error: ${err}`));
@@ -99,14 +95,14 @@ function Compile () {
       let txtColor = colors[color][1];
       console.log('Styling video...');
       ffmpeg()
-        .input(`${process.cwd()}/video/tmp/tmp1.mp4`)
-        .input(`${process.cwd()}/video/logo.png`)
+        .input(`${videoTmpDir}/tmp1.mp4`)
+        .input(`${videoDir}/logo.png`)
         .outputOptions([
           `-filter_complex [0:v][1:v]overlay=(300-75):(1080/2-150):[v1];[v1][1:v]overlay=(607+600+300-75):(1080/2-150):[v2],[v2]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=${txtColor}:fontsize=72:x=1675:y=(1080-80)`,
           '-preset veryfast', // try -preset veryfast
           '-acodec copy'
         ])
-        .save(`${process.cwd()}/video/output.mp4`)
+        .save(`${videoDir}/output.mp4`)
         .on('progress', p => console.log(`Rendering final video: ${p.percent}`))
         .on('end', () => {
           console.log('Video compiled, watermarked and ready to be uploaded');
@@ -119,13 +115,13 @@ function Compile () {
     return new Promise(resolve => {
       console.log('Styling video...');
       ffmpeg()
-        .input(`${process.cwd()}/video/tmp/tmp1.mp4`)
+        .input(`${videoTmpDir}/tmp1.mp4`)
         .outputOptions([
           `-filter_complex drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.4:fontsize=64:x=40:y=(1920-64-20)`, //BottomLeft fontcolor=#F8F8FF@0.3:fontsize=64:x=40:y=(1920-64-20) TopRight fontcolor=#F8F8FF@0.2:fontsize=64:x=(1080-210-30):y=(50)
           '-preset veryfast',
           '-acodec copy'
         ])
-        .save(`${process.cwd()}/video/output.mp4`)
+        .save(`${videoDir}/output.mp4`)
         .on('progress', p => console.log(`Rendering final video: ${p.percent}`))
         .on('end', () => {
           console.log('Video compiled, styled and ready to be uploaded');
@@ -150,7 +146,7 @@ function Compile () {
             }
 
             // Create listFile of hStack videos
-            let hStackList = `${process.cwd()}/video/tmp/hStackList.txt`;
+            let hStackList = `${videoTmpDir}/hStackList.txt`;
 
             await fsPromises.writeFile(hStackList, hStackNames, (err) => {
             if (err) console.log(`WriteFile Error: ${err}`);
@@ -164,7 +160,7 @@ function Compile () {
                     '-preset veryfast',
                     '-acodec copy'
                 ])
-                .save(`${process.cwd()}/video/output.mp4`)
+                .save(`${videoDir}/output.mp4`)
                 .on('progress', p => console.log(`Rendering Compiled hStack video: ${p.percent}`))
                 .on('end', () => {
                     console.log(`Finished compiling hStack videos`);
@@ -181,15 +177,15 @@ function Compile () {
     this.hStackCreate = async (videos, color, width, height, i, numLoops) => {
         return new Promise(async (resolve, reject) => {
             let len0, len1, len2, audioArr = [], audioIndex;
-            len0 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3}.mp4`);
-            len1 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+1}.mp4`);
-            len2 = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${i*3+2}.mp4`);
+            len0 = await getVideoDurationInSeconds(`${videoTmpDir}/${i*3}.mp4`);
+            len1 = await getVideoDurationInSeconds(`${videoTmpDir}/${i*3+1}.mp4`);
+            len2 = await getVideoDurationInSeconds(`${videoTmpDir}/${i*3+2}.mp4`);
             audioArr.push(len0,len1,len2);
             audioIndex = audioArr.indexOf(Math.max(len0, len1, len2));
 
-            ffmpeg(`${process.cwd()}/video/tmp/${i*3}.mp4`)
-                .input(`${process.cwd()}/video/tmp/${i*3+1}.mp4`)
-                .input(`${process.cwd()}/video/tmp/${i*3+2}.mp4`)
+            ffmpeg(`${videoTmpDir}/${i*3}.mp4`)
+                .input(`${videoTmpDir}/${i*3+1}.mp4`)
+                .input(`${videoTmpDir}/${i*3+2}.mp4`)
                 .outputOptions([
                     `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:${height}[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.2:fontsize=64:x=40:y=(1080-64-20)[v6]`,
                     `-map [v6]`,
@@ -198,7 +194,7 @@ function Compile () {
                     '-preset veryfast',
                     '-ac 2'
                 ])
-                .save(`${process.cwd()}/video/tmp/hStack${i}.mp4`)
+                .save(`${videoTmpDir}/hStack${i}.mp4`)
                 .on('end', () => {
                     console.log(`Finished creating hStack video: ${i+1}/${numLoops}`);
                     resolve();
@@ -207,74 +203,60 @@ function Compile () {
         });
     };
 
-    this.moveFiles = async () => {
-        return new Promise(async (resolve, reject) => {
-            fs.readdir(`${process.cwd()}/video/tmp`, async (err, folders) => {
-                if (err) console.log(`GetVideo.js > this.moveFiles > folder error: ${err}`);
-                folders.forEach(folder => {
-                    if (fs.lstatSync(`${process.cwd()}/video/tmp/${folder}`).isDirectory()) {
-                        fs.readdir(`${process.cwd()}/video/tmp/${folder}`, (err, files) => {
-                            console.log(`${folder}/${files}`);
-                            if (err) console.log(`GetVideo.js > this.moveFiles > file error: ${err}`);
-                                console.log(files);
-                                files.forEach(file => {
-                                    fs.renameSync(`${process.cwd()}/video/tmp/${folder}/${file}`, `${process.cwd()}/video/tmp/${file}`);
-                                });
-                        });
-                    }
-                    await fs.rmdirSync(`${process.cwd()}/video/tmp/${folder}`);
-                });
-            });
-            resolve();
-        });
-    }
-
     this.filterVids = async (posts, options) => {
         try {
-            return new Promise(async (resolve, reject) => {
-                console.log('Filtering videos...');
-                const { days=1, likes=0, exBlockedSongs=false, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
-                const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
-                const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
-                const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
-                let videoIds = [], videoLength, videoSize;
+            console.log('Filtering videos...');
+            const { days=1, likes=0, exBlockedSongs=false, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
+            const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
+            const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
+            const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
+            let videoIds = [];
 
-                posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
-                posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
-                posts.collector = posts.collector.filter(post => post.diggCount > likes); // remove videos with less than X likes
-                if (exBlockedSongs) posts.collector = posts.collector.filter(post => !fullyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove blocked songs
-                if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
-                if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
+            posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
+            posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
+            posts.collector = posts.collector.filter(post => post.diggCount > likes); // remove videos with less than X likes
+            if (exBlockedSongs) posts.collector = posts.collector.filter(post => !fullyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove blocked songs
+            if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
+            if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
 
-                // exclude corrupted videos
-                let videos = fs.readdirSync(`${process.cwd()}/video/tmp`);
-                console.log(videos);
-                for (let video of videos) {
-                    new Promise(async (resolve, reject) => {
-                        if (/.mp4$/.test(video)) {
-                            console.log('inside filtering function for loop');
-                            videoSize = fs.statSync(`${process.cwd()}/video/tmp/${video}`).size;
-                            videoLength = await getVideoDurationInSeconds(`${process.cwd()}/video/tmp/${video}`);
-                            console.log(`${video} Length: ${videoLength}. Size: ${videoSize}`);
-                            if (videoSize < 2000 || videoLength > maxLength) {
-                                posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
-                            }
-                        }
-                        resolve();
-                    });
+            // Filter out corrupted & long videos
+            let videoLength, videoSize;
+            let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
+            await Promise.all(videos.map(async (video) => {
+                videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
+                videoLength = await getVideoDurationInSeconds(`${videoTmpDir}/${video}`);
+                if (videoSize < 2000 || videoLength > maxLength) {
+                    posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
                 }
+            }));
 
+            posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
+            videoIds = [...new Set(videoIds)]; // remove duplicates
 
-                posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
-                videoIds = [...new Set(videoIds)]; // remove duplicates
+            fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, videoIds);
+            fs.writeFileSync(`${videoTmpDir}/posts.json`, JSON.stringify(posts));
+            console.log('Finished filtering videos');
+            return videoIds;
 
-                fs.writeFileSync(`${process.cwd()}/video/tmp/videoIds.txt`, videoIds);
-                fs.writeFileSync(`${process.cwd()}/video/tmp/posts.json`, JSON.stringify(posts));
-                console.log('Finished filtering videos');
-                resolve(videoIds);
-            });
         } catch (err) {
-            console.log(`Compile.js > this.filter error: ${err}`);
+            console.log(`Compile.js > this.filterVids(): ${err}`);
+        }
+    }
+
+    this.moveFiles = async () => {
+        try {
+            let folders, files;
+            folders = fs.readdirSync(videoTmpDir).filter(el => fs.lstatSync(`${videoTmpDir}/${el}`).isDirectory());
+            await Promise.all(folders.map(async (folder) => {
+                files = fs.readdirSync(`${videoTmpDir}/${folder}`);
+                await Promise.all(files.map(async (file) => {
+                    fs.renameSync(`${videoTmpDir}/${folder}/${file}`, `${videoTmpDir}/${file}`);
+                }));
+                fs.rmdirSync(`${videoTmpDir}/${folder}`);
+            }));
+        }
+        catch (err) {
+            console.log(`Compile.js > this.moveFiles(): ${err}`);
         }
     }
 

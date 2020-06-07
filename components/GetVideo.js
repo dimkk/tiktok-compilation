@@ -7,7 +7,6 @@ function GetVideo (num) {
     // Trending
     this.trending = async (num=1) => {
         try {
-            // Download tiktok videos
             const posts = await TikTokScraper.trend('', {
                 number: num,
                 download: true,
@@ -63,7 +62,6 @@ function GetVideo (num) {
     // Users
     this.user = async (num=1,userId) => {
         try {
-
             const posts = await TikTokScraper.user(userId, {
                 number: num,
                 download: true,
@@ -73,57 +71,58 @@ function GetVideo (num) {
             console.log(posts);
             return posts;
 
-        } catch (error) {
-            console.log(error);
+        } catch (err) {
+            console.log(err);
         }
     }
 
 
     // Multi-hashtags
     this.multiHashtag = async (num=1, hashtagArr) => {
-        const collectorArr = [];
-        for (let i=0; i<hashtagArr.length; i++) {
-            try {
-                posts = await TikTokScraper.hashtag(hashtagArr[i], {
+        try {
+            const collectorArr = [];
+            await Promise.all(hashtagArr.map(async (hashtag) => {
+                posts = await TikTokScraper.user(hashtag, {
                     number: num,
                     download: true,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: 'all'
                 });
-
                 collectorArr.push.apply(collectorArr, posts.collector);
+            }));
 
-            } catch (error) {
-                console.log(`GetVideo.js Error: ${error}`);
-                continue;
-            }
+            let postsArr = {'collector': collectorArr};
+            return postsArr;
+
+        } catch (err) {
+            console.log(`GetVideo.js > this.multiUser: ${err}`);
         }
-        let postsArr = {'collector': collectorArr};
-        return postsArr;
     }
 
     // Multi-users
     this.multiUser = async (num=1, userArr) => {
-        const collectorArr = [];
-        for (let i=0; i<userArr.length; i++) {
-            try {
-                posts = await TikTokScraper.user(userArr[i], {
+        try {
+            const collectorArr = [];
+            await Promise.all(userArr.map(async (userName) => {
+                posts = await TikTokScraper.user(userName, {
                     number: num,
                     download: true,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: 'all'
                 });
-
                 collectorArr.push.apply(collectorArr, posts.collector);
+            }));
 
-            } catch (error) {
-                console.log(`GetVideo.js Error: ${error}`);
-                continue;
-            }
+            let postsArr = {'collector': collectorArr};
+            return postsArr;
+
+        } catch (err) {
+            console.log(`GetVideo.js > this.multiUser: ${err}`);
         }
-        let postsArr = {'collector': collectorArr};
-        return postsArr;
+
     }
+
+
 
 }
 

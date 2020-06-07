@@ -101,17 +101,17 @@ async function App () {
             const china = fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
             console.log(china);
             let posts = await getVideo.multiUser(1,china);
-            await compile.start(posts, {
-                'color': 'red',
-                'days': 2,
-                'likes': 0,
-                'isLandscape': true,
-                'exBlockedSongs': true,
-                'exPartlyBlockedSongs': true,
-                'exUnmonetizableSongs': true,
-            });
-            await thumbnail(posts);
-            await upload('china');
+            // await compile.start(posts, {
+            //     'color': 'red',
+            //     'days': 2,
+            //     'likes': 0,
+            //     'isLandscape': true,
+            //     'exBlockedSongs': true,
+            //     'exPartlyBlockedSongs': true,
+            //     'exUnmonetizableSongs': true,
+            // });
+            // await thumbnail(posts);
+            // await upload('china');
         }
         catch (err) {
             console.log(err);
@@ -160,6 +160,31 @@ async function App () {
             });
             await thumbnail(posts);
             await upload('influencers');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    // ------- THAILAND --------- //
+    async function thailand () {
+        try {
+            await empty();
+            const thailand = fs.readFileSync(`${process.cwd()}/res/thailand.txt`,'utf8').split(',\r\n');
+            console.log(thailand);
+            let posts = await getVideo.multiUser(1,thailand);
+            await compile.start(posts, {
+                'color': 'black',
+                'days': 99,
+                'likes': 0,
+                'isLandscape': true,
+                'maxLength': 999,
+                'exBlockedSongs': false,
+                'exPartlyBlockedSongs': false,
+                'exUnmonetizableSongs': false,
+            });
+            //await thumbnail(posts);
+            //await upload('influencers');
         }
         catch (err) {
             console.log(err);
@@ -287,10 +312,11 @@ async function App () {
     // await japan();
     // await china();
     // await korea();
+     await thailand();
     // await influencers();
     // await trending();
     // await music();
-    await user();
+    // await user();
     // await multiHashtag();
     // await custom();
 
