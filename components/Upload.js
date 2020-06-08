@@ -154,7 +154,7 @@ const videoInfo = {
 async function Upload(type) {
   try {
     await auth();
-    console.log('Upload.js: Auth function passed.');
+    console.log('Starting upload....');
 
     const youtube = Youtube({
       saveTokens: false,
@@ -202,7 +202,7 @@ async function Upload(type) {
     );
 
     async function uploadVideo() {
-      return new Promise(async (resolve, reject) => {
+      await new Promise(async (resolve, reject) => {
         await youtube.upload(`${process.cwd()}/video/output.mp4`, params, (err, video) => {
             if (err) return console.error("Cannot upload video:", err);
             console.log("Video was uploaded with ID:", video.id);
@@ -230,7 +230,7 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
-// Upload('music');
+ Upload('asianGirls');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 

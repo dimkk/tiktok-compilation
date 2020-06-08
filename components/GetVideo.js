@@ -13,6 +13,7 @@ function GetVideo (num) {
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: 'all',
                 store: true,
+                noWaterMark: false,
                 historypath: `${process.cwd()}/video/`
             });
             console.log(posts);
@@ -30,6 +31,7 @@ function GetVideo (num) {
             const posts = await TikTokScraper.hashtag(hashtag, {
                 number: num,
                 download: true,
+                noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: 'all'
             });
@@ -47,6 +49,7 @@ function GetVideo (num) {
             const posts = await TikTokScraper.music(musicId, {
                 number: num,
                 download: true,
+                noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: 'all'
             });
@@ -65,6 +68,7 @@ function GetVideo (num) {
             const posts = await TikTokScraper.user(userId, {
                 number: num,
                 download: true,
+                noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: 'all'
             });
@@ -85,6 +89,7 @@ function GetVideo (num) {
                 posts = await TikTokScraper.user(hashtag, {
                     number: num,
                     download: true,
+                    noWaterMark: false,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: 'all'
                 });
@@ -107,6 +112,7 @@ function GetVideo (num) {
                 posts = await TikTokScraper.user(userName, {
                     number: num,
                     download: true,
+                    noWaterMark: false,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: 'all'
                 });

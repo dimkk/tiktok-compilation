@@ -222,11 +222,15 @@ function Compile () {
             console.log(`${posts.collector.length} videos to start`);
             posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
             posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
+            console.log(`${posts.collector.length} videos after date filter`);
+
             posts.collector = posts.collector.filter(post => post.diggCount > likes); // remove videos with less than X likes
+            console.log(`${posts.collector.length} videos after likes filter`);
+
             if (exBlockedSongs) posts.collector = posts.collector.filter(post => !fullyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove blocked songs
             if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
             if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
-            console.log(`${posts.collector.length} videos after date & song filter`);
+            console.log(`${posts.collector.length} videos after song filter`);
 
             // Filter out corrupted & long videos
             let videoLength, videoSize;
@@ -242,12 +246,14 @@ function Compile () {
 
             posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
             videoIds = [...new Set(videoIds)]; // remove duplicates
-
             console.log(`${videoIds.length} videos after removing duplicates`);
+
             // Make sure multiple of 3 if hStack
             let numToRemove = videoIds.length % 3;
-            if (hStack && numToRemove > 0) videoIds = videoIds.slice(0, videoIds.length - numToRemove);
-            console.log(`${videoIds.length} videos after hStack filter`);
+            if (hStack && numToRemove > 0) {
+                videoIds = videoIds.slice(0, videoIds.length - numToRemove);
+                console.log(`${videoIds.length} videos after hStack filter`);
+            }
 
             fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, videoIds);
             fs.writeFileSync(`${videoTmpDir}/posts.json`, JSON.stringify(posts));

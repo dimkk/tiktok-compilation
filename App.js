@@ -35,7 +35,7 @@ async function App () {
                 'days': 2,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -56,11 +56,11 @@ async function App () {
             console.log(asianGuys);
             let posts = await getVideo.multiUser(1,asianGuys);
             await compile.start(posts, {
-                'color': 'blue',
+                'color': 'black',
                 'days': 1,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -85,7 +85,7 @@ async function App () {
                 'days': 2,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -110,7 +110,7 @@ async function App () {
                 'days': 2,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -135,7 +135,7 @@ async function App () {
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -160,7 +160,7 @@ async function App () {
                 'days': 1,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -182,10 +182,10 @@ async function App () {
             let posts = await getVideo.multiUser(2,thailand);
             await compile.start(posts, {
                 'color': 'black',
-                'days': 99,
+                'days': 2,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': false,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -318,7 +318,7 @@ async function App () {
         }
     }
 
-    // await asianGirls();
+     await asianGirls();
     // await asianGuys();
     // await japan();
     // await china();
