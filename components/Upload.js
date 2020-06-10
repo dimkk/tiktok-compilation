@@ -109,9 +109,10 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "music": {
-        "title": `👀 F The Other (No) B**tches Tiktok | Better by Valentino Khan`,
+        "title": `💔 Tik Tok This City Is Going To Break My Heart | This City Tiktok`,
         "description": dedent`
-        This video is a compilation of the song Valentino Khan & Wuki - Better feat. Roxanna.
+        A compilation of duets and harmonizations for the song This City's Gonna Break My Heart (This City) by Sam Fischer originally covered by Jonathan Tilkin @jonathantilkin on Tiktok.
+
             Thanks for watching!
 
             Song link: https://www.youtube.com/watch?v=w7YUElcMzPY
@@ -121,7 +122,7 @@ const videoInfo = {
 
             -----
             #tiktok #whosnexttiktok #tiktokwilliam`,
-        "tags": ['tiktok', 'tiktok william', "tik tok edm", `valentino khan better remix`, `better valentino khan`, 'valentino khan better'],
+        "tags": ['tiktok', 'tiktok william', "tik tok the city is going to break my heart", `tik tok song the city gonna break my heart `, `the city tiktok`, 'the city tiktok song', 'the city tik tok cover', 'this city tiktok', 'this city tik tok cover', 'this city tiktok harmony', 'this city tik tok cover', 'this city tiktok version', 'this city tiktok singing'],
     },
     "user": {
         "title": `😉 Tiktok Brooke Monk`,

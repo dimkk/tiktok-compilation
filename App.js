@@ -250,14 +250,14 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(60,'6790736362443229957'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            let posts = await getVideo.music(3,'6790736362443229957'); // Multiple of 3. 120 stacked @ 15sec is 10min
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 100,
                 'isLandscape': true,
-                'hStack': true,
-                'maxLength': 20,
+                'hStack': false,
+                'maxLength': 16,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -321,12 +321,12 @@ async function App () {
     // await asianGirls();
     // await asianGuys();
     // await japan();
-     await china();
+    // await china();
     // await korea();
     // await thailand();
     // await influencers();
     // await trending();
-    // await music();
+     await music();
     // await user();
     // await multiHashtag();
     // await custom();

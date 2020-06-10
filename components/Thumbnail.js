@@ -3,15 +3,15 @@ const download = require('image-downloader');
 
 const Thumbnail = async (posts) => {
   try {
-    return new Promise(async (resolve, reject) => {
-      // Downloads first 3 video thumbnails
+    await new Promise(async (resolve, reject) => {
+      // Download first 3 video thumbnails
       for (let i=0; i<Math.min(3); i++) {
         await download.image({
             url: posts.collector[i].covers.default,
             dest: `${process.cwd()}/img/tmp/${i}.jpg`
         });
       }
-
+      console.log('text4');
       const bg = await Jimp.read(`${process.cwd()}/img/bg.png`)
       const logo = await Jimp.read(`${process.cwd()}/img/logo.png`);
       const image0 = await Jimp.read(`${process.cwd()}/img/tmp/0.jpg`);
