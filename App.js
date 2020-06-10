@@ -104,10 +104,10 @@ async function App () {
             await empty();
             const china = fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
             console.log(china);
-            let posts = await getVideo.multiUser(1,china);
+            let posts = await getVideo.multiUser(2,china);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 2,
+                'days': 6,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -250,7 +250,7 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(150,'6821499142800476929'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            let posts = await getVideo.music(60,'6790736362443229957'); // Multiple of 3. 120 stacked @ 15sec is 10min
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
@@ -263,7 +263,7 @@ async function App () {
                 'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            await upload('music');
+            //await upload('music');
         }
         catch (err) {
             console.log(err);
@@ -321,13 +321,13 @@ async function App () {
     // await asianGirls();
     // await asianGuys();
     // await japan();
-    // await china();
+     await china();
     // await korea();
     // await thailand();
     // await influencers();
     // await trending();
     // await music();
-     await user();
+    // await user();
     // await multiHashtag();
     // await custom();
 

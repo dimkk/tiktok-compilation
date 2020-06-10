@@ -233,19 +233,19 @@ function Compile () {
             if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
             console.log(`${posts.collector.length} videos after song filter`);
 
-            if (maxLength) posts.collector = posts.collector.filter(post => posts.videoMeta.duration <= maxLength); // filter out long videos
+            if (maxLength) posts.collector = posts.collector.filter(post => post.videoMeta.duration <= maxLength); // filter out long videos
             console.log(`${posts.collector.length} videos after maxLength filter`);
 
             // Filter out corrupted videos
-            let videoSize;
-            let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
-            await Promise.all(videos.map(async (video) => {
-                videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
-                if (videoSize < 2000) {
-                    posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
-                }
-            }));
-            console.log(`${posts.collector.length} videos after videoSize filter`);
+            // let videoSize;
+            // let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
+            // await Promise.all(videos.map(async (video) => {
+            //     videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
+            //     if (videoSize < 2000) {
+            //         posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
+            //     }
+            // }));
+            // console.log(`${posts.collector.length} videos after videoSize filter`);
 
             posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
             videoIds = [...new Set(videoIds)]; // remove duplicates
