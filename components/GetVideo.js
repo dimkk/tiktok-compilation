@@ -13,7 +13,7 @@ function GetVideo (num) {
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: '',
                 store: true,
-                noWaterMark: true,
+                noWaterMark: false,
                 historypath: `${process.cwd()}/video/`
             });
             console.log(posts);
@@ -30,7 +30,7 @@ function GetVideo (num) {
         try {
             const posts = await TikTokScraper.hashtag(hashtag, {
                 number: num,
-                download: true,
+                download: false,
                 noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: ''
@@ -48,7 +48,7 @@ function GetVideo (num) {
         try {
             const posts = await TikTokScraper.music(musicId, {
                 number: num,
-                download: true,
+                download: false,
                 noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: ''
@@ -67,7 +67,7 @@ function GetVideo (num) {
         try {
             const posts = await TikTokScraper.user(userId, {
                 number: num,
-                download: true,
+                download: false,
                 noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: ''
@@ -88,7 +88,7 @@ function GetVideo (num) {
             await Promise.all(hashtagArr.map(async (hashtag) => {
                 posts = await TikTokScraper.user(hashtag, {
                     number: num,
-                    download: true,
+                    download: false,
                     noWaterMark: false,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: ''
@@ -111,7 +111,7 @@ function GetVideo (num) {
             await Promise.all(userArr.map(async (userName) => {
                 posts = await TikTokScraper.user(userName, {
                     number: num,
-                    download: true,
+                    download: false,
                     noWaterMark: false,
                     filepath: `${process.cwd()}/video/tmp`,
                     filetype: ''
