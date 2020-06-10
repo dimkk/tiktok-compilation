@@ -57,7 +57,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,asianGuys);
             await compile.start(posts, {
                 'color': 'black',
-                'days': 1,
+                'days': 3,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -82,7 +82,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,japan);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 2,
+                'days': 3,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -202,7 +202,7 @@ async function App () {
     async function trending () {
         try {
             await empty();
-            let posts = await getVideo.trending(60); // ~36 before it get doubles. 40 for 10min video
+            let posts = await getVideo.trending(6); // ~36 before it get doubles. 40 for 10min video
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
@@ -318,14 +318,14 @@ async function App () {
         }
     }
 
-     await asianGirls();
+    // await asianGirls();
     // await asianGuys();
     // await japan();
     // await china();
     // await korea();
     // await thailand();
     // await influencers();
-    // await trending();
+     await trending();
     // await music();
     // await user();
     // await multiHashtag();

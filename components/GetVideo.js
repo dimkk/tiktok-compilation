@@ -9,11 +9,11 @@ function GetVideo (num) {
         try {
             const posts = await TikTokScraper.trend('', {
                 number: num,
-                download: true,
+                download: false,
                 filepath: `${process.cwd()}/video/tmp`,
-                filetype: 'all',
+                filetype: '',
                 store: true,
-                noWaterMark: false,
+                noWaterMark: true,
                 historypath: `${process.cwd()}/video/`
             });
             console.log(posts);
@@ -33,7 +33,7 @@ function GetVideo (num) {
                 download: true,
                 noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
-                filetype: 'all'
+                filetype: ''
             });
             console.log(posts);
             return posts;
@@ -51,7 +51,7 @@ function GetVideo (num) {
                 download: true,
                 noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
-                filetype: 'all'
+                filetype: ''
             });
             console.log(posts);
             return posts;
@@ -70,7 +70,7 @@ function GetVideo (num) {
                 download: true,
                 noWaterMark: false,
                 filepath: `${process.cwd()}/video/tmp`,
-                filetype: 'all'
+                filetype: ''
             });
             console.log(posts);
             return posts;
@@ -91,7 +91,7 @@ function GetVideo (num) {
                     download: true,
                     noWaterMark: false,
                     filepath: `${process.cwd()}/video/tmp`,
-                    filetype: 'all'
+                    filetype: ''
                 });
                 collectorArr.push.apply(collectorArr, posts.collector);
             }));
@@ -114,7 +114,7 @@ function GetVideo (num) {
                     download: true,
                     noWaterMark: false,
                     filepath: `${process.cwd()}/video/tmp`,
-                    filetype: 'all'
+                    filetype: ''
                 });
                 collectorArr.push.apply(collectorArr, posts.collector);
             }));

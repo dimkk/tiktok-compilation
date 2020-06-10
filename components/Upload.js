@@ -11,7 +11,7 @@ const year = new Date().getFullYear();
 
 const videoInfo = {
     "asianGirls": {
-        "title": `👸 Cute Tiktok Girls Asian - ${month} ${day}, ${year}`,
+        "title": `👸 Tiktok Girls - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Girls.
             Thanks for watching!
@@ -22,10 +22,10 @@ const videoInfo = {
             -----
             #tiktok #tiktokwilliam #asiangirls
             `,
-        "tags": ['tiktokasiangirls', 'tiktok', 'japanese girls', 'tik tok korea', 'asian girls', 'cute asian girls', 'asian girl', 'cute asian girl', 'tiktokwilliam'],
+        "tags": ['tik tok girl dance', 'tik tok abgs', 'tik tok asian beautiful girl', 'tiktok william'],
     },
     "asianGuys": {
-        "title": `🤵‍ Cute Tiktok Boys Asian - ${month} ${day}, ${year}`,
+        "title": `🤵‍ Asian Guys Tik Tok - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Guys.
             Thanks for watching!
@@ -35,7 +35,7 @@ const videoInfo = {
 
             -----
             #tiktok #tiktokwilliam #asianguys`,
-        "tags": ['tiktokasianguys', 'tiktok', 'cute tik tok guys', 'cute asian guys', 'cute guys on tiktok', 'asian boys', 'cute asian boys', 'tik tok korea'],
+        "tags": ['asian guys tik tok', 'tik tok asian guys', 'tik tok asian boy', 'tik tok cute guys', 'cute asian guys tik tok', 'tiktok william'],
     },
     "japan": {
         "title": `🎎 TikTok Japan | 日本のティックトック - ${month} ${day}, ${year}`,
@@ -230,7 +230,7 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
- Upload('asianGirls');
+// Upload('asianGirls');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 

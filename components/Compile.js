@@ -2,6 +2,7 @@ const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const fsPromises = fs.promises;
 const { getVideoDurationInSeconds } = require('get-video-duration');
+const Download = require('./Download');
 
 function Compile () {
   const colors = {
@@ -237,7 +238,7 @@ function Compile () {
             let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
             await Promise.all(videos.map(async (video) => {
                 videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
-                videoLength = await getVideoDurationInSeconds(`${videoTmpDir}/${video}`);
+                if (videoSize > 2000) videoLength = await getVideoDurationInSeconds(`${videoTmpDir}/${video}`);
                 if (videoSize < 2000 || videoLength > maxLength) {
                     posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
                 }
@@ -250,10 +251,8 @@ function Compile () {
 
             // Make sure multiple of 3 if hStack
             let numToRemove = videoIds.length % 3;
-            if (hStack && numToRemove > 0) {
-                videoIds = videoIds.slice(0, videoIds.length - numToRemove);
-                console.log(`${videoIds.length} videos after hStack filter`);
-            }
+            if (hStack && numToRemove > 0) videoIds = videoIds.slice(0, videoIds.length - numToRemove);
+            console.log(`${videoIds.length} videos after hStack filter`);
 
             fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, videoIds);
             fs.writeFileSync(`${videoTmpDir}/posts.json`, JSON.stringify(posts));
@@ -302,8 +301,9 @@ function Compile () {
                 break;
         };
 
-        await this.moveFiles();
+        //await this.moveFiles(); // not needed since I download videos myself
         let videos = await this.filterVids(posts, options);
+        await Download(posts.collector);
         await this.resample(videos, options);
 
         (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
