@@ -109,9 +109,9 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "music": {
-        "title": `👀 GO GO GO! WHO'S NEXT!? TIKTOK #swankyleg`,
+        "title": `👀 Mother Father No B**ches - Tiktok Trance`,
         "description": dedent`
-        This video is a compilation of the Go Go Go - Who's Next!? videos where tiktokers do the swanky leg dance.
+        This video is a compilation of some EDM Trance song from Tiktok.
             Thanks for watching!
 
             Subscribe & I'll see you again tomorrow Kings & Queens!
@@ -119,7 +119,7 @@ const videoInfo = {
 
             -----
             #tiktok #whosnexttiktok #tiktokwilliam`,
-        "tags": ['tiktok', 'tiktok william', "tiktok who's next", `go go go who's next tiktok`, `go go go who's next tik tok original `, 'hip hop harry'],
+        "tags": ['tiktok', 'tiktok william', "tik tok edm", `edm tik tok`, `trance tik tok`, 'tiktok trance'],
     },
     "user": {
         "title": `😉 Tiktok Brooke Monk`,
