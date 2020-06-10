@@ -195,7 +195,7 @@ function Compile () {
                 .input(`${videoTmpDir}/${i*3+1}.mp4`)
                 .input(`${videoTmpDir}/${i*3+2}.mp4`)
                 .outputOptions([
-                    `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:${height}[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.2:fontsize=64:x=40:y=(1080-64-20)[v6]`,
+                    `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:${height}[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.3:fontsize=64:x=40:y=(1080-64-20)[v6]`,
                     `-map [v6]`,
                     `-map ${audioIndex}:a`,
                     '-max_muxing_queue_size 1024',
@@ -233,17 +233,19 @@ function Compile () {
             if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
             console.log(`${posts.collector.length} videos after song filter`);
 
-            // Filter out corrupted & long videos
-            let videoLength, videoSize;
+            if (maxLength) posts.collector = posts.collector.filter(post => posts.videoMeta.duration <= maxLength); // filter out long videos
+            console.log(`${posts.collector.length} videos after maxLength filter`);
+
+            // Filter out corrupted videos
+            let videoSize;
             let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
             await Promise.all(videos.map(async (video) => {
                 videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
-                if (videoSize > 2000) videoLength = await getVideoDurationInSeconds(`${videoTmpDir}/${video}`);
-                if (videoSize < 2000 || videoLength > maxLength) {
+                if (videoSize < 2000) {
                     posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
                 }
             }));
-            console.log(`${posts.collector.length} videos after maxLength filter`);
+            console.log(`${posts.collector.length} videos after videoSize filter`);
 
             posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
             videoIds = [...new Set(videoIds)]; // remove duplicates

@@ -32,7 +32,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,asianGirls);
             await compile.start(posts, {
                 'color': 'pink',
-                'days': 2,
+                'days': 1,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -57,7 +57,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,asianGuys);
             await compile.start(posts, {
                 'color': 'black',
-                'days': 3,
+                'days': 1,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -82,7 +82,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,japan);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 3,
+                'days': 1,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -263,7 +263,7 @@ async function App () {
                 'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            //await upload('music');
+            await upload('music');
         }
         catch (err) {
             console.log(err);
@@ -274,13 +274,13 @@ async function App () {
     async function user () {
         try {
             await empty();
-            let posts = await getVideo.user(3,'abg_eboy');
+            let posts = await getVideo.user(5,'hjevelyn');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': false, // to be changed to true
                 'exPartlyBlockedSongs': false, // to be changed to true
                 'exUnmonetizableSongs': false, // to be changed to true
@@ -326,8 +326,8 @@ async function App () {
     // await thailand();
     // await influencers();
     // await trending();
-     await music();
-    // await user();
+    // await music();
+     await user();
     // await multiHashtag();
     // await custom();
 

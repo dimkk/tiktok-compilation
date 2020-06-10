@@ -11,7 +11,7 @@ const year = new Date().getFullYear();
 
 const videoInfo = {
     "asianGirls": {
-        "title": `👸 Tiktok Girls - ${month} ${day}, ${year}`,
+        "title": `👩🏻 Asian Girls Tik Tok - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Girls.
             Thanks for watching!
@@ -25,7 +25,7 @@ const videoInfo = {
         "tags": ['tik tok girl dance', 'tik tok abgs', 'tik tok asian beautiful girl', 'tiktok william'],
     },
     "asianGuys": {
-        "title": `🤵‍ Asian Guys Tik Tok - ${month} ${day}, ${year}`,
+        "title": `🤵🏻‍ Asian Guys Tik Tok - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktok videos from Asian Guys.
             Thanks for watching!
@@ -38,7 +38,7 @@ const videoInfo = {
         "tags": ['asian guys tik tok', 'tik tok asian guys', 'tik tok asian boy', 'tik tok cute guys', 'cute asian guys tik tok', 'tiktok william'],
     },
     "japan": {
-        "title": `🎎 TikTok Japan | 日本のティックトック - ${month} ${day}, ${year}`,
+        "title": `🇯🇵 TikTok Japan | 日本のティックトック - ${month} ${day}, ${year}`,
         "description": dedent`
             This video is a compilation of tiktoks from amazing Japanese tiktokers.
             Thanks for watching!
@@ -109,17 +109,19 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "music": {
-        "title": `👀 Mother Father No B**ches - Tiktok Trance`,
+        "title": `👀 F The Other (No) B**tches Tiktok | Better by Valentino Khan`,
         "description": dedent`
-        This video is a compilation of some EDM Trance song from Tiktok.
+        This video is a compilation of the song Valentino Khan & Wuki - Better feat. Roxanna.
             Thanks for watching!
+
+            Song link: https://www.youtube.com/watch?v=w7YUElcMzPY
 
             Subscribe & I'll see you again tomorrow Kings & Queens!
             👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
             -----
             #tiktok #whosnexttiktok #tiktokwilliam`,
-        "tags": ['tiktok', 'tiktok william', "tik tok edm", `edm tik tok`, `trance tik tok`, 'tiktok trance'],
+        "tags": ['tiktok', 'tiktok william', "tik tok edm", `valentino khan better remix`, `better valentino khan`, 'valentino khan better'],
     },
     "user": {
         "title": `😉 Tiktok Brooke Monk`,
@@ -230,7 +232,7 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
-// Upload('asianGirls');
+//Upload('music');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 
