@@ -250,14 +250,15 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(3,'6790736362443229957'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            let posts = await getVideo.music(150,'6830698446031162113'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            // https://www.tiktok.com/music/original-sound-6686559019072490245
             await compile.start(posts, {
-                'color': 'black',
+                'color': 'pink',
                 'days': 999,
                 'likes': 100,
                 'isLandscape': true,
-                'hStack': false,
-                'maxLength': 16,
+                'hStack': true,
+                'maxLength': 13,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -298,20 +299,20 @@ async function App () {
         try {
             await empty();
             // let posts = await getVideo.music(90,'6791404477405596421');
-            // let posts = await getVideo.hashtag(50,'writethelyrics');
-            let posts = await getVideo.user(3,'brookemonk_');
+            let posts = await getVideo.hashtag(90,'voguechallenge');
+            //let posts = await getVideo.user(3,'brookemonk_');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            await upload('custom');
+            //await upload('custom');
         }
         catch (err) {
             console.log(err);
@@ -326,10 +327,10 @@ async function App () {
     // await thailand();
     // await influencers();
     // await trending();
-     await music();
+    // await music();
     // await user();
     // await multiHashtag();
-    // await custom();
+     await custom();
 
 
   }

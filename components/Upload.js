@@ -48,7 +48,7 @@ const videoInfo = {
 
             -----
             #tiktok日本 #ティックトック #tiktokjapan #tiktokwilliam`,
-        "tags": ['tiktokjapan', 'ティックトック', 'TikTok日本', 'tiktok japan', 'tiktok william', 'william tiktok'],
+        "tags": ['tiktok japan', 'ティックトック', 'TikTok日本', 'tiktok william'],
     },
     "china": {
         "title": `🐉 抖音 (Douyin) - ${month} ${day}, ${year}`,
