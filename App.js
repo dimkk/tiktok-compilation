@@ -66,7 +66,7 @@ async function App () {
                 'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
-            await upload('asianGuys');
+            //await upload('asianGuys');
         }
         catch (err) {
             console.log(err);
@@ -250,21 +250,20 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(150,'6830698446031162113'); // Multiple of 3. 120 stacked @ 15sec is 10min
-            // https://www.tiktok.com/music/original-sound-6686559019072490245
+            let posts = await getVideo.music(150,'6799757575245040390'); // Multiple of 3. 120 stacked @ 15sec is 10min
             await compile.start(posts, {
-                'color': 'pink',
+                'color': 'black',
                 'days': 999,
                 'likes': 100,
                 'isLandscape': true,
                 'hStack': true,
-                'maxLength': 13,
+                'maxLength': 16,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            //await upload('music');
+            // await upload('music');
         }
         catch (err) {
             console.log(err);
@@ -275,18 +274,18 @@ async function App () {
     async function user () {
         try {
             await empty();
-            let posts = await getVideo.user(5,'hjevelyn');
+            let posts = await getVideo.user(3,'irvingcomedy');
             await compile.start(posts, {
-                'color': 'black',
+                'color': 'red',
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 20,
+                'maxLength': 99,
                 'exBlockedSongs': false, // to be changed to true
                 'exPartlyBlockedSongs': false, // to be changed to true
                 'exUnmonetizableSongs': false, // to be changed to true
             });
-            //await thumbnail(posts);
+            await thumbnail(posts);
             //await upload('custom');
         }
         catch (err) {
@@ -299,14 +298,14 @@ async function App () {
         try {
             await empty();
             // let posts = await getVideo.music(90,'6791404477405596421');
-            let posts = await getVideo.hashtag(90,'voguechallenge');
+            let posts = await getVideo.hashtag(15,'therunawaychallenge');
             //let posts = await getVideo.user(3,'brookemonk_');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 20,
+                'maxLength': 999,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -320,7 +319,7 @@ async function App () {
     }
 
     // await asianGirls();
-    // await asianGuys();
+     await asianGuys();
     // await japan();
     // await china();
     // await korea();
@@ -330,8 +329,14 @@ async function App () {
     // await music();
     // await user();
     // await multiHashtag();
-     await custom();
+    // await custom();
 
+    // await upload('music');
+
+    // Not Working - The runaway challenge - https://www.tiktok.com/tag/therunawaychallenge
+    // Lookaway challenge - https://www.tiktok.com/music/original-sound-6807048618214820614
+    // Золото - (Rakurs & Ramirez Remix) - https://www.tiktok.com/music/original-sound-6686559019072490245
+    // funny memes
 
   }
   catch (err) {

@@ -2,7 +2,6 @@ const Youtube = require("youtube-video-api");
 require("dotenv").config({ path:`${__dirname}/../.env`});
 const fs = require("fs");
 const dedent = require("dedent");
-const credentials = require(`${__dirname}/../credentials.json`);
 const auth = require('./Auth');
 
 const day = new Date().getDate();
@@ -20,7 +19,7 @@ const videoInfo = {
             👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
             -----
-            #tiktok #tiktokwilliam #asiangirls
+            #tiktok
             `,
         "tags": ['tik tok girl dance', 'tik tok abgs', 'tik tok asian beautiful girl', 'tiktok william'],
     },
@@ -48,7 +47,7 @@ const videoInfo = {
 
             -----
             #tiktok日本 #ティックトック #tiktokjapan #tiktokwilliam`,
-        "tags": ['tiktok japan', 'ティックトック', 'TikTok日本', 'tiktok william'],
+        "tags": ['tiktok japan', 'ティックトック', 'TikTok 日本', 'tiktok william'],
     },
     "china": {
         "title": `🐉 抖音 (Douyin) - ${month} ${day}, ${year}`,
@@ -109,20 +108,18 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "music": {
-        "title": `💔 Tik Tok This City Is Going To Break My Heart | This City Tiktok`,
+        "title": `🎨 Kolors Tiktok Remix`,
         "description": dedent`
-        A compilation of duets and harmonizations for the song This City's Gonna Break My Heart (This City) by Sam Fischer originally covered by Jonathan Tilkin @jonathantilkin on Tiktok.
+            A compilation of dances by Tiktokers to the song Kolors by Monte Booker.
 
             Thanks for watching!
-
-            Song link: https://www.youtube.com/watch?v=w7YUElcMzPY
 
             Subscribe & I'll see you again tomorrow Kings & Queens!
             👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
             -----
-            #tiktok #whosnexttiktok #tiktokwilliam`,
-        "tags": ['tiktok', 'tiktok william', "tik tok the city is going to break my heart", `tik tok song the city gonna break my heart `, `the city tiktok`, 'the city tiktok song', 'the city tik tok cover', 'this city tiktok', 'this city tik tok cover', 'this city tiktok harmony', 'this city tik tok cover', 'this city tiktok version', 'this city tiktok singing'],
+            #tiktok #kolors #montebooker`,
+        "tags": ["kolors tiktok remix", `kolors tiktok`, 'kolors tiktok dance', 'kolors tiktok verison', `tiktok kolors`, `tiktok kolors song`, `tiktok kolors dance`, ],
     },
     "user": {
         "title": `😉 Tiktok Brooke Monk`,
@@ -157,6 +154,7 @@ const videoInfo = {
 async function Upload(type) {
   try {
     await auth();
+    const credentials = require(`${__dirname}/../credentials.json`);
     console.log('Starting upload....');
 
     const youtube = Youtube({
@@ -166,14 +164,13 @@ async function Upload(type) {
       //password: process.env.GOOGLE_LOGIN_PASSWORD,
       //clientId: process.env.OAUTH2_CLIENT_ID,
       //clientSecret: process.env.OAUTH2_CLIENT_SECRET,
-      // oauth2 refresh and access token
       tokens: {
         access_token: credentials.data.access_token,
         refresh_token: credentials.data.refresh_token,
       },
       useAccount: process.env.GOOGLE_ACCOUNT_EMAIL_WILLIAM,
       file: `${__dirname}/../credentials.json`,
-      scope: 'https://www.googleapis.com/auth/youtube'
+      scope: 'https://www.googleapis.com/auth/youtube.upload'
     });
 
     var params = {
@@ -198,7 +195,7 @@ async function Upload(type) {
       process.env.OAUTH2_CLIENT_SECRET,
       async function (err, tokens) {
         if (err) return console.error("Cannot authenticate:", err);
-        //console.log(`Authenticated. Tokens: ${JSON.stringify(tokens)}`);
+        console.log(`Authenticated. Tokens: ${JSON.stringify(tokens)}`);
         let videoId = await uploadVideo();
         await uploadThumbnail(videoId);
       }
@@ -233,7 +230,6 @@ async function Upload(type) {
 }
 
 module.exports = Upload;
-//Upload('music');
 
 // Trends Research https://trends.google.com/trends/explore?date=now%201-d&geo=US&gprop=youtube&q=tiktok
 
