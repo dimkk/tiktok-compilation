@@ -195,7 +195,7 @@ function Compile () {
                 .input(`${videoTmpDir}/${i*3+1}.mp4`)
                 .input(`${videoTmpDir}/${i*3+2}.mp4`)
                 .outputOptions([
-                    `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:${height}[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.3:fontsize=64:x=40:y=(1080-64-20)[v6]`,
+                    `-filter_complex [0:v][1:v][2:v]hstack=inputs=3[v4],[v4]scale=${width}:${height}[v5],[v5]drawtext=fontfile=./res/Lobster-Regular.ttf:text='william':fontcolor=#F8F8FF@0.4:fontsize=64:x=40:y=(1080-64-20)[v6]`,
                     `-map [v6]`,
                     `-map ${audioIndex}:a`,
                     '-max_muxing_queue_size 1024',
@@ -214,7 +214,7 @@ function Compile () {
     this.filterVids = async (posts, options) => {
         try {
             console.log('Filtering videos...');
-            const { days=1, likes=0, exBlockedSongs=false, hStack, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
+            const { days=1, likes=0, exBlockedSongs=false, hStack, minLength, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
             const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
             const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
             const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
@@ -235,6 +235,9 @@ function Compile () {
 
             if (maxLength) posts.collector = posts.collector.filter(post => post.videoMeta.duration <= maxLength); // filter out long videos
             console.log(`${posts.collector.length} videos after maxLength filter`);
+
+            if (minLength > 1) posts.collector = posts.collector.filter(post => post.videoMeta.duration >= minLength); // filter out long videos
+            console.log(`${posts.collector.length} videos after minLength filter`);
 
             // Filter out corrupted videos
             // let videoSize;
@@ -285,7 +288,7 @@ function Compile () {
 
     this.start = async (posts, options) => {
         return new Promise(async (resolve, reject) => {
-        let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, maxLength, width, height } = options;
+        let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, minLength=0, maxLength, width, height } = options;
         if (hStack) isLandscape=true; // if hStack then default to landscape
 
         switch (isLandscape) {

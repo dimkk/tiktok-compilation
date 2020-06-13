@@ -56,8 +56,8 @@ async function App () {
             console.log(asianGuys);
             let posts = await getVideo.multiUser(1,asianGuys);
             await compile.start(posts, {
-                'color': 'black',
-                'days': 1,
+                'color': 'blue',
+                'days': 4,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -147,6 +147,31 @@ async function App () {
             console.log(err);
         }
     }
+
+        // ------- MEME --------- //
+        async function meme () {
+            try {
+                await empty();
+                const meme = fs.readFileSync(`${process.cwd()}/res/meme.txt`,'utf8').split(',\r\n');
+                console.log(meme);
+                let posts = await getVideo.multiUser(2,meme);
+                await compile.start(posts, {
+                    'color': 'black',
+                    'days': 99,
+                    'likes': 0,
+                    'isLandscape': true,
+                    'maxLength': 30,
+                    'exBlockedSongs': true,
+                    'exPartlyBlockedSongs': true,
+                    'exUnmonetizableSongs': true,
+                });
+                await thumbnail(posts);
+                //await upload('meme');
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
 
     // ------- INFLUENCERS --------- //
     async function influencers () {
@@ -250,20 +275,21 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(150,'6799757575245040390'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            let posts = await getVideo.music(170,'6831913272296491781'); // Multiple of 3. 120 stacked @ 15sec is 10min
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 100,
                 'isLandscape': true,
                 'hStack': true,
-                'maxLength': 16,
+                'minLength': 7,
+                'maxLength': 8,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            // await upload('music');
+            //await upload('music');
         }
         catch (err) {
             console.log(err);
@@ -319,23 +345,26 @@ async function App () {
     }
 
     // await asianGirls();
-     await asianGuys();
+    // await asianGuys();
     // await japan();
     // await china();
     // await korea();
     // await thailand();
     // await influencers();
+    // await meme();
     // await trending();
-    // await music();
+    await music();
     // await user();
     // await multiHashtag();
     // await custom();
 
     // await upload('music');
 
+    // Stunnin (14-15) - https://www.tiktok.com/music/Stunnin'-6813134956269947654
+    // Onichan - https://www.tiktok.com/music/Oni-chan-6607398782688561925
+    // Dirty Harry Gorillaz - https://www.tiktok.com/music/Dirty-Harry-6711176322418214914
+    // May Wip - https://www.tiktok.com/music/May-Wip-%E6%8A%96%E9%9F%B3Remix-6438873379691989762
     // Not Working - The runaway challenge - https://www.tiktok.com/tag/therunawaychallenge
-    // Lookaway challenge - https://www.tiktok.com/music/original-sound-6807048618214820614
-    // Золото - (Rakurs & Ramirez Remix) - https://www.tiktok.com/music/original-sound-6686559019072490245
     // funny memes
 
   }

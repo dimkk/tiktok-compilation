@@ -1,7 +1,12 @@
 {
     "fullyBlockedSongs": [
         { "id": "6788456091559676678", "name": "Skechers" },
-        { "id": "789", "name": "name" }
+        { "id": "6685871967402199814", "name": "This City" },
+        { "id": "123", "name": "name" },
+        { "id": "123", "name": "name" },
+        { "id": "123", "name": "name" },
+        { "id": "123", "name": "name" },
+        { "id": "123", "name": "name" }
     ],
     "partiallyBlockedSongs": [
         { "id": "6738439639826287365", "name": "roses-imanbek-remix" },
@@ -113,6 +118,19 @@
         { "id": "6809358266380962566", "name": "mwah" },
         { "id": "6799757575245040390", "name": "Blinding-Lights" },
         { "id": "6821603890530618117", "name": "Kolors" },
+        { "id": "6724661031261457158", "name": "original-sound" },
+        { "id": "6837280926741842694", "name": "original-sound" },
+        { "id": "6755726247784876033", "name": "Don't Start Now" },
+        { "id": "6760926537450522625", "name": "Blueming" },
+        { "id": "6777580252097939457", "name": "Yummy" },
+        { "id": "6622898477217090306", "name": "SOLO" },
+        { "id": "6806632438052161538", "name": "Down" },
+        { "id": "6788817948099234566", "name": "3-Vets" },
+        { "id": "6665676728180017925", "name": "original sound" },
+        { "id": "6792427507653151493", "name": "Just like that come my way" },
+        { "id": "6814223340736203526", "name": "Ice Me Out" },
+        { "id": "6701408417719864069", "name": "original sound" },
+        { "id": "6759301020032976897", "name": "Bad Boy" },
         { "id": "123", "name": "name" },
         { "id": "123", "name": "name" },
         { "id": "123", "name": "name" },

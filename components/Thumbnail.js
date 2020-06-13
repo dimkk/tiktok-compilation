@@ -11,7 +11,7 @@ const Thumbnail = async (posts) => {
             dest: `${process.cwd()}/img/tmp/${i}.jpg`
         });
       }
-      console.log('text4');
+      
       const bg = await Jimp.read(`${process.cwd()}/img/bg.png`)
       const logo = await Jimp.read(`${process.cwd()}/img/logo.png`);
       const image0 = await Jimp.read(`${process.cwd()}/img/tmp/0.jpg`);

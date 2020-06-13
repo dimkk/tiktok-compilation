@@ -10,9 +10,9 @@ const year = new Date().getFullYear();
 
 const videoInfo = {
     "asianGirls": {
-        "title": `👩🏻 Asian Girls Tik Tok - ${month} ${day}, ${year}`,
+        "title": `👩🏻 Asian Girls Tik Tok - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            This video is a compilation of tiktok videos from Asian Girls.
+            A compilation of Tiktoks from Asian Girls.
             Thanks for watching!
 
             Subscribe below & I'll see you again tomorrow Kings & Queens!
@@ -24,9 +24,9 @@ const videoInfo = {
         "tags": ['tik tok girl dance', 'tik tok abgs', 'tik tok asian beautiful girl', 'tiktok william'],
     },
     "asianGuys": {
-        "title": `🤵🏻‍ Asian Guys Tik Tok - ${month} ${day}, ${year}`,
+        "title": `🤵🏻‍ Asian Guys Tik Tok - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            This video is a compilation of tiktok videos from Asian Guys.
+            A compilation of Tiktok videos from Asian Guys.
             Thanks for watching!
 
             Subscribe below & I'll see you again tomorrow Kings & Queens!
@@ -37,9 +37,9 @@ const videoInfo = {
         "tags": ['asian guys tik tok', 'tik tok asian guys', 'tik tok asian boy', 'tik tok cute guys', 'cute asian guys tik tok', 'tiktok william'],
     },
     "japan": {
-        "title": `🇯🇵 TikTok Japan | 日本のティックトック - ${month} ${day}, ${year}`,
+        "title": `🇯🇵 TikTok Japan | 日本のティックトック - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            This video is a compilation of tiktoks from amazing Japanese tiktokers.
+            A compilation of tiktoks from amazing Japanese tiktokers.
             Thanks for watching!
 
             Subscribe below & I'll see you again tomorrow Kings & Queens!
@@ -50,9 +50,9 @@ const videoInfo = {
         "tags": ['tiktok japan', 'ティックトック', 'TikTok 日本', 'tiktok william'],
     },
     "china": {
-        "title": `🐉 抖音 (Douyin) - ${month} ${day}, ${year}`,
+        "title": `🐉 抖音 (Douyin) - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            This video is a mashup of funny tiktoks from Douyin(抖音) / Tiktok China.
+            A mashup of funny tiktoks from Douyin(抖音) / Tiktok China.
             Thanks for watching!
 
             Subscribe below & I'll see you again tomorrow Kings & Queens!
@@ -63,22 +63,22 @@ const videoInfo = {
         "tags": ['抖音', 'douyin', 'tiktok china', 'tiktok william', 'william tiktok'],
     },
     "korea": {
-        "title": `🇰🇷 TikTok Korea - ${month} ${day}, ${year}`,
+        "title": `🇰🇷 TikTok Korea - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            This video is a compilation of tiktoks from amazing Korean tiktokers.
+            A compilation of tiktoks from Korean Tiktokers.
             Thanks for watching!
 
             Subscribe below & I'll see you again tomorrow Kings & Queens!
             👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
             -----
-            #tiktok #tiktokkorea #tiktokwilliam`,
-        "tags": ['tiktok', 'tiktokkorea', 'tiktok william', 'william tiktok'],
+            #tiktokkorea`,
+        "tags": ['tik tok korea', 'tik tok korean', 'tik tok korean compilation', 'tik tok korean girls', 'tik tok korean boys', 'tiktok william'],
     },
     "influencers": {
-        "title":`😀 TikTok Celebs & Influencers - ${month} ${day}, ${year}`,
+        "title":`😀 TikTok Celebs & Influencers - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            This video is a mashup of the latest tiktoks from:
+            A mashup of the latest tiktoks from:
             1) Charli D'Amelio
             2) Ondreaz Lopez
             3) Tony Lopez
@@ -95,9 +95,9 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tik tok mashup', 'tiktok mashup', 'tiktok compilation', 'tik tok compilation'],
     },
     "trending": {
-        "title": `🎥🕺 Trending Tiktok Mashups - ${month} ${day}, ${year}`,
+        "title": `🎥🕺 Trending Tiktok Mashups - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            This video is a mashup of the most recent trending tiktoks.
+            A mashup of the most recent trending tiktoks.
             Thanks for watching!
 
             Subscribe & I'll see you again tomorrow Kings & Queens!
@@ -108,9 +108,11 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktok mashup', 'tik tok mashup', 'tiktok mashups', 'tik tok mashups', 'tik tok challenge', 'tiktok william'],
     },
     "music": {
-        "title": `🎨 Kolors Tiktok Remix`,
+        "title": `👇 Marshmellow Down Tiktok`,
         "description": dedent`
-            A compilation of dances by Tiktokers to the song Kolors by Monte Booker.
+            A compilation of photo collages by Tiktokers to the song Down by Marshmello.
+
+            Song Link (1 hour): https://www.youtube.com/watch?v=85yPfwMzt38
 
             Thanks for watching!
 
@@ -118,13 +120,13 @@ const videoInfo = {
             👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
 
             -----
-            #tiktok #kolors #montebooker`,
-        "tags": ["kolors tiktok remix", `kolors tiktok`, 'kolors tiktok dance', 'kolors tiktok verison', `tiktok kolors`, `tiktok kolors song`, `tiktok kolors dance`, ],
+            #tiktok #marshmello #down`,
+        "tags": [`marshmello down tik tok`, `marshmello down tiktok`, 'tik tok marshmello down', 'tik tok korea', 'tiktok japan', 'tik tok marshmello song', 'tik tok korea marshmello'],
     },
     "user": {
         "title": `😉 Tiktok Brooke Monk`,
         "description": dedent`
-            This video is a compilation of tiktoks by Brooke Monk @brookemonk_ on tiktok.
+            A compilation of Tiktoks by Brooke Monk @brookemonk_ on tiktok.
 
             Thanks for watching!
 
@@ -146,7 +148,8 @@ const videoInfo = {
             #tiktok #brookemonk #tiktokwilliam`,
         "tags": ['tiktok', 'tik tok', 'tiktok william', 'tiktok brooke monk', 'tiktok brooke monk', 'brooke monk tiktok', 'brooke monk tik tok'],
     },
-    "comment": dedent`Did you enjoy today's video? 👏
+    "comment": dedent`
+    Did you enjoy today's video? 👏
     👉 Subscribe and I'll see you again tomorrow kings and queens! 💖😉`,
     "emojis": "🤵‍♂️🎥🕺💃🔥💖👁️👄👁️😉😳🥺😗🤪🤫💥👏😎👲👩🎎🏋️👉🐕"
 }
