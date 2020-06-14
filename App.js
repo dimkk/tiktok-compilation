@@ -35,7 +35,7 @@ async function App () {
                 'days': 1,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 20,
+                'maxLength': 30,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -275,15 +275,15 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(170,'6831913272296491781'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            let posts = await getVideo.music(220,'6438873379691989762'); // Multiple of 3. 120 stacked @ 15sec is 10min
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 100,
                 'isLandscape': true,
                 'hStack': true,
-                'minLength': 7,
-                'maxLength': 8,
+                'minLength': 14,
+                'maxLength': 15,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -344,7 +344,7 @@ async function App () {
         }
     }
 
-    // await asianGirls();
+    await asianGirls();
     // await asianGuys();
     // await japan();
     // await china();
@@ -353,16 +353,13 @@ async function App () {
     // await influencers();
     // await meme();
     // await trending();
-    await music();
+    // await music();
     // await user();
     // await multiHashtag();
     // await custom();
 
     // await upload('music');
 
-    // Stunnin (14-15) - https://www.tiktok.com/music/Stunnin'-6813134956269947654
-    // Onichan - https://www.tiktok.com/music/Oni-chan-6607398782688561925
-    // Dirty Harry Gorillaz - https://www.tiktok.com/music/Dirty-Harry-6711176322418214914
     // May Wip - https://www.tiktok.com/music/May-Wip-%E6%8A%96%E9%9F%B3Remix-6438873379691989762
     // Not Working - The runaway challenge - https://www.tiktok.com/tag/therunawaychallenge
     // funny memes
