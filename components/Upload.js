@@ -39,7 +39,7 @@ const videoInfo = {
     "japan": {
         "title": `🇯🇵 TikTok Japan | 日本のティックトック - ${month} ${day+1}, ${year}`,
         "description": dedent`
-            A compilation of tiktoks from amazing Japanese tiktokers.
+            A compilation of Tiktoks from Japanese Tiktokers.
             Thanks for watching!
 
             Subscribe below & I'll see you again tomorrow Kings & Queens!
@@ -75,8 +75,21 @@ const videoInfo = {
             #tiktokkorea`,
         "tags": ['tik tok korea', 'tik tok korean', 'tik tok korean compilation', 'tik tok korean girls', 'tik tok korean boys', 'tiktok william'],
     },
+    "memes": {
+        "title": ` Tiktok Memes - ${month} ${day+1}, ${year}`,
+        "description": dedent`
+            A compilation of the funniest Tiktok memes.
+            Thanks for watching!
+
+            Subscribe & I'll see you again tomorrow Kings & Queens!
+            👉https://youtube.com/channel/UCbJhs7xvYA4Js7oobhyP42Q?sub_confirmation=1
+
+            -----
+            #tiktokmemes`,
+        "tags": ['tiktok', 'tik tok', 'tiktokmemes', 'funny tiktok', 'tik tok memes', 'funny tik tok videos', 'wifi plug tiktok', 'Succculent', 'fakememe', 'cringe', 'ironic tik tok trolls', 'visicks', 'galaxy tiktok', 'papa cringe', 'tiktok queen', 'monstro', 'verified tiktok channel'],
+    },
     "influencers": {
-        "title":`😀 TikTok Celebs & Influencers - ${month} ${day+1}, ${year}`,
+        "title":`😀 Tik Tok Celebs & Influencers - ${month} ${day+1}, ${year}`,
         "description": dedent`
             A mashup of the latest tiktoks from:
             1) Charli D'Amelio
@@ -95,7 +108,7 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tik tok mashup', 'tiktok mashup', 'tiktok compilation', 'tik tok compilation'],
     },
     "trending": {
-        "title": `🎥🕺 Trending Tiktok Mashups - ${month} ${day+1}, ${year}`,
+        "title": `TikToks So Funny I Forgot To Laugh`,
         "description": dedent`
             A mashup of the most recent trending tiktoks.
             Thanks for watching!
@@ -220,7 +233,7 @@ async function Upload(type) {
           body: fs.createReadStream(`${process.cwd()}/video/thumbnail.png`),
         },
         (err) => {
-          if (err) console.error("Cannot define the thumbnail");
+          if (err) console.error(`Cannot define the thumbnail. ${err}`);
         }
       );
       console.log("Thumbnail uploaded");

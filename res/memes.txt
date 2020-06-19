@@ -8,5 +8,6 @@ memes,
 memes_n_laughs,
 oficialmemes,
 pubity,
+realadamrose,
 tas._.bien,
-wack.cat,
+wack.cat

@@ -12,11 +12,10 @@ const compile = new Compile();
 
 async function App () {
   try {
-
-    async function empty () {
-        fse.emptyDirSync(`${process.cwd()}/video/tmp`);
-        fse.emptyDirSync(`${process.cwd()}/img/tmp`);
-    }
+        async function empty () {
+            fse.emptyDirSync(`${process.cwd()}/video/tmp`);
+            fse.emptyDirSync(`${process.cwd()}/img/tmp`);
+        }
 
     //let posts = await getVideo.trending(36); // Max of 36 before it get doubles? Get tiktok videos 40 for 10min video
     //let posts = await getVideo.music(60,'6788784989656926981');
@@ -35,7 +34,7 @@ async function App () {
                 'days': 1,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 30,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -57,7 +56,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,asianGuys);
             await compile.start(posts, {
                 'color': 'blue',
-                'days': 4,
+                'days': 1,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -66,7 +65,7 @@ async function App () {
                 'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
-            //await upload('asianGuys');
+            await upload('asianGuys');
         }
         catch (err) {
             console.log(err);
@@ -107,7 +106,7 @@ async function App () {
             let posts = await getVideo.multiUser(2,china);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 6,
+                'days': 3,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -132,7 +131,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,korea);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 99,
+                'days': 1,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -141,7 +140,7 @@ async function App () {
                 'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
-            //await upload('korea');
+            await upload('korea');
         }
         catch (err) {
             console.log(err);
@@ -149,24 +148,24 @@ async function App () {
     }
 
         // ------- MEME --------- //
-        async function meme () {
+        async function memes () {
             try {
                 await empty();
-                const meme = fs.readFileSync(`${process.cwd()}/res/meme.txt`,'utf8').split(',\r\n');
-                console.log(meme);
-                let posts = await getVideo.multiUser(2,meme);
+                const memes = fs.readFileSync(`${process.cwd()}/res/memes.txt`,'utf8').split(',\r\n');
+                console.log(memes);
+                let posts = await getVideo.multiUser(1,memes);
                 await compile.start(posts, {
                     'color': 'black',
-                    'days': 99,
+                    'days': 3,
                     'likes': 0,
                     'isLandscape': true,
-                    'maxLength': 30,
+                    'maxLength': 20,
                     'exBlockedSongs': true,
                     'exPartlyBlockedSongs': true,
                     'exUnmonetizableSongs': true,
                 });
                 await thumbnail(posts);
-                //await upload('meme');
+                await upload('memes');
             }
             catch (err) {
                 console.log(err);
@@ -185,7 +184,7 @@ async function App () {
                 'days': 1,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 20,
+                'maxLength': 25,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -227,13 +226,13 @@ async function App () {
     async function trending () {
         try {
             await empty();
-            let posts = await getVideo.trending(6); // ~36 before it get doubles. 40 for 10min video
+            let posts = await getVideo.trending(66); // ~36 before it get doubles. 40 for 10min video
             await compile.start(posts, {
                 'color': 'black',
                 'days': 99,
                 'likes': 0,
                 'isLandscape': true,
-                'maxLength': 60,
+                'maxLength': 20,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': true,
                 'exUnmonetizableSongs': true,
@@ -275,15 +274,15 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(220,'6438873379691989762'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            let posts = await getVideo.music(162,'6826142791572228870'); // Multiple of 3. 120 stacked @ 15sec is 10min
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 100,
                 'isLandscape': true,
                 'hStack': true,
-                'minLength': 14,
-                'maxLength': 15,
+                'minLength': 8,
+                'maxLength': 9,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -300,7 +299,7 @@ async function App () {
     async function user () {
         try {
             await empty();
-            let posts = await getVideo.user(3,'irvingcomedy');
+            let posts = await getVideo.user(29,'whotfisdarianka');
             await compile.start(posts, {
                 'color': 'red',
                 'days': 99,
@@ -344,25 +343,24 @@ async function App () {
         }
     }
 
-    await asianGirls();
+    /* START */
+    // await asianGirls();
     // await asianGuys();
     // await japan();
     // await china();
     // await korea();
     // await thailand();
-    // await influencers();
-    // await meme();
+    await influencers();
+    // await memes();
     // await trending();
     // await music();
     // await user();
     // await multiHashtag();
     // await custom();
 
-    // await upload('music');
+    // await upload('trending');
 
-    // May Wip - https://www.tiktok.com/music/May-Wip-%E6%8A%96%E9%9F%B3Remix-6438873379691989762
     // Not Working - The runaway challenge - https://www.tiktok.com/tag/therunawaychallenge
-    // funny memes
 
   }
   catch (err) {
