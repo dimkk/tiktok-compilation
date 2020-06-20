@@ -153,16 +153,16 @@ async function App () {
                 await empty();
                 const memes = fs.readFileSync(`${process.cwd()}/res/memes.txt`,'utf8').split(',\r\n');
                 console.log(memes);
-                let posts = await getVideo.multiUser(1,memes);
+                let posts = await getVideo.multiUser(2,memes);
                 await compile.start(posts, {
                     'color': 'black',
-                    'days': 3,
+                    'days': 4,
                     'likes': 0,
-                    'isLandscape': true,
+                    'isLandscape': false,
                     'maxLength': 20,
                     'exBlockedSongs': true,
-                    'exPartlyBlockedSongs': true,
-                    'exUnmonetizableSongs': true,
+                    'exPartlyBlockedSongs': false,
+                    'exUnmonetizableSongs': false,
                 });
                 await thumbnail(posts);
                 await upload('memes');
@@ -347,10 +347,10 @@ async function App () {
     // await asianGirls();
     // await asianGuys();
     // await japan();
-    // await china();
+     await china();
     // await korea();
     // await thailand();
-    await influencers();
+    // await influencers();
     // await memes();
     // await trending();
     // await music();

@@ -105,7 +105,7 @@ const videoInfo = {
 
             -----
             #tiktok #tiktokwilliam`,
-        "tags": ['tiktok', 'tik tok', 'tik tok mashup', 'tiktok mashup', 'tiktok compilation', 'tik tok compilation'],
+        "tags": ['funny tik tok videos', 'tik tok', 'tiktok memes','tik tok memes','tik toks','tiktok','Tik Tok Compilation','memes','tiktok cringe','funny tik tok memes','tik tok 2020','ironic tik toks','cringey tik toks','meme compilation','funny','fakememe','funny tik tok compilation','tiktoks','tik tok musically','wifi plug tiktok','ironic tik tok','musically','ironic tik tok trolls','Succculent','wifi plug','memes compilation','musical.ly'],
     },
     "trending": {
         "title": `TikToks So Funny I Forgot To Laugh`,
@@ -212,17 +212,20 @@ async function Upload(type) {
       async function (err, tokens) {
         if (err) return console.error("Cannot authenticate:", err);
         console.log(`Authenticated. Tokens: ${JSON.stringify(tokens)}`);
-        let videoId = await uploadVideo();
-        await uploadThumbnail(videoId);
+        await uploadVideo();
       }
     );
 
     async function uploadVideo() {
       await new Promise(async (resolve, reject) => {
-        await youtube.upload(`${process.cwd()}/video/output.mp4`, params, (err, video) => {
+        await youtube.upload(`${process.cwd()}/video/output.mp4`, params, async (err, video) => {
             if (err) return console.error("Cannot upload video:", err);
-            console.log("Video was uploaded with ID:", video.id);
-            resolve(video.id);
+            let videoId = video.id;
+            console.log(`Video was uploaded with ID: ${video.id}`);
+            console.log(`video JSON: ${JSON.stringify(video)}`);
+            console.log(`Upload videoId: ${videoId}`);
+            await uploadThumbnail(video.id);
+            resolve();
         });
       });
     }
@@ -233,9 +236,9 @@ async function Upload(type) {
           body: fs.createReadStream(`${process.cwd()}/video/thumbnail.png`),
         },
         (err) => {
-          if (err) console.error(`Cannot define the thumbnail. ${err}`);
-        }
-      );
+            console.error(`Cannot define the thumbnail. ${err}`);
+            console.log(`uploadThumbnail videoId: ${videoId}`);
+        });
       console.log("Thumbnail uploaded");
     }
 
