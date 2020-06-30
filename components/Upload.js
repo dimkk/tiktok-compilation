@@ -10,7 +10,7 @@ const year = new Date().getFullYear();
 
 const videoInfo = {
     "asianGirls": {
-        "title": `👩🏻 Asian Girls Tik Tok - ${month} ${day+1}, ${year}`,
+        "title": `👩🏻 Asian American Girls Tik Tok - ${month} ${day+1}, ${year}`,
         "description": dedent`
             A compilation of Tiktoks from Asian Girls.
             Thanks for watching!
@@ -24,7 +24,7 @@ const videoInfo = {
         "tags": ['tik tok girl dance', 'tik tok abgs', 'tik tok asian beautiful girl', 'tiktok william'],
     },
     "asianGuys": {
-        "title": `🤵🏻‍ Asian Guys Tik Tok - ${month} ${day+1}, ${year}`,
+        "title": `🤵🏻‍ Asian American Guys Tik Tok - ${month} ${day+1}, ${year}`,
         "description": dedent`
             A compilation of Tiktok videos from Asian Guys.
             Thanks for watching!
@@ -221,10 +221,10 @@ async function Upload(type) {
         await youtube.upload(`${process.cwd()}/video/output.mp4`, params, async (err, video) => {
             if (err) return console.error("Cannot upload video:", err);
             let videoId = video.id;
-            console.log(`Video was uploaded with ID: ${video.id}`);
+            console.log(`Video is uploading with ID: ${video.id}`);
             console.log(`video JSON: ${JSON.stringify(video)}`);
-            console.log(`Upload videoId: ${videoId}`);
             await uploadThumbnail(video.id);
+            console.log(`Thumbnail has been uploaded with videoId: ${videoId}`);
             resolve();
         });
       });
@@ -236,8 +236,10 @@ async function Upload(type) {
           body: fs.createReadStream(`${process.cwd()}/video/thumbnail.png`),
         },
         (err) => {
-            console.error(`Cannot define the thumbnail. ${err}`);
-            console.log(`uploadThumbnail videoId: ${videoId}`);
+            if (err) {
+                console.error(`Cannot define the thumbnail. ${err}`);
+                console.log(`uploadThumbnail videoId: ${videoId}`);
+            }
         });
       console.log("Thumbnail uploaded");
     }

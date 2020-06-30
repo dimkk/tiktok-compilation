@@ -274,15 +274,16 @@ async function App () {
     async function music () {
         try {
             await empty();
-            let posts = await getVideo.music(162,'6826142791572228870'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            let posts = await getVideo.music(150,'6830450075399899910'); // Multiple of 3. 120 stacked @ 15sec is 10min
+            // 6819881360312765185 - https://www.tiktok.com/music/%EC%98%A4%EB%A6%AC%EC%A7%80%EB%84%90-%EC%82%AC%EC%9A%B4%EB%93%9C-OnlyOneOf-official-6819881360312765185
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
                 'likes': 100,
                 'isLandscape': true,
                 'hStack': true,
-                'minLength': 8,
-                'maxLength': 9,
+                'minLength': 10,
+                'maxLength': 11,
                 'exBlockedSongs': true,
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
@@ -344,13 +345,13 @@ async function App () {
     }
 
     /* START */
-    // await asianGirls();
-    // await asianGuys();
-    // await japan();
-     await china();
+    await asianGirls();
+    //  await asianGuys();
+    await japan();
+    // await china();
     // await korea();
     // await thailand();
-    // await influencers();
+    await influencers();
     // await memes();
     // await trending();
     // await music();
