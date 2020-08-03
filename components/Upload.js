@@ -10,7 +10,7 @@ const year = new Date().getFullYear();
 
 const videoInfo = {
     "asianGirls": {
-        "title": `👩🏻 Asian American Girls Tik Tok - ${month} ${day+1}, ${year}`,
+        "title": `Asian Girls of Tik Tok - ${month} ${day+1}, ${year}`, // 👩🏻
         "description": dedent`
             A compilation of Tiktoks from Asian Girls.
             Thanks for watching!
@@ -24,7 +24,7 @@ const videoInfo = {
         "tags": ['tik tok girl dance', 'tik tok abgs', 'tik tok asian beautiful girl', 'tiktok william'],
     },
     "asianGuys": {
-        "title": `🤵🏻‍ Asian American Guys Tik Tok - ${month} ${day+1}, ${year}`,
+        "title": `Asian Guys of Tik Tok - ${month} ${day+1}, ${year}`, // 🤵🏻
         "description": dedent`
             A compilation of Tiktok videos from Asian Guys.
             Thanks for watching!
@@ -37,7 +37,7 @@ const videoInfo = {
         "tags": ['asian guys tik tok', 'tik tok asian guys', 'tik tok asian boy', 'tik tok cute guys', 'cute asian guys tik tok', 'tiktok william'],
     },
     "japan": {
-        "title": `🇯🇵 TikTok Japan | 日本のティックトック - ${month} ${day+1}, ${year}`,
+        "title": `Tiktok Japan | 日本のティックトック - ${month} ${day+1}, ${year}`, // 🇯🇵
         "description": dedent`
             A compilation of Tiktoks from Japanese Tiktokers.
             Thanks for watching!
@@ -50,7 +50,7 @@ const videoInfo = {
         "tags": ['tiktok japan', 'ティックトック', 'TikTok 日本', 'tiktok william'],
     },
     "china": {
-        "title": `🐉 抖音 (Douyin) - ${month} ${day+1}, ${year}`,
+        "title": `Tiktok China (Douyin) - ${month} ${day+1}, ${year}`, // 🐉
         "description": dedent`
             A mashup of funny tiktoks from Douyin(抖音) / Tiktok China.
             Thanks for watching!
@@ -63,7 +63,7 @@ const videoInfo = {
         "tags": ['抖音', 'douyin', 'tiktok china', 'tiktok william', 'william tiktok'],
     },
     "korea": {
-        "title": `🇰🇷 TikTok Korea - ${month} ${day+1}, ${year}`,
+        "title": `TikTok Korea - ${month} ${day+1}, ${year}`, // 🇰🇷
         "description": dedent`
             A compilation of tiktoks from Korean Tiktokers.
             Thanks for watching!
@@ -89,7 +89,7 @@ const videoInfo = {
         "tags": ['tiktok', 'tik tok', 'tiktokmemes', 'funny tiktok', 'tik tok memes', 'funny tik tok videos', 'wifi plug tiktok', 'Succculent', 'fakememe', 'cringe', 'ironic tik tok trolls', 'visicks', 'galaxy tiktok', 'papa cringe', 'tiktok queen', 'monstro', 'verified tiktok channel'],
     },
     "influencers": {
-        "title":`😀 Tik Tok Celebs & Influencers - ${month} ${day+1}, ${year}`,
+        "title":`Tik Tok Celebs, Influencers & Memes - ${month} ${day+1}, ${year}`, // 😀
         "description": dedent`
             A mashup of the latest tiktoks from:
             1) Charli D'Amelio

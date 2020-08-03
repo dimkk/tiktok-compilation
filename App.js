@@ -103,10 +103,10 @@ async function App () {
             await empty();
             const china = fs.readFileSync(`${process.cwd()}/res/china.txt`,'utf8').split(',\r\n');
             console.log(china);
-            let posts = await getVideo.multiUser(2,china);
+            let posts = await getVideo.multiUser(1,china);
             await compile.start(posts, {
                 'color': 'red',
-                'days': 3,
+                'days': 1,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -345,11 +345,11 @@ async function App () {
     }
 
     /* START */
-    await asianGirls();
-    //  await asianGuys();
-    await japan();
+     await asianGirls();
+    // await asianGuys();
+     await japan();
     // await china();
-    // await korea();
+     await korea();
     // await thailand();
     await influencers();
     // await memes();
