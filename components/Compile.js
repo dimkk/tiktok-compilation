@@ -311,20 +311,17 @@ function Compile () {
 
                 //await this.moveFiles(); // not needed since I download videos myself
                 let videos = await this.filterVids(posts, options);
-                console.log(`compile.js - promise videos`,videos);
-                console.log(`compile.js - running Download`);
                 await Download(posts.collector);
-                // console.log(`compile.js - running Resample`);
-                // await this.resample(videos, options);
+                await this.resample(videos, options);
 
-                // (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
+                (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
 
-                // if (isLandscape && !hStack) {
-                //     await this.styleHorizontal(color);
-                // } else if (!isLandscape && !hStack) {
-                //     await this.styleVertical();
-                // }
-                // resolve(posts);
+                if (isLandscape && !hStack) {
+                    await this.styleHorizontal(color);
+                } else if (!isLandscape && !hStack) {
+                    await this.styleVertical();
+                }
+                resolve(posts);
             }
             catch (err) {
                 console.log(`Compile.start - Error: `,err);
