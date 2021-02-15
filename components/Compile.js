@@ -240,15 +240,15 @@ function Compile () {
             console.log(`${posts.collector.length} videos after minLength filter`);
 
             // Filter out corrupted videos
-            // let videoSize;
-            // let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
-            // await Promise.all(videos.map(async (video) => {
-            //     videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
-            //     if (videoSize < 2000) {
-            //         posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
-            //     }
-            // }));
-            // console.log(`${posts.collector.length} videos after videoSize filter`);
+            let videoSize;
+            let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
+            await Promise.all(videos.map(async (video) => {
+                videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
+                if (videoSize < 2000) {
+                    posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
+                }
+            }));
+            console.log(`${posts.collector.length} videos after videoSize filter`);
 
             posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
             videoIds = [...new Set(videoIds)]; // remove duplicates
@@ -288,37 +288,37 @@ function Compile () {
 
     this.start = async (posts, options) => {
         return new Promise(async (resolve, reject) => {
-        let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, minLength=0, maxLength, width, height } = options;
-        if (hStack) isLandscape=true; // if hStack then default to landscape
+            let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, minLength=0, maxLength, width, height } = options;
+            if (hStack) isLandscape=true; // if hStack then default to landscape
 
-        switch (isLandscape) {
-            case true:
-                width = 1920;
-                height = 1080;
-                break;
-            case false:
-                width = 1080;
-                height = 1920;
-                break;
-            default:
-                width = 1920;
-                height = 1080;
-                break;
-        };
+            switch (isLandscape) {
+                case true:
+                    width = 1920;
+                    height = 1080;
+                    break;
+                case false:
+                    width = 1080;
+                    height = 1920;
+                    break;
+                default:
+                    width = 1920;
+                    height = 1080;
+                    break;
+            };
 
-        //await this.moveFiles(); // not needed since I download videos myself
-        let videos = await this.filterVids(posts, options);
-        await Download(posts.collector);
-        await this.resample(videos, options);
+            //await this.moveFiles(); // not needed since I download videos myself
+            let videos = await this.filterVids(posts, options);
+            await Download(posts.collector);
+            await this.resample(videos, options);
 
-        (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
+            (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
 
-        if (isLandscape && !hStack) {
-            await this.styleHorizontal(color);
-        } else if (!isLandscape && !hStack) {
-            await this.styleVertical();
-        }
-        resolve(posts);
+            if (isLandscape && !hStack) {
+                await this.styleHorizontal(color);
+            } else if (!isLandscape && !hStack) {
+                await this.styleVertical();
+            }
+            resolve(posts);
         });
     }
 

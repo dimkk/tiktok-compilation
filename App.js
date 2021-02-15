@@ -323,9 +323,9 @@ async function App () {
     async function custom () {
         try {
             await empty();
-            // let posts = await getVideo.music(90,'6791404477405596421');
-            let posts = await getVideo.hashtag(15,'therunawaychallenge');
-            //let posts = await getVideo.user(3,'brookemonk_');
+            let posts = await getVideo.music(3,'6791404477405596421');
+            // let posts = await getVideo.hashtag(9,'therunawaychallenge');
+            // let posts = await getVideo.user(9,'brookemonk_');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
@@ -345,19 +345,19 @@ async function App () {
     }
 
     /* START */
-     await asianGirls();
-    // await asianGuys();
-     await japan();
-    // await china();
-     await korea();
-    // await thailand();
-    await influencers();
-    // await memes();
+    // await asianGirls();
+    // // await asianGuys();
+    // await japan();
+    // // await china();
+    // await korea();
+    // // await thailand();
+    // await influencers();
+    //await memes();
     // await trending();
     // await music();
     // await user();
     // await multiHashtag();
-    // await custom();
+    await custom();
 
     // await upload('trending');
 
