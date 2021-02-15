@@ -212,61 +212,63 @@ function Compile () {
     };
 
     this.filterVids = async (posts, options) => {
-        try {
-            console.log('Filtering videos...');
-            const { days=1, likes=0, exBlockedSongs=false, hStack, minLength, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
-            const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
-            const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
-            const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
-            let videoIds = [];
+        return new Promise(async (response, reject) => {
+            try {
+                console.log('Filtering videos...');
+                const { days=1, likes=0, exBlockedSongs=false, hStack, minLength, maxLength, exPartlyBlockedSongs=false, exUnmonetizableSongs=false } = options;
+                const excludeSongs = await JSON.parse(fs.readFileSync(`${process.cwd()}/res/excludeSongs.json`));
+                const {fullyBlockedSongs, partiallyBlockedSongs, UnMonetizeSongs} = excludeSongs;
+                const latestDate = new Date(new Date().setDate(new Date().getDate() - days));
+                let videoIds = [];
 
-            console.log(`${posts.collector.length} videos to start`);
-            posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
-            posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
-            console.log(`${posts.collector.length} videos after date filter`);
+                console.log(`${posts.collector.length} videos to start`);
+                posts.collector.sort((a,b) => parseFloat(b.diggCount) - parseFloat(a.diggCount)); // sort highest likes first
+                posts.collector = posts.collector.filter(post => new Date(post.createTime * 1000) > latestDate); // remove videos not within last X days
+                console.log(`${posts.collector.length} videos after date filter`);
 
-            posts.collector = posts.collector.filter(post => post.diggCount > likes); // remove videos with less than X likes
-            console.log(`${posts.collector.length} videos after likes filter`);
+                posts.collector = posts.collector.filter(post => post.diggCount > likes); // remove videos with less than X likes
+                console.log(`${posts.collector.length} videos after likes filter`);
 
-            if (exBlockedSongs) posts.collector = posts.collector.filter(post => !fullyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove blocked songs
-            if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
-            if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
-            console.log(`${posts.collector.length} videos after song filter`);
+                if (exBlockedSongs) posts.collector = posts.collector.filter(post => !fullyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove blocked songs
+                if (exPartlyBlockedSongs) posts.collector = posts.collector.filter(post => !partiallyBlockedSongs.find(song => song.id === post.musicMeta.musicId)); // remove partially blocked songs
+                if (exUnmonetizableSongs) posts.collector = posts.collector.filter(post => !UnMonetizeSongs.find(song => song.id === post.musicMeta.musicId)); // remove unmonetizable songs
+                console.log(`${posts.collector.length} videos after song filter`);
 
-            if (maxLength) posts.collector = posts.collector.filter(post => post.videoMeta.duration <= maxLength); // filter out long videos
-            console.log(`${posts.collector.length} videos after maxLength filter`);
+                if (maxLength) posts.collector = posts.collector.filter(post => post.videoMeta.duration <= maxLength); // filter out long videos
+                console.log(`${posts.collector.length} videos after maxLength filter`);
 
-            if (minLength > 1) posts.collector = posts.collector.filter(post => post.videoMeta.duration >= minLength); // filter out long videos
-            console.log(`${posts.collector.length} videos after minLength filter`);
+                if (minLength > 1) posts.collector = posts.collector.filter(post => post.videoMeta.duration >= minLength); // filter out long videos
+                console.log(`${posts.collector.length} videos after minLength filter`);
 
-            // Filter out corrupted videos
-            let videoSize;
-            let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
-            await Promise.all(videos.map(async (video) => {
-                videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
-                if (videoSize < 2000) {
-                    posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
-                }
-            }));
-            console.log(`${posts.collector.length} videos after videoSize filter`);
+                // Filter out corrupted videos
+                let videoSize;
+                let videos = fs.readdirSync(videoTmpDir).filter(file => /.mp4$/.test(file));
+                await Promise.all(videos.map(async (video) => {
+                    videoSize = fs.statSync(`${videoTmpDir}/${video}`).size;
+                    if (videoSize < 2000) {
+                        posts.collector = posts.collector.filter(post => post.id !== video.slice(0,video.length-4));
+                    }
+                }));
+                console.log(`${posts.collector.length} videos after videoSize filter`);
 
-            posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
-            videoIds = [...new Set(videoIds)]; // remove duplicates
-            console.log(`${videoIds.length} videos after removing duplicates`);
+                posts.collector.forEach(e => videoIds.push(`${e.id}.mp4`));
+                videoIds = [...new Set(videoIds)]; // remove duplicates
+                console.log(`${videoIds.length} videos after removing duplicates`);
 
-            // Make sure multiple of 3 if hStack
-            let numToRemove = videoIds.length % 3;
-            if (hStack && numToRemove > 0) videoIds = videoIds.slice(0, videoIds.length - numToRemove);
-            console.log(`${videoIds.length} videos after hStack filter`);
+                // Make sure multiple of 3 if hStack
+                let numToRemove = videoIds.length % 3;
+                if (hStack && numToRemove > 0) videoIds = videoIds.slice(0, videoIds.length - numToRemove);
+                console.log(`${videoIds.length} videos after hStack filter`);
 
-            fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, videoIds);
-            fs.writeFileSync(`${videoTmpDir}/posts.json`, JSON.stringify(posts));
-            console.log(`Finished filtering. ${videoIds.length} videos to resample`);
-            return videoIds;
+                fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, videoIds);
+                fs.writeFileSync(`${videoTmpDir}/posts.json`, JSON.stringify(posts));
+                console.log(`Finished filtering. ${videoIds.length} videos to resample`);
+                response(videoIds);
 
-        } catch (err) {
-            console.log(`Compile.js > this.filterVids(): ${err}`);
-        }
+            } catch (err) {
+                console.log(`Compile.js > this.filterVids(): ${err}`);
+            }
+        });
     }
 
     this.moveFiles = async () => {
@@ -288,37 +290,45 @@ function Compile () {
 
     this.start = async (posts, options) => {
         return new Promise(async (resolve, reject) => {
-            let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, minLength=0, maxLength, width, height } = options;
-            if (hStack) isLandscape=true; // if hStack then default to landscape
+            try {
+                let {color='black', days=1, likes=0, isLandscape=true, hStack=false, exBlockedSongs=false, exPartlyBlockedSongs=false, exUnmonetizableSongs=false, minLength=0, maxLength, width, height } = options;
+                if (hStack) isLandscape=true; // if hStack then default to landscape
 
-            switch (isLandscape) {
-                case true:
-                    width = 1920;
-                    height = 1080;
-                    break;
-                case false:
-                    width = 1080;
-                    height = 1920;
-                    break;
-                default:
-                    width = 1920;
-                    height = 1080;
-                    break;
-            };
+                switch (isLandscape) {
+                    case true:
+                        width = 1920;
+                        height = 1080;
+                        break;
+                    case false:
+                        width = 1080;
+                        height = 1920;
+                        break;
+                    default:
+                        width = 1920;
+                        height = 1080;
+                        break;
+                };
 
-            //await this.moveFiles(); // not needed since I download videos myself
-            let videos = await this.filterVids(posts, options);
-            await Download(posts.collector);
-            await this.resample(videos, options);
+                //await this.moveFiles(); // not needed since I download videos myself
+                let videos = await this.filterVids(posts, options);
+                console.log(`compile.js - promise videos`,videos);
+                console.log(`compile.js - running Download`);
+                await Download(posts.collector);
+                // console.log(`compile.js - running Resample`);
+                // await this.resample(videos, options);
 
-            (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
+                // (!hStack) ? await this.compile(videos, color, width, height) : await this.hStack(videos, color, width, height);
 
-            if (isLandscape && !hStack) {
-                await this.styleHorizontal(color);
-            } else if (!isLandscape && !hStack) {
-                await this.styleVertical();
+                // if (isLandscape && !hStack) {
+                //     await this.styleHorizontal(color);
+                // } else if (!isLandscape && !hStack) {
+                //     await this.styleVertical();
+                // }
+                // resolve(posts);
             }
-            resolve(posts);
+            catch (err) {
+                console.log(`Compile.start - Error: `,err);
+            }
         });
     }
 

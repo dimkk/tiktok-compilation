@@ -16,7 +16,7 @@ function GetVideo (num) {
                 noWaterMark: false,
                 historypath: `${process.cwd()}/video/`
             });
-            console.log(posts);
+            // console.log(posts);
             return posts;
 
         } catch (error) {
@@ -35,7 +35,7 @@ function GetVideo (num) {
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: ''
             });
-            console.log(posts);
+            // console.log(posts);
             return posts;
 
         } catch (error) {
@@ -53,7 +53,7 @@ function GetVideo (num) {
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: ''
             });
-            console.log(posts);
+            // console.log(posts);
             return posts;
 
         } catch (error) {
@@ -72,7 +72,7 @@ function GetVideo (num) {
                 filepath: `${process.cwd()}/video/tmp`,
                 filetype: ''
             });
-            console.log(posts);
+            // console.log(posts);
             return posts;
 
         } catch (err) {

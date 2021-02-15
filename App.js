@@ -323,9 +323,9 @@ async function App () {
     async function custom () {
         try {
             await empty();
-            let posts = await getVideo.music(3,'6791404477405596421');
+            // let posts = await getVideo.music(3,'6791404477405596421');
             // let posts = await getVideo.hashtag(9,'therunawaychallenge');
-            // let posts = await getVideo.user(9,'brookemonk_');
+            let posts = await getVideo.user(3,'brookemonk_');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
@@ -336,7 +336,7 @@ async function App () {
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
             });
-            await thumbnail(posts);
+            // await thumbnail(posts);
             //await upload('custom');
         }
         catch (err) {
@@ -365,7 +365,7 @@ async function App () {
 
   }
   catch (err) {
-    console.log(`App.js console: ${err}`);
+    console.log(`App.js Error: ${err}`);
   }
 
 }
