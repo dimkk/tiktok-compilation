@@ -260,13 +260,13 @@ function Compile () {
                 if (hStack && numToRemove > 0) videoIds = videoIds.slice(0, videoIds.length - numToRemove);
                 console.log(`${videoIds.length} videos after hStack filter`);
 
-                fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, videoIds);
+                fs.writeFileSync(`${videoTmpDir}/videoIds.txt`, JSON.stringify(videoIds));
                 fs.writeFileSync(`${videoTmpDir}/posts.json`, JSON.stringify(posts));
                 console.log(`Finished filtering. ${videoIds.length} videos to resample`);
                 response(videoIds);
 
             } catch (err) {
-                console.log(`Compile.js > this.filterVids(): ${err}`);
+                console.error(`Compile.js > this.filterVids(): ${err}`);
             }
         });
     }

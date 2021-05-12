@@ -85,6 +85,7 @@ function GetVideo (num) {
     this.multiHashtag = async (num=1, hashtagArr) => {
         try {
             const collectorArr = [];
+            let headers = null;
             await Promise.all(hashtagArr.map(async (hashtag) => {
                 posts = await TikTokScraper.user(hashtag, {
                     number: num,
@@ -94,9 +95,13 @@ function GetVideo (num) {
                     filetype: ''
                 });
                 collectorArr.push.apply(collectorArr, posts.collector);
+
+                if (headers === null) {
+                    headers = posts.headers;
+                }
             }));
 
-            let postsArr = {'collector': collectorArr};
+            let postsArr = {'headers': headers,'collector': collectorArr};
             return postsArr;
 
         } catch (err) {
@@ -108,6 +113,7 @@ function GetVideo (num) {
     this.multiUser = async (num=1, userArr) => {
         try {
             const collectorArr = [];
+            let headers = null;
             await Promise.all(userArr.map(async (userName) => {
                 posts = await TikTokScraper.user(userName, {
                     number: num,
@@ -117,13 +123,17 @@ function GetVideo (num) {
                     filetype: ''
                 });
                 collectorArr.push.apply(collectorArr, posts.collector);
+
+                if (headers === null) {
+                    headers = posts.headers;
+                }
             }));
 
-            let postsArr = {'collector': collectorArr};
+            let postsArr = {'headers': headers,'collector': collectorArr};
             return postsArr;
 
         } catch (err) {
-            console.log(`GetVideo.js > this.multiUser: ${err}`);
+            console.error(`GetVideo.js > this.multiUser: ${err}`);
         }
 
     }

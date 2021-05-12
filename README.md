@@ -1,0 +1,2 @@
+Youtube Data API v3 Quota
+https://console.cloud.google.com/iam-admin/quotas?service=youtube.googleapis.com&project=ultra-mason-271403&pageState=(%22expandableQuotasTable%22:(%22f%22:%22%255B%257B_22k_22_3A_22Service_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22YouTube%2520Data%2520API%2520v3_5C_22_22_2C_22s_22_3Atrue_2C_22i_22_3A_22service_22%257D%255D%22))

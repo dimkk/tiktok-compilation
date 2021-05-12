@@ -176,10 +176,6 @@ async function Upload(type) {
     const youtube = Youtube({
       saveTokens: false,
       video: { part: "status, snippet" },
-      //email: process.env.GOOGLE_LOGIN_EMAIL,
-      //password: process.env.GOOGLE_LOGIN_PASSWORD,
-      //clientId: process.env.OAUTH2_CLIENT_ID,
-      //clientSecret: process.env.OAUTH2_CLIENT_SECRET,
       tokens: {
         access_token: credentials.data.access_token,
         refresh_token: credentials.data.refresh_token,

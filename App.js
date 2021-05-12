@@ -27,11 +27,11 @@ async function App () {
         try {
             await empty();
             const asianGirls = fs.readFileSync(`${process.cwd()}/res/asianGirls.txt`,'utf8').split(',\r\n');
-            console.log(asianGirls);
+            // console.log(asianGirls);
             let posts = await getVideo.multiUser(1,asianGirls);
             await compile.start(posts, {
                 'color': 'pink',
-                'days': 1,
+                'days': 5,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -40,7 +40,7 @@ async function App () {
                 'exUnmonetizableSongs': true,
             });
             await thumbnail(posts);
-            await upload('asianGirls');
+            // await upload('asianGirls');
         }
         catch (err) {
             console.log(err);
@@ -325,7 +325,7 @@ async function App () {
             await empty();
             // let posts = await getVideo.music(3,'6791404477405596421');
             // let posts = await getVideo.hashtag(9,'therunawaychallenge');
-            let posts = await getVideo.user(3,'brookemonk_');
+            let posts = await getVideo.user(3,'tlatoqur');
             await compile.start(posts, {
                 'color': 'black',
                 'days': 999,
@@ -336,8 +336,8 @@ async function App () {
                 'exPartlyBlockedSongs': false,
                 'exUnmonetizableSongs': false,
             });
-            // await thumbnail(posts);
-            //await upload('custom');
+            await thumbnail(posts);
+            await upload('custom');
         }
         catch (err) {
             console.log(err);
@@ -348,7 +348,7 @@ async function App () {
     // await asianGirls();
     // // await asianGuys();
     // await japan();
-    // // await china();
+    // await china();
     // await korea();
     // // await thailand();
     // await influencers();
@@ -358,10 +358,6 @@ async function App () {
     // await user();
     // await multiHashtag();
     await custom();
-
-    // await upload('trending');
-
-    // Not Working - The runaway challenge - https://www.tiktok.com/tag/therunawaychallenge
 
   }
   catch (err) {
