@@ -1,2 +1,13 @@
-Youtube Data API v3 Quota
-https://console.cloud.google.com/iam-admin/quotas?service=youtube.googleapis.com&project=ultra-mason-271403&pageState=(%22expandableQuotasTable%22:(%22f%22:%22%255B%257B_22k_22_3A_22Service_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22YouTube%2520Data%2520API%2520v3_5C_22_22_2C_22s_22_3Atrue_2C_22i_22_3A_22service_22%257D%255D%22))
+# Tiktok Compilations Videos
+This project compiles tiktok videos and uploads them to Youtube for viewers to enjoy
+
+Notes:
+- A json file of music to avoid is used and constantly updated to ensure compliance with Youtube guidelines
+
+## Running the project
+Clone the project and run `node app` to run the project. With the current settings, it should generate a short video demonstrating the code's ability to compile videos.
+
+Issues: The code may not currently work as certian tiktok videos may not be freely available.
+
+## Notes for Google Credits
+To view the code for authenticating and uploading the video, please see `components/Auth.js` and `components/Upload.js`

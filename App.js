@@ -56,7 +56,7 @@ async function App () {
             let posts = await getVideo.multiUser(1,asianGuys);
             await compile.start(posts, {
                 'color': 'blue',
-                'days': 1,
+                'days': 3,
                 'likes': 0,
                 'isLandscape': true,
                 'maxLength': 20,
@@ -337,7 +337,7 @@ async function App () {
                 'exUnmonetizableSongs': false,
             });
             await thumbnail(posts);
-            await upload('custom');
+            // await upload('custom');
         }
         catch (err) {
             console.log(err);
@@ -346,7 +346,7 @@ async function App () {
 
     /* START */
     // await asianGirls();
-    // // await asianGuys();
+    // await asianGuys();
     // await japan();
     // await china();
     // await korea();
