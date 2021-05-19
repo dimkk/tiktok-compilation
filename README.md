@@ -7,7 +7,7 @@ Notes:
 ## Running the project
 Clone the project, and run `npm install` and `node app` in the project root. With the current settings, it should generate a short video demonstrating the code's ability to compile videos.
 
-Issues: The code may not currently work as certian tiktok videos may not be freely available.
+Issues: The code may not work if the tiktok video is not available for download in your country.
 
 ## Notes for Google Credits
 To view the code for authenticating and uploading the video, please see `components/Auth.js` and `components/Upload.js`
